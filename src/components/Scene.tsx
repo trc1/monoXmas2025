@@ -1,22 +1,21 @@
-import { useFrame, useThree } from "@react-three/fiber";
+import { useFrame } from "@react-three/fiber";
 import { useEffect, useRef } from "react";
 import { useDeviceType } from "../utils/useDeviceType";
 import { Environment } from "@react-three/drei/core/Environment";
 import Room from "./Room";
 import { Stats } from "@react-three/drei/core/Stats";
 import { OrthographicCamera } from "@react-three/drei/core/OrthographicCamera";
+import { Group } from "three";
 
-type Props = {};
-
-const Scene = (props: Props) => {
-    const controlsRef = useRef(null);
-    const groupRef = useRef(null);
-    const { camera } = useThree();
+const Scene = () => {
+    /* const controlsRef = useRef(null); */
+    const groupRef = useRef<Group>(null);
+    /* const { camera } = useThree(); */
     const mousePosition = useRef({ x: 0, y: 0 });
     const touchPosition = useRef({ x: 0, y: 0 });
     const { isMobile, isTablet } = useDeviceType();
     const deviceType = isMobile ? "mobile" : isTablet ? "tablet" : "desktop";
-
+    /* 
     useEffect(() => {
         const handleKeyPress = (e: KeyboardEvent) => {
             if (e.key === "c") {
@@ -33,7 +32,7 @@ const Scene = (props: Props) => {
         };
         window.addEventListener("keydown", handleKeyPress);
         return () => window.removeEventListener("keydown", handleKeyPress);
-    }, [camera]);
+    }, [camera]); */
 
     useEffect(() => {
         const handleMouseMove = (e: MouseEvent) => {
