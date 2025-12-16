@@ -14,7 +14,6 @@ const Scene = () => {
     const mousePosition = useRef({ x: 0, y: 0 });
     const touchPosition = useRef({ x: 0, y: 0 });
     const { isMobile, isTablet } = useDeviceType();
-    const deviceType = isMobile ? "mobile" : isTablet ? "tablet" : "desktop";
     /* 
     useEffect(() => {
         const handleKeyPress = (e: KeyboardEvent) => {
@@ -72,32 +71,28 @@ const Scene = () => {
             /* groupRef.current.rotation.x = position.y * 0.05; */
         }
     });
-    const zoomLevel =
-        deviceType === "mobile" ? 80 : deviceType === "tablet" ? 90 : 150;
-    const scaleLevel =
-        deviceType === "mobile" ? 0.5 : deviceType === "tablet" ? 0.7 : 1;
+
     return (
         <>
             <Environment
-                backgroundIntensity={0.5}
-                environmentIntensity={0.4}
+                backgroundIntensity={0.4}
+                environmentIntensity={0.2}
                 files="test.hdr"
             />
             <directionalLight
                 castShadow
-                intensity={0.4}
-                position={[3, 5, -1]}
+                intensity={1}
+                position={[9, 4, -5]}
                 shadow-bias={-0.00001}
-                shadow-radius={10}
             />
             <OrthographicCamera
                 rotation={[-0.6, 0.7, 0.4]}
                 makeDefault
-                position={deviceType === "tablet" ? [9, 7.3, 9] : [9, 8, 9]}
-                zoom={zoomLevel}
+                position={[9, 8, 9]}
+                zoom={150}
             />
             <Stats />
-            <group ref={groupRef} scale={scaleLevel}>
+            <group ref={groupRef} scale={1}>
                 <Room />
             </group>
         </>

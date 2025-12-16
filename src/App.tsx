@@ -7,7 +7,7 @@ function App() {
     return (
         <>
             <Canvas
-                shadows="soft" /* camera={{ position: [0, 3, 8], fov: 30, rotation: [10, 10, 20] }} */
+                shadows="variance" /* camera={{ position: [0, 3, 8], fov: 30, rotation: [10, 10, 20] }} */
             >
                 <Scene />
             </Canvas>

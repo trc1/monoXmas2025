@@ -5,6 +5,8 @@ export function Room(props: any) {
     return (
         <group {...props} dispose={null}>
             {/* <mesh
+                receiveShadow
+                castShadow
                 geometry={nodes["bottom-plane"].geometry}
                 material={materials.glass}
                 position={[3.348, -0.285, 3.699]}
@@ -76,7 +78,6 @@ export function Room(props: any) {
                 position={[0, 2.8, 0]}
             />
             <mesh
-                castShadow
                 receiveShadow
                 geometry={nodes["floor-bottom"].geometry}
                 material={materials.concrete2}
@@ -455,22 +456,30 @@ export function Room(props: any) {
                 scale={0.645}
             />
             <mesh
+                castShadow
+                receiveShadow
                 geometry={nodes["fireplace-arch"].geometry}
                 material={materials.concrete}
                 position={[-1.23, 1.287, 1.732]}
             />
             <mesh
+                castShadow
+                receiveShadow
                 geometry={nodes["fireplace-cover"].geometry}
                 material={materials.concrete}
                 position={[-2.059, 1.792, -0.001]}
             />
             <mesh
+                castShadow
+                receiveShadow
                 geometry={nodes["fireplace-wall"].geometry}
                 material={materials.concrete2}
                 position={[-2.252, 1.753, -0.015]}
                 scale={0.286}
             />
             <mesh
+                castShadow
+                receiveShadow
                 geometry={nodes.firewood.geometry}
                 material={materials.ceiling}
                 position={[-2.162, 0.905, -0.106]}
@@ -493,6 +502,8 @@ export function Room(props: any) {
                 />
             </mesh>
             <mesh
+                castShadow
+                receiveShadow
                 geometry={nodes["door-frame"].geometry}
                 material={materials.wood2}
                 position={[-0.031, 1.503, -2.358]}
@@ -500,6 +511,8 @@ export function Room(props: any) {
                 scale={0.579}
             />
             <mesh
+                castShadow
+                receiveShadow
                 geometry={nodes["door-wing"].geometry}
                 material={materials.wood2}
                 position={[-0.031, 1.369, -2.516]}
@@ -519,6 +532,8 @@ export function Room(props: any) {
                 position={[0.362, 1.487, -2.397]}
                 rotation={[Math.PI / 2, 0, 0]}
                 scale={0.062}
+                castShadow
+                receiveShadow
             />
             <mesh
                 geometry={nodes.chair.geometry}
@@ -526,10 +541,14 @@ export function Room(props: any) {
                 position={[1.457, 0.611, 0.408]}
                 rotation={[0, -0.227, 0]}
                 scale={0.556}
+                castShadow
+                receiveShadow
             >
                 <mesh
                     geometry={nodes["chair-legs"].geometry}
                     material={materials.wood2}
+                    castShadow
+                    receiveShadow
                 />
             </mesh>
             <mesh
@@ -538,18 +557,24 @@ export function Room(props: any) {
                 position={[0.663, 1.287, 2]}
                 rotation={[0, -0.106, 0]}
                 scale={0.453}
+                castShadow
+                receiveShadow
             />
             <mesh
                 geometry={nodes["gramophone-base"].geometry}
                 material={materials.gramophone}
                 position={[0.816, 1.572, 1.735]}
                 scale={0.255}
+                castShadow
+                receiveShadow
             />
             <mesh
                 geometry={nodes.vinyl.geometry}
                 material={materials.vinyl}
                 position={[0.856, 1.402, 1.713]}
                 scale={1.228}
+                castShadow
+                receiveShadow
             >
                 <mesh
                     geometry={nodes["vinyl-cylinder"].geometry}
@@ -572,14 +597,20 @@ export function Room(props: any) {
                 position={[0.545, 1.427, 1.884]}
                 rotation={[0, -0.545, 0]}
                 scale={0.011}
+                castShadow
+                receiveShadow
             >
                 <mesh
                     geometry={nodes.Cylinder004.geometry}
                     material={materials.metal}
+                    castShadow
+                    receiveShadow
                 />
                 <mesh
                     geometry={nodes.Cylinder004_1.geometry}
                     material={materials.concrete2}
+                    castShadow
+                    receiveShadow
                 />
             </group>
             <mesh
@@ -588,6 +619,8 @@ export function Room(props: any) {
                 position={[0.78, 1.746, 1.743]}
                 rotation={[1.955, -1.571, 0]}
                 scale={0.279}
+                castShadow
+                receiveShadow
             >
                 <mesh
                     geometry={nodes["speaker-in"].geometry}
@@ -595,6 +628,8 @@ export function Room(props: any) {
                     position={[1.032, 1.177, 0.003]}
                     rotation={[0.001, 0, 0.384]}
                     scale={0.186}
+                    castShadow
+                    receiveShadow
                 />
             </mesh>
             <mesh
@@ -602,18 +637,24 @@ export function Room(props: any) {
                 material={materials.metal}
                 position={[1.54, 0.616, -1.362]}
                 rotation={[0, -0.585, 0]}
+                castShadow
+                receiveShadow
             >
                 <mesh
                     geometry={nodes["boot-bottom"].geometry}
                     material={materials.vinyl}
                     position={[0, 0.025, 0.003]}
                     scale={1.016}
+                    castShadow
+                    receiveShadow
                 />
                 <mesh
                     geometry={nodes["boot-fur"].geometry}
                     material={materials.lamp}
                     position={[0.01, 0.161, 0.014]}
                     scale={0.126}
+                    castShadow
+                    receiveShadow
                 />
             </mesh>
             <mesh
@@ -621,18 +662,24 @@ export function Room(props: any) {
                 material={materials.metal}
                 position={[2.004, 0.721, -1.444]}
                 rotation={[0.012, 0.626, -1.552]}
+                castShadow
+                receiveShadow
             >
                 <mesh
                     geometry={nodes["boot-bottom002"].geometry}
                     material={materials.vinyl}
                     position={[0, 0.025, 0.003]}
                     scale={1.016}
+                    castShadow
+                    receiveShadow
                 />
                 <mesh
                     geometry={nodes["boot-fur002"].geometry}
                     material={materials.lamp}
                     position={[0.01, 0.161, 0.014]}
                     scale={0.126}
+                    castShadow
+                    receiveShadow
                 />
             </mesh>
             <mesh
@@ -641,18 +688,24 @@ export function Room(props: any) {
                 position={[0.941, 0.616, -1.957]}
                 rotation={[0, -0.17, 0]}
                 scale={0.828}
+                castShadow
+                receiveShadow
             >
                 <mesh
                     geometry={nodes["boot-bottom006"].geometry}
                     material={materials.vinyl}
                     position={[0, 0.025, 0.003]}
                     scale={1.016}
+                    castShadow
+                    receiveShadow
                 />
                 <mesh
                     geometry={nodes["boot-fur006"].geometry}
                     material={materials.lamp}
                     position={[0.01, 0.161, 0.014]}
                     scale={0.126}
+                    castShadow
+                    receiveShadow
                 />
             </mesh>
             <mesh
@@ -661,18 +714,24 @@ export function Room(props: any) {
                 position={[1.152, 0.616, -1.943]}
                 rotation={[0, -0.17, 0]}
                 scale={0.828}
+                castShadow
+                receiveShadow
             >
                 <mesh
                     geometry={nodes["boot-bottom001"].geometry}
                     material={materials.vinyl}
                     position={[0, 0.025, 0.003]}
                     scale={1.016}
+                    castShadow
+                    receiveShadow
                 />
                 <mesh
                     geometry={nodes["boot-fur001"].geometry}
                     material={materials.lamp}
                     position={[0.01, 0.161, 0.014]}
                     scale={0.126}
+                    castShadow
+                    receiveShadow
                 />
             </mesh>
             <mesh
@@ -681,12 +740,16 @@ export function Room(props: any) {
                 position={[-1.726, 1.597, 0.528]}
                 rotation={[1.232, -0.016, -1.353]}
                 scale={0.188}
+                castShadow
+                receiveShadow
             >
                 <mesh
                     geometry={nodes["sock-top"].geometry}
                     material={nodes["sock-top"].material}
                     position={[-0.561, -0.055, -0.984]}
                     scale={0.542}
+                    castShadow
+                    receiveShadow
                 />
             </mesh>
             <mesh
@@ -695,12 +758,16 @@ export function Room(props: any) {
                 position={[-1.711, 1.589, -0.456]}
                 rotation={[1.122, 0.185, -1.747]}
                 scale={0.188}
+                castShadow
+                receiveShadow
             >
                 <mesh
                     geometry={nodes["sock-top002"].geometry}
                     material={nodes["sock-top002"].material}
                     position={[-0.561, -0.055, -0.984]}
                     scale={0.542}
+                    castShadow
+                    receiveShadow
                 />
             </mesh>
             <mesh
@@ -708,12 +775,16 @@ export function Room(props: any) {
                 material={materials.candle}
                 position={[-1.923, 1.911, 0.673]}
                 scale={0.07}
+                castShadow
+                receiveShadow
             >
                 <mesh
                     geometry={nodes["candle-wick"].geometry}
                     material={materials.metal}
                     position={[-0.034, 1.182, 0.027]}
                     scale={0.078}
+                    castShadow
+                    receiveShadow
                 />
             </mesh>
             <mesh
@@ -721,12 +792,16 @@ export function Room(props: any) {
                 material={materials.candle}
                 position={[-1.878, 1.894, 0.546]}
                 scale={0.049}
+                castShadow
+                receiveShadow
             >
                 <mesh
                     geometry={nodes["candle-wick001"].geometry}
                     material={materials.metal}
                     position={[-0.034, 1.182, 0.027]}
                     scale={0.078}
+                    castShadow
+                    receiveShadow
                 />
             </mesh>
             <mesh
@@ -734,12 +809,16 @@ export function Room(props: any) {
                 material={materials.White}
                 position={[-1.907, 1.535, 1.891]}
                 scale={0.034}
+                castShadow
+                receiveShadow
             >
                 <mesh
                     geometry={nodes["book-pages"].geometry}
                     material={materials.ceiling}
                     position={[3.458, -3.675, 1.602]}
                     scale={4.968}
+                    castShadow
+                    receiveShadow
                 />
             </mesh>
             <mesh
@@ -747,6 +826,8 @@ export function Room(props: any) {
                 material={materials.White}
                 position={[-1.796, 1.535, 1.891]}
                 scale={0.034}
+                castShadow
+                receiveShadow
             >
                 <mesh
                     geometry={nodes["book-pages001"].geometry}
@@ -760,6 +841,8 @@ export function Room(props: any) {
                 material={materials.White}
                 position={[-1.685, 1.535, 1.891]}
                 scale={0.034}
+                castShadow
+                receiveShadow
             >
                 <mesh
                     geometry={nodes["book-pages002"].geometry}
@@ -773,6 +856,8 @@ export function Room(props: any) {
                 material={materials.White}
                 position={[-1.574, 1.535, 1.891]}
                 scale={0.034}
+                castShadow
+                receiveShadow
             >
                 <mesh
                     geometry={nodes["book-pages003"].geometry}
@@ -787,6 +872,8 @@ export function Room(props: any) {
                 position={[-1.453, 1.527, 1.891]}
                 rotation={[0, 0, 0.408]}
                 scale={0.034}
+                castShadow
+                receiveShadow
             >
                 <mesh
                     geometry={nodes["book-pages004"].geometry}
@@ -800,6 +887,8 @@ export function Room(props: any) {
                 material={materials.White}
                 position={[-1.021, 1.145, 1.891]}
                 scale={0.034}
+                castShadow
+                receiveShadow
             >
                 <mesh
                     geometry={nodes["book-pages006"].geometry}
@@ -813,6 +902,8 @@ export function Room(props: any) {
                 material={materials.White}
                 position={[-0.91, 1.145, 1.891]}
                 scale={0.034}
+                castShadow
+                receiveShadow
             >
                 <mesh
                     geometry={nodes["book-pages007"].geometry}
@@ -826,6 +917,8 @@ export function Room(props: any) {
                 material={materials.White}
                 position={[-0.799, 1.145, 1.891]}
                 scale={0.034}
+                castShadow
+                receiveShadow
             >
                 <mesh
                     geometry={nodes["book-pages008"].geometry}
@@ -840,6 +933,8 @@ export function Room(props: any) {
                 position={[-1.384, 0.907, 1.988]}
                 rotation={[0, -0.603, -Math.PI / 2]}
                 scale={0.034}
+                castShadow
+                receiveShadow
             >
                 <mesh
                     geometry={nodes["book-pages009"].geometry}
@@ -854,6 +949,8 @@ export function Room(props: any) {
                 position={[-0.706, 1.075, 1.984]}
                 rotation={[0, 1.567, 0]}
                 scale={0.218}
+                castShadow
+                receiveShadow
             />
             <mesh
                 geometry={nodes["nutcracker-hat"].geometry}
@@ -861,48 +958,66 @@ export function Room(props: any) {
                 position={[-1.854, 2.142, -0.65]}
                 rotation={[0, 1.046, 0]}
                 scale={0.024}
+                castShadow
+                receiveShadow
             >
                 <mesh
                     geometry={nodes["nutcracker-arm-left"].geometry}
                     material={materials.blanket}
                     position={[-1.348, -5.917, -0.025]}
+                    castShadow
+                    receiveShadow
                 />
                 <mesh
                     geometry={nodes["nutcracker-arm-right"].geometry}
                     material={materials.blanket}
                     position={[1.36, -5.917, -0.025]}
+                    castShadow
+                    receiveShadow
                 />
                 <mesh
                     geometry={nodes["nutcracker-boot-left"].geometry}
                     material={materials.metal}
                     position={[-0.524, -11.453, -0.025]}
                     rotation={[0, -0.449, 0]}
+                    castShadow
+                    receiveShadow
                 />
                 <mesh
                     geometry={nodes["nutcracker-boot-right"].geometry}
                     material={materials.metal}
                     position={[0.507, -11.453, -0.025]}
                     rotation={[0, 0.597, 0]}
+                    castShadow
+                    receiveShadow
                 />
                 <mesh
                     geometry={nodes["nutcracker-head"].geometry}
                     material={materials.candle}
                     position={[0, -1.624, 0]}
+                    castShadow
+                    receiveShadow
                 />
                 <mesh
                     geometry={nodes["nutcracker-leg-left"].geometry}
                     material={materials.candle}
                     position={[-0.524, -9.983, -0.025]}
+                    castShadow
+                    receiveShadow
                 />
                 <mesh
                     geometry={nodes["nutcracker-leg-right"].geometry}
                     material={materials.candle}
                     position={[0.507, -9.983, -0.025]}
+                    castShadow
+                    receiveShadow
                 />
                 <mesh
                     geometry={nodes["nutcracker-torso"].geometry}
                     material={materials.blanket}
                     position={[0, -4.925, 0]}
+                    castShadow
+                    receiveShadow
                 />
             </mesh>
             <mesh
@@ -911,6 +1026,8 @@ export function Room(props: any) {
                 position={[-1.865, 2.339, -0.01]}
                 rotation={[2.852, 0, -Math.PI / 2]}
                 scale={0.242}
+                castShadow
+                receiveShadow
             >
                 <mesh
                     geometry={nodes.berries.geometry}
@@ -918,6 +1035,8 @@ export function Room(props: any) {
                     position={[-0.582, 0.279, 0.825]}
                     rotation={[Math.PI, -0.29, -Math.PI / 2]}
                     scale={0.046}
+                    castShadow
+                    receiveShadow
                 />
             </mesh>
             <mesh
@@ -926,6 +1045,8 @@ export function Room(props: any) {
                 position={[0.326, 2.484, -2.25]}
                 rotation={[-1.585, 0, 0]}
                 scale={0.474}
+                castShadow
+                receiveShadow
             >
                 <mesh
                     geometry={nodes.berries001.geometry}
@@ -933,6 +1054,8 @@ export function Room(props: any) {
                     position={[-2.21, -0.126, 0.044]}
                     rotation={[1.585, 0, 0]}
                     scale={0.03}
+                    castShadow
+                    receiveShadow
                 />
             </mesh>
             <mesh
@@ -941,6 +1064,8 @@ export function Room(props: any) {
                 position={[-1.636, 1.995, 0.052]}
                 rotation={[Math.PI / 2, Math.PI / 9, -Math.PI / 2]}
                 scale={0.12}
+                castShadow
+                receiveShadow
             >
                 <mesh
                     geometry={nodes["clock-big"].geometry}
@@ -948,24 +1073,32 @@ export function Room(props: any) {
                     position={[0, -0.727, 0]}
                     rotation={[0, 0.271, 0]}
                     scale={0.049}
+                    castShadow
+                    receiveShadow
                 />
                 <mesh
                     geometry={nodes["clock-face"].geometry}
                     material={nodes["clock-face"].material}
                     position={[0, -0.083, 0]}
                     scale={0.805}
+                    castShadow
+                    receiveShadow
                 />
                 <mesh
                     geometry={nodes["clock-rotate"].geometry}
                     material={nodes["clock-rotate"].material}
                     position={[0, -0.668, 0]}
                     scale={0.016}
+                    castShadow
+                    receiveShadow
                 />
                 <mesh
                     geometry={nodes["clock-small"].geometry}
                     material={materials.metal}
                     position={[0, -0.703, 0]}
                     scale={0.049}
+                    castShadow
+                    receiveShadow
                 />
             </mesh>
             <mesh
@@ -974,6 +1107,8 @@ export function Room(props: any) {
                 position={[-1.768, 2.584, 0.051]}
                 rotation={[Math.PI, -0.023, Math.PI]}
                 scale={1.559}
+                castShadow
+                receiveShadow
             />
             <mesh
                 geometry={nodes["bow-ddor"].geometry}
@@ -981,6 +1116,8 @@ export function Room(props: any) {
                 position={[0.162, 2.554, -2.138]}
                 rotation={[-Math.PI, 1.564, -Math.PI]}
                 scale={1.559}
+                castShadow
+                receiveShadow
             />
             <mesh
                 geometry={nodes.board.geometry}
@@ -988,11 +1125,15 @@ export function Room(props: any) {
                 position={[-1.29, 1.853, -2.277]}
                 rotation={[0, 1.57, 1.571]}
                 scale={1.158}
+                castShadow
+                receiveShadow
             >
                 <mesh
                     geometry={nodes["board-frame"].geometry}
                     material={materials.ceiling}
                     scale={1.263}
+                    castShadow
+                    receiveShadow
                 />
                 <mesh
                     geometry={nodes["board-paper"].geometry}
@@ -1000,6 +1141,8 @@ export function Room(props: any) {
                     position={[0.017, 0.032, 0.09]}
                     rotation={[-2.283, -1.391, -2.292]}
                     scale={0.121}
+                    castShadow
+                    receiveShadow
                 />
                 <mesh
                     geometry={nodes["board-pin"].geometry}
@@ -1007,6 +1150,8 @@ export function Room(props: any) {
                     position={[0.103, 0.025, 0.101]}
                     rotation={[-2.283, -1.391, -2.292]}
                     scale={0.004}
+                    castShadow
+                    receiveShadow
                 />
                 <mesh
                     geometry={nodes["board-postit-1"].geometry}
@@ -1014,6 +1159,8 @@ export function Room(props: any) {
                     position={[0.088, 0.032, -0.125]}
                     rotation={[-2.283, -1.391, -2.292]}
                     scale={0.037}
+                    castShadow
+                    receiveShadow
                 />
                 <mesh
                     geometry={nodes["board-postit-2"].geometry}
@@ -1021,6 +1168,8 @@ export function Room(props: any) {
                     position={[-0.052, 0.032, -0.128]}
                     rotation={[-2.283, -1.391, -2.292]}
                     scale={0.037}
+                    castShadow
+                    receiveShadow
                 />
             </mesh>
             <mesh
@@ -1028,6 +1177,8 @@ export function Room(props: any) {
                 material={materials.White}
                 position={[1.486, 1.532, -1.954]}
                 scale={0.169}
+                castShadow
+                receiveShadow
             >
                 <mesh
                     geometry={nodes.cookie.geometry}
@@ -1035,12 +1186,16 @@ export function Room(props: any) {
                     position={[-0.229, 0.058, -0.39]}
                     rotation={[0.16, 0, 0]}
                     scale={0.378}
+                    castShadow
+                    receiveShadow
                 >
                     <mesh
                         geometry={nodes.choco.geometry}
                         material={materials.ceiling}
                         position={[-0.472, -0.055, -0.442]}
                         scale={0.183}
+                        castShadow
+                        receiveShadow
                     />
                 </mesh>
                 <mesh
@@ -1049,12 +1204,16 @@ export function Room(props: any) {
                     position={[-0.169, 0.037, 0.382]}
                     rotation={[2.942, 0.642, -3.021]}
                     scale={0.384}
+                    castShadow
+                    receiveShadow
                 >
                     <mesh
                         geometry={nodes.choco005.geometry}
                         material={materials.ceiling}
                         position={[-0.472, -0.055, -0.442]}
                         scale={0.183}
+                        castShadow
+                        receiveShadow
                     />
                 </mesh>
                 <mesh
@@ -1063,12 +1222,16 @@ export function Room(props: any) {
                     position={[0.599, 0.04, -0.105]}
                     rotation={[0.034, 0.042, 0.256]}
                     scale={0.292}
+                    castShadow
+                    receiveShadow
                 >
                     <mesh
                         geometry={nodes.choco010.geometry}
                         material={materials.ceiling}
                         position={[-0.472, -0.055, -0.442]}
                         scale={0.183}
+                        castShadow
+                        receiveShadow
                     />
                 </mesh>
             </mesh>
@@ -1077,6 +1240,8 @@ export function Room(props: any) {
                 material={materials.shelves}
                 position={[1.66, 1.465, -1.979]}
                 scale={0.401}
+                castShadow
+                receiveShadow
             >
                 <mesh
                     geometry={nodes["drawer-cover"].geometry}
@@ -1084,6 +1249,8 @@ export function Room(props: any) {
                     position={[0, -0.284, 0.963]}
                     rotation={[Math.PI / 2, 0, 0]}
                     scale={0.892}
+                    castShadow
+                    receiveShadow
                 >
                     <mesh
                         geometry={nodes["drawer-box"].geometry}
@@ -1091,6 +1258,8 @@ export function Room(props: any) {
                         position={[0, -0.526, 0]}
                         rotation={[-Math.PI / 2, 0, 0]}
                         scale={1.082}
+                        castShadow
+                        receiveShadow
                     />
                     <mesh
                         geometry={nodes["drawer-handle"].geometry}
@@ -1098,6 +1267,8 @@ export function Room(props: any) {
                         position={[0, 0.174, -0.056]}
                         rotation={[0, 0, Math.PI]}
                         scale={-0.111}
+                        castShadow
+                        receiveShadow
                     />
                 </mesh>
             </mesh>
@@ -1106,6 +1277,8 @@ export function Room(props: any) {
                 material={nodes.glass.material}
                 position={[1.891, 1.607, -1.967]}
                 scale={0.068}
+                castShadow
+                receiveShadow
             />
             <mesh
                 geometry={nodes["gift-square"].geometry}
@@ -1113,6 +1286,8 @@ export function Room(props: any) {
                 position={[-0.811, 0.745, -1.966]}
                 rotation={[0, 1.235, 0]}
                 scale={0.134}
+                castShadow
+                receiveShadow
             >
                 <mesh
                     geometry={nodes["gift-square-bottom-bow"].geometry}
@@ -1120,6 +1295,8 @@ export function Room(props: any) {
                     position={[0, -0.731, 0]}
                     rotation={[0, 0, Math.PI]}
                     scale={6.318}
+                    castShadow
+                    receiveShadow
                 />
                 <mesh
                     geometry={nodes["gift-square-bow"].geometry}
@@ -1127,6 +1304,8 @@ export function Room(props: any) {
                     position={[0.029, 1.24, 0.005]}
                     rotation={[0, -1.41, 0]}
                     scale={1.385}
+                    castShadow
+                    receiveShadow
                 />
                 <mesh
                     geometry={nodes["gift-square-top"].geometry}
@@ -1134,12 +1313,16 @@ export function Room(props: any) {
                     position={[0, 0.054, 0]}
                     rotation={[0, 0, Math.PI]}
                     scale={1.063}
+                    castShadow
+                    receiveShadow
                 />
                 <mesh
                     geometry={nodes["gift-square-top-bow"].geometry}
                     material={materials.wood2}
                     position={[0, 0.858, 0]}
                     scale={6.459}
+                    castShadow
+                    receiveShadow
                 />
             </mesh>
             <mesh
@@ -1148,11 +1331,15 @@ export function Room(props: any) {
                 position={[-0.903, 0.709, -1.476]}
                 rotation={[0, 0.455, 0]}
                 scale={0.096}
+                castShadow
+                receiveShadow
             >
                 <mesh
                     geometry={nodes["gift-rec-bottom-bow"].geometry}
                     material={materials.candle}
                     scale={1.008}
+                    castShadow
+                    receiveShadow
                 />
                 <mesh
                     geometry={nodes["gift-rec-bow"].geometry}
@@ -1160,6 +1347,8 @@ export function Room(props: any) {
                     position={[0.051, 0.808, -0.28]}
                     rotation={[Math.PI, -0.151, Math.PI]}
                     scale={1.93}
+                    castShadow
+                    receiveShadow
                 />
                 <mesh
                     geometry={nodes["gift-rec-top"].geometry}
@@ -1167,6 +1356,8 @@ export function Room(props: any) {
                     position={[0, -0.415, 0]}
                     rotation={[0, 0, Math.PI]}
                     scale={1.091}
+                    castShadow
+                    receiveShadow
                 />
                 <mesh
                     geometry={nodes["gift-rec-top-bow"].geometry}
@@ -1174,6 +1365,8 @@ export function Room(props: any) {
                     position={[0, -0.415, 0]}
                     rotation={[0, 0, Math.PI]}
                     scale={1.091}
+                    castShadow
+                    receiveShadow
                 />
             </mesh>
             <mesh
@@ -1181,12 +1374,16 @@ export function Room(props: any) {
                 material={materials.wood2}
                 position={[-1.288, 0.614, -0.979]}
                 scale={0.19}
+                castShadow
+                receiveShadow
             >
                 <mesh
                     geometry={nodes["gift-round-bottom-bow"].geometry}
                     material={materials.blanket}
                     rotation={[-Math.PI, -Math.PI / 10, 0]}
                     scale={1.011}
+                    castShadow
+                    receiveShadow
                 />
                 <mesh
                     geometry={nodes["gift-round-bow"].geometry}
@@ -1194,6 +1391,8 @@ export function Room(props: any) {
                     position={[0.007, 1.203, -0.001]}
                     rotation={[0, -1.31, 0]}
                     scale={1.291}
+                    castShadow
+                    receiveShadow
                 />
                 <mesh
                     geometry={nodes["gift-round-top"].geometry}
@@ -1201,12 +1400,16 @@ export function Room(props: any) {
                     position={[0, 1.106, 0]}
                     rotation={[0, 0, Math.PI]}
                     scale={1.056}
+                    castShadow
+                    receiveShadow
                 />
                 <mesh
                     geometry={nodes["gift-round-top-bow"].geometry}
                     material={materials.blanket}
                     position={[0, 1.106, 0]}
                     scale={1.056}
+                    castShadow
+                    receiveShadow
                 />
             </mesh>
             <mesh
@@ -1215,6 +1418,8 @@ export function Room(props: any) {
                 position={[0.056, 0.615, -3.269]}
                 rotation={[0, 1.415, 0]}
                 scale={0.137}
+                castShadow
+                receiveShadow
             >
                 <mesh
                     geometry={nodes.seal.geometry}
@@ -1222,6 +1427,8 @@ export function Room(props: any) {
                     position={[0.029, 0.063, 0.071]}
                     rotation={[0.048, 0.001, 3.136]}
                     scale={0.317}
+                    castShadow
+                    receiveShadow
                 />
             </mesh>
             <mesh
@@ -1230,12 +1437,16 @@ export function Room(props: any) {
                 position={[-1.973, 2.302, 1.599]}
                 rotation={[0, 0, Math.PI]}
                 scale={0.058}
+                castShadow
+                receiveShadow
             />
             <mesh
                 geometry={nodes["lamp-shade"].geometry}
                 material={materials.lamp}
                 position={[-1.928, 2.239, 1.601]}
                 scale={0.197}
+                castShadow
+                receiveShadow
             />
             <mesh
                 geometry={nodes["lamp-leg001"].geometry}
@@ -1243,6 +1454,8 @@ export function Room(props: any) {
                 position={[1.723, 2.302, -1.923]}
                 rotation={[-Math.PI, -Math.PI / 2, 0]}
                 scale={0.058}
+                castShadow
+                receiveShadow
             />
             <mesh
                 geometry={nodes["lamp-shade001"].geometry}
@@ -1250,6 +1463,8 @@ export function Room(props: any) {
                 position={[1.722, 2.239, -1.877]}
                 rotation={[0, -Math.PI / 2, 0]}
                 scale={0.197}
+                castShadow
+                receiveShadow
             />
         </group>
     );
