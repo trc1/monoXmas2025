@@ -1,7 +1,7 @@
 import { useGLTF } from "@react-three/drei";
 
 export function Room(props: any) {
-    const { nodes, materials } = useGLTF("./models/room.glb");
+    const { nodes, materials } = useGLTF("./models/room.glb") as any;
     return (
         <group {...props} dispose={null}>
             {/* <mesh
