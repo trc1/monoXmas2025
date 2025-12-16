@@ -1,35 +1,19 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import Snowfall from "react-snowfall";
+import "./style/app.scss";
+import { Canvas } from "@react-three/fiber";
+import Scene from "./components/Scene";
 
 function App() {
-  const [count, setCount] = useState(0)
-
-  return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    return (
+        <>
+            <Canvas
+                shadows="soft" /* camera={{ position: [0, 3, 8], fov: 30, rotation: [10, 10, 20] }} */
+            >
+                <Scene />
+            </Canvas>
+            <Snowfall snowflakeCount={20} style={{ opacity: 0.8 }} />
+        </>
+    );
 }
 
-export default App
+export default App;
