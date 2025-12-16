@@ -11,12 +11,16 @@ export function Room(props: any) {
                 scale={16.924}
             /> */}
             <mesh
+                castShadow
+                receiveShadow
                 geometry={nodes.rug.geometry}
                 material={materials.rug}
                 position={[-0.084, 0.622, 0.357]}
                 rotation={[0, -0.25, 0]}
             />
             <mesh
+                castShadow
+                receiveShadow
                 geometry={nodes["mono-logo"].geometry}
                 material={materials.brass}
                 position={[-1.583, 3.215, -1.567]}
@@ -24,6 +28,8 @@ export function Room(props: any) {
                 scale={0.116}
             />
             <mesh
+                castShadow
+                receiveShadow
                 geometry={nodes.table.geometry}
                 material={materials.wood2}
                 position={[0.782, 1.287, 1.726]}
@@ -32,37 +38,53 @@ export function Room(props: any) {
                 position={[-2.176, 1.847, 0.624]}
                 rotation={[-0.222, 0, 0]}
                 scale={0.003}
+                castShadow
+                receiveShadow
             >
                 <mesh
+                    castShadow
+                    receiveShadow
                     geometry={nodes["Candy_Cane-Mesh"].geometry}
                     material={materials.Red}
                 />
                 <mesh
+                    castShadow
+                    receiveShadow
                     geometry={nodes["Candy_Cane-Mesh_1"].geometry}
                     material={materials.White}
                 />
             </group>
             <mesh
+                castShadow
+                receiveShadow
                 geometry={nodes["floor-boards"].geometry}
                 material={materials.ceiling}
                 position={[0, 2.8, 0]}
             />
             <mesh
+                castShadow
+                receiveShadow
                 geometry={nodes.walls.geometry}
                 material={materials.wall}
                 position={[0, 2.8, 0]}
             />
             <mesh
+                castShadow
+                receiveShadow
                 geometry={nodes.ceiling.geometry}
                 material={materials.ceiling}
                 position={[0, 2.8, 0]}
             />
             <mesh
+                castShadow
+                receiveShadow
                 geometry={nodes["floor-bottom"].geometry}
                 material={materials.concrete2}
                 position={[0, 2.8, 0]}
             />
             <mesh
+                castShadow
+                receiveShadow
                 geometry={nodes.tree.geometry}
                 material={materials.tree}
                 position={[-1.581, 1.001, -1.558]}
@@ -70,18 +92,24 @@ export function Room(props: any) {
                 scale={0.67}
             />
             <mesh
+                castShadow
+                receiveShadow
                 geometry={nodes.trunk.geometry}
                 material={materials.shelves}
                 position={[-1.595, 1.247, -1.563]}
                 scale={0.199}
             />
             <mesh
+                castShadow
+                receiveShadow
                 geometry={nodes["door-floor"].geometry}
                 material={materials.concrete2}
                 position={[-0.025, 0.52, -2.307]}
                 scale={0.57}
             />
             <mesh
+                castShadow
+                receiveShadow
                 geometry={nodes["wire-small"].geometry}
                 material={materials.concrete2}
                 position={[-1.586, 2.576, -1.557]}
@@ -89,6 +117,8 @@ export function Room(props: any) {
                 scale={0.268}
             />
             <mesh
+                castShadow
+                receiveShadow
                 geometry={nodes["light-bulb001"].geometry}
                 material={materials["tree-bulb"]}
                 position={[-1.652, 2.512, -1.302]}
@@ -96,6 +126,8 @@ export function Room(props: any) {
                 scale={0.02}
             >
                 <mesh
+                    castShadow
+                    receiveShadow
                     geometry={nodes["light-base001"].geometry}
                     material={materials.concrete}
                     position={[0, -1.093, 0]}
@@ -103,6 +135,8 @@ export function Room(props: any) {
                 />
             </mesh>
             <mesh
+                castShadow
+                receiveShadow
                 geometry={nodes["light-bulb002"].geometry}
                 material={materials["tree-bulb"]}
                 position={[-1.839, 2.512, -1.489]}
@@ -110,6 +144,8 @@ export function Room(props: any) {
                 scale={0.02}
             >
                 <mesh
+                    castShadow
+                    receiveShadow
                     geometry={nodes["light-base002"].geometry}
                     material={materials.concrete}
                     position={[0, -1.093, 0]}
@@ -117,6 +153,8 @@ export function Room(props: any) {
                 />
             </mesh>
             <mesh
+                castShadow
+                receiveShadow
                 geometry={nodes["light-bulb003"].geometry}
                 material={materials["tree-bulb"]}
                 position={[-1.349, 2.586, -1.572]}
@@ -124,6 +162,8 @@ export function Room(props: any) {
                 scale={0.02}
             >
                 <mesh
+                    castShadow
+                    receiveShadow
                     geometry={nodes["light-base003"].geometry}
                     material={materials.concrete}
                     position={[0, -1.093, 0]}
@@ -131,6 +171,8 @@ export function Room(props: any) {
                 />
             </mesh>
             <mesh
+                castShadow
+                receiveShadow
                 geometry={nodes["light-bulb004"].geometry}
                 material={materials["tree-bulb"]}
                 position={[-1.536, 2.59, -1.784]}
@@ -138,6 +180,8 @@ export function Room(props: any) {
                 scale={0.02}
             >
                 <mesh
+                    castShadow
+                    receiveShadow
                     geometry={nodes["light-base004"].geometry}
                     material={materials.concrete}
                     position={[0, -1.093, 0]}
@@ -145,6 +189,8 @@ export function Room(props: any) {
                 />
             </mesh>
             <mesh
+                castShadow
+                receiveShadow
                 geometry={nodes["light-bulb"].geometry}
                 material={materials["tree-bulb"]}
                 position={[-1.42, 2.553, -1.359]}
@@ -152,6 +198,8 @@ export function Room(props: any) {
                 scale={0.02}
             >
                 <mesh
+                    castShadow
+                    receiveShadow
                     geometry={nodes["light-base"].geometry}
                     material={materials.concrete}
                     position={[0, -1.093, 0]}
@@ -159,6 +207,8 @@ export function Room(props: any) {
                 />
             </mesh>
             <mesh
+                castShadow
+                receiveShadow
                 geometry={nodes["light-bulb005"].geometry}
                 material={materials["tree-bulb"]}
                 position={[-1.939, 1.932, -1.396]}
@@ -166,6 +216,8 @@ export function Room(props: any) {
                 scale={0.02}
             >
                 <mesh
+                    castShadow
+                    receiveShadow
                     geometry={nodes["light-base005"].geometry}
                     material={materials.concrete}
                     position={[0, -1.093, 0]}
@@ -173,6 +225,8 @@ export function Room(props: any) {
                 />
             </mesh>
             <mesh
+                castShadow
+                receiveShadow
                 geometry={nodes["light-bulb006"].geometry}
                 material={materials["tree-bulb"]}
                 position={[-1.796, 1.932, -1.224]}
@@ -180,6 +234,8 @@ export function Room(props: any) {
                 scale={0.02}
             >
                 <mesh
+                    castShadow
+                    receiveShadow
                     geometry={nodes["light-base006"].geometry}
                     material={materials.concrete}
                     position={[0, -1.093, 0]}
@@ -187,6 +243,8 @@ export function Room(props: any) {
                 />
             </mesh>
             <mesh
+                castShadow
+                receiveShadow
                 geometry={nodes["light-bulb007"].geometry}
                 material={materials["tree-bulb"]}
                 position={[-1.522, 1.911, -1.147]}
@@ -194,6 +252,8 @@ export function Room(props: any) {
                 scale={0.02}
             >
                 <mesh
+                    castShadow
+                    receiveShadow
                     geometry={nodes["light-base007"].geometry}
                     material={materials.concrete}
                     position={[0, -1.093, 0]}
@@ -201,6 +261,8 @@ export function Room(props: any) {
                 />
             </mesh>
             <mesh
+                castShadow
+                receiveShadow
                 geometry={nodes["light-bulb008"].geometry}
                 material={materials["tree-bulb"]}
                 position={[-1.25, 1.866, -1.265]}
@@ -208,6 +270,8 @@ export function Room(props: any) {
                 scale={0.02}
             >
                 <mesh
+                    castShadow
+                    receiveShadow
                     geometry={nodes["light-base008"].geometry}
                     material={materials.concrete}
                     position={[0, -1.093, 0]}
@@ -215,6 +279,8 @@ export function Room(props: any) {
                 />
             </mesh>
             <mesh
+                castShadow
+                receiveShadow
                 geometry={nodes["light-bulb009"].geometry}
                 material={materials["tree-bulb"]}
                 position={[-1.121, 1.836, -1.54]}
@@ -222,6 +288,8 @@ export function Room(props: any) {
                 scale={0.02}
             >
                 <mesh
+                    castShadow
+                    receiveShadow
                     geometry={nodes["light-base009"].geometry}
                     material={materials.concrete}
                     position={[0, -1.093, 0]}
@@ -229,6 +297,8 @@ export function Room(props: any) {
                 />
             </mesh>
             <mesh
+                castShadow
+                receiveShadow
                 geometry={nodes["light-bulb010"].geometry}
                 material={materials["tree-bulb"]}
                 position={[-1.28, 1.862, -1.892]}
@@ -236,6 +306,8 @@ export function Room(props: any) {
                 scale={0.02}
             >
                 <mesh
+                    castShadow
+                    receiveShadow
                     geometry={nodes["light-base010"].geometry}
                     material={materials.concrete}
                     position={[0, -1.093, 0]}
@@ -243,6 +315,8 @@ export function Room(props: any) {
                 />
             </mesh>
             <mesh
+                castShadow
+                receiveShadow
                 geometry={nodes["light-bulb011"].geometry}
                 material={materials["tree-bulb"]}
                 position={[-2.087, 1.108, -1.177]}
@@ -250,6 +324,8 @@ export function Room(props: any) {
                 scale={0.02}
             >
                 <mesh
+                    castShadow
+                    receiveShadow
                     geometry={nodes["light-base011"].geometry}
                     material={materials.concrete}
                     position={[0, -1.093, 0]}
@@ -257,6 +333,8 @@ export function Room(props: any) {
                 />
             </mesh>
             <mesh
+                castShadow
+                receiveShadow
                 geometry={nodes["light-bulb012"].geometry}
                 material={materials["tree-bulb"]}
                 position={[-1.776, 1.115, -0.957]}
@@ -264,6 +342,8 @@ export function Room(props: any) {
                 scale={0.02}
             >
                 <mesh
+                    castShadow
+                    receiveShadow
                     geometry={nodes["light-base012"].geometry}
                     material={materials.concrete}
                     position={[0, -1.093, 0]}
@@ -271,6 +351,8 @@ export function Room(props: any) {
                 />
             </mesh>
             <mesh
+                castShadow
+                receiveShadow
                 geometry={nodes["light-bulb013"].geometry}
                 material={materials["tree-bulb"]}
                 position={[-1.449, 1.104, -0.93]}
@@ -278,6 +360,8 @@ export function Room(props: any) {
                 scale={0.02}
             >
                 <mesh
+                    castShadow
+                    receiveShadow
                     geometry={nodes["light-base013"].geometry}
                     material={materials.concrete}
                     position={[0, -1.093, 0]}
@@ -285,6 +369,8 @@ export function Room(props: any) {
                 />
             </mesh>
             <mesh
+                castShadow
+                receiveShadow
                 geometry={nodes["light-bulb014"].geometry}
                 material={materials["tree-bulb"]}
                 position={[-1.181, 1.143, -1.064]}
@@ -292,6 +378,8 @@ export function Room(props: any) {
                 scale={0.02}
             >
                 <mesh
+                    castShadow
+                    receiveShadow
                     geometry={nodes["light-base014"].geometry}
                     material={materials.concrete}
                     position={[0, -1.093, 0]}
@@ -299,6 +387,8 @@ export function Room(props: any) {
                 />
             </mesh>
             <mesh
+                castShadow
+                receiveShadow
                 geometry={nodes["light-bulb015"].geometry}
                 material={materials["tree-bulb"]}
                 position={[-1.029, 1.185, -1.32]}
@@ -306,6 +396,8 @@ export function Room(props: any) {
                 scale={0.02}
             >
                 <mesh
+                    castShadow
+                    receiveShadow
                     geometry={nodes["light-base015"].geometry}
                     material={materials.concrete}
                     position={[0, -1.093, 0]}
@@ -313,6 +405,8 @@ export function Room(props: any) {
                 />
             </mesh>
             <mesh
+                castShadow
+                receiveShadow
                 geometry={nodes["light-bulb016"].geometry}
                 material={materials["tree-bulb"]}
                 position={[-0.997, 1.202, -1.655]}
@@ -320,6 +414,8 @@ export function Room(props: any) {
                 scale={0.02}
             >
                 <mesh
+                    castShadow
+                    receiveShadow
                     geometry={nodes["light-base016"].geometry}
                     material={materials.concrete}
                     position={[0, -1.093, 0]}
@@ -327,6 +423,8 @@ export function Room(props: any) {
                 />
             </mesh>
             <mesh
+                castShadow
+                receiveShadow
                 geometry={nodes["light-bulb017"].geometry}
                 material={materials["tree-bulb"]}
                 position={[-1.163, 1.168, -2.011]}
@@ -334,6 +432,8 @@ export function Room(props: any) {
                 scale={0.02}
             >
                 <mesh
+                    castShadow
+                    receiveShadow
                     geometry={nodes["light-base017"].geometry}
                     material={materials.concrete}
                     position={[0, -1.093, 0]}
