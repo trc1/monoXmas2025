@@ -4,6 +4,8 @@ class RoomStore {
     lightsOn = false;
     fireplaceOn = false;
     gramophone = false;
+    lamp1On = false;
+    lamp2On = false;
 
     constructor() {
         makeAutoObservable(this);
@@ -15,6 +17,14 @@ class RoomStore {
 
     toggleFireplace() {
         this.fireplaceOn = !this.fireplaceOn;
+    }
+
+    toggleLamp1() {
+        this.lamp1On = !this.lamp1On;
+    }
+
+    toggleLamp2() {
+        this.lamp2On = !this.lamp2On;
     }
 
     setLights(value: boolean) {

@@ -1505,41 +1505,93 @@ export const Room = observer((props: any) => {
                     receiveShadow
                 />
             </mesh>
-            <mesh
-                geometry={nodes["lamp-leg"].geometry}
-                material={materials.metal}
-                position={[-1.973, 2.302, 1.599]}
-                rotation={[0, 0, Math.PI]}
-                scale={0.058}
-                castShadow
-                receiveShadow
-            />
-            <mesh
-                geometry={nodes["lamp-shade"].geometry}
-                material={materials.lamp}
-                position={[-1.928, 2.239, 1.601]}
-                scale={0.197}
-                castShadow
-                receiveShadow
-            />
-            <mesh
-                geometry={nodes["lamp-leg001"].geometry}
-                material={materials.metal}
-                position={[1.723, 2.302, -1.923]}
-                rotation={[-Math.PI, -Math.PI / 2, 0]}
-                scale={0.058}
-                castShadow
-                receiveShadow
-            />
-            <mesh
-                geometry={nodes["lamp-shade001"].geometry}
-                material={materials.lamp}
-                position={[1.722, 2.239, -1.877]}
-                rotation={[0, -Math.PI / 2, 0]}
-                scale={0.197}
-                castShadow
-                receiveShadow
-            />
+            <group
+                onClick={(e) => {
+                    e.stopPropagation();
+                    roomStore.toggleLamp1();
+                    audioStore.playSwitchClick();
+                }}
+                onPointerOver={(e) => {
+                    e.stopPropagation();
+                    document.body.style.cursor = "pointer";
+                }}
+                onPointerOut={(e) => {
+                    e.stopPropagation();
+                    document.body.style.cursor = "auto";
+                }}
+            >
+                <mesh
+                    geometry={nodes["lamp-leg"].geometry}
+                    material={materials.metal}
+                    position={[-1.973, 2.302, 1.599]}
+                    rotation={[0, 0, Math.PI]}
+                    scale={0.058}
+                    castShadow
+                    receiveShadow
+                />
+                <mesh
+                    geometry={nodes["lamp-shade"].geometry}
+                    material={materials.lamp}
+                    position={[-1.928, 2.239, 1.601]}
+                    scale={0.197}
+                    castShadow
+                    receiveShadow
+                />
+                {roomStore.lamp1On && (
+                    <pointLight
+                        position={[-1.928, 2.239, 1.601]}
+                        intensity={2}
+                        distance={6}
+                        decay={1}
+                        color="#fff5e6"
+                        castShadow
+                    />
+                )}
+            </group>
+            <group
+                onClick={(e) => {
+                    e.stopPropagation();
+                    roomStore.toggleLamp2();
+                    audioStore.playSwitchClick();
+                }}
+                onPointerOver={(e) => {
+                    e.stopPropagation();
+                    document.body.style.cursor = "pointer";
+                }}
+                onPointerOut={(e) => {
+                    e.stopPropagation();
+                    document.body.style.cursor = "auto";
+                }}
+            >
+                <mesh
+                    geometry={nodes["lamp-leg001"].geometry}
+                    material={materials.metal}
+                    position={[1.723, 2.302, -1.923]}
+                    rotation={[-Math.PI, -Math.PI / 2, 0]}
+                    scale={0.058}
+                    castShadow
+                    receiveShadow
+                />
+                <mesh
+                    geometry={nodes["lamp-shade001"].geometry}
+                    material={materials.lamp}
+                    position={[1.722, 2.239, -1.877]}
+                    rotation={[0, -Math.PI / 2, 0]}
+                    scale={0.197}
+                    castShadow
+                    receiveShadow
+                />
+                {roomStore.lamp2On && (
+                    <pointLight
+                        position={[1.722, 2.239, -1.877]}
+                        intensity={2}
+                        distance={6}
+                        decay={1}
+                        color="#fff5e6"
+                        castShadow
+                    />
+                )}
+            </group>
         </group>
     );
 });
