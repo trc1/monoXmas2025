@@ -1,10 +1,23 @@
 import { useGLTF } from "@react-three/drei";
 import { useHoverScale } from "../utils/useHoverScale";
-import { useClickBounce } from "../utils/useClickBounce";
+import { roomStore, audioStore } from "../store";
+import { observer } from "mobx-react-lite";
+import { useEffect } from "react";
 
-export function Room(props: any) {
+export const Room = observer((props: any) => {
     const { nodes, materials } = useGLTF("./models/room.glb") as any;
-    const tableBounce = useClickBounce();
+
+    useEffect(() => {
+        if (roomStore.gramophone) {
+            audioStore.playNextSong();
+        } else {
+            audioStore.stopMusic();
+        }
+    }, [roomStore.gramophone]);
+
+    const handleGramophoneClick = () => {
+        roomStore.toggleGramophone();
+    };
 
     return (
         <group {...props} dispose={null}>
@@ -38,14 +51,86 @@ export function Room(props: any) {
                 receiveShadow
                 geometry={nodes.table.geometry}
                 material={materials.wood2}
-                position={[
-                    0.782 + (tableBounce.offset?.x || 0),
-                    1.287 + (tableBounce.offset?.y || 0),
-                    1.726 + (tableBounce.offset?.z || 0),
-                ]}
-                {...useHoverScale()}
-                onClick={tableBounce.onClick}
+                position={[0.782, 1.287, 1.726]}
             />
+            <group
+                {...useHoverScale({ hoverScale: 1.05 })}
+                onClick={handleGramophoneClick}
+            >
+                <mesh
+                    geometry={nodes["gramophone-base"].geometry}
+                    material={materials.gramophone}
+                    position={[0.816, 1.572, 1.735]}
+                    scale={0.255}
+                    castShadow
+                    receiveShadow
+                />
+                <mesh
+                    geometry={nodes.vinyl.geometry}
+                    material={materials.vinyl}
+                    position={[0.856, 1.402, 1.713]}
+                    scale={1.228}
+                    castShadow
+                    receiveShadow
+                >
+                    <mesh
+                        geometry={nodes["vinyl-cylinder"].geometry}
+                        material={nodes["vinyl-cylinder"].material}
+                        position={[0, 0.027, 0]}
+                        scale={0.008}
+                    />
+                    <mesh
+                        geometry={nodes["vinyl-inner"].geometry}
+                        material={materials.pink}
+                    />
+                    <mesh
+                        geometry={nodes["vinyl-turntable"].geometry}
+                        material={nodes["vinyl-turntable"].material}
+                        position={[0, 0.008, 0]}
+                        scale={0.156}
+                    />
+                </mesh>
+                <group
+                    position={[0.545, 1.427, 1.884]}
+                    rotation={[0, -0.545, 0]}
+                    scale={0.011}
+                    castShadow
+                    receiveShadow
+                >
+                    <mesh
+                        geometry={nodes.Cylinder004.geometry}
+                        material={materials.metal}
+                        castShadow
+                        receiveShadow
+                    />
+                    <mesh
+                        geometry={nodes.Cylinder004_1.geometry}
+                        material={materials.concrete2}
+                        castShadow
+                        receiveShadow
+                    />
+                </group>
+                <mesh
+                    geometry={nodes["grampohone-speaker"].geometry}
+                    material={materials.brass}
+                    position={[0.78, 1.746, 1.743]}
+                    rotation={[1.955, -1.571, 0]}
+                    scale={0.279}
+                    castShadow
+                    receiveShadow
+                >
+                    <mesh
+                        geometry={nodes["speaker-in"].geometry}
+                        material={materials.brass2}
+                        position={[1.032, 1.177, 0.003]}
+                        rotation={[0.001, 0, 0.384]}
+                        scale={0.186}
+                        castShadow
+                        receiveShadow
+                    />
+                </mesh>
+            </group>
+
             <group
                 position={[-2.176, 1.847, 0.624]}
                 rotation={[-0.222, 0, 0]}
@@ -497,23 +582,33 @@ export function Room(props: any) {
                 material={materials.ceiling}
                 position={[-2.162, 0.905, -0.106]}
                 rotation={[-2.302, 0.07, 2.395]}
-                scale={0.062}
+                {...useHoverScale({ hoverScale: 0.069, normalScale: 0.062 })}
+                onClick={() => {
+                    roomStore.toggleFireplace();
+                    if (roomStore.fireplaceOn) {
+                        audioStore.playFireplaceCrackling();
+                    } else {
+                        audioStore.stopFireplaceCrackling();
+                    }
+                }}
             />
-            <mesh
-                geometry={nodes["flame-lrg"].geometry}
-                material={materials.fire}
-                position={[-2.125, 1.189, -0.076]}
-                rotation={[Math.PI, -0.593, Math.PI]}
-                scale={0.187}
-            >
+            {roomStore.fireplaceOn && (
                 <mesh
-                    geometry={nodes["flame-sml"].geometry}
+                    geometry={nodes["flame-lrg"].geometry}
                     material={materials.fire}
-                    position={[-0.701, -0.701, 0.498]}
-                    rotation={[-Math.PI, 1.021, -Math.PI]}
-                    scale={0.594}
-                />
-            </mesh>
+                    position={[-2.125, 1.189, -0.076]}
+                    rotation={[Math.PI, -0.593, Math.PI]}
+                    scale={0.187}
+                >
+                    <mesh
+                        geometry={nodes["flame-sml"].geometry}
+                        material={materials.fire}
+                        position={[-0.701, -0.701, 0.498]}
+                        rotation={[-Math.PI, 1.021, -Math.PI]}
+                        scale={0.594}
+                    />
+                </mesh>
+            )}
             <mesh
                 castShadow
                 receiveShadow
@@ -573,78 +668,7 @@ export function Room(props: any) {
                 castShadow
                 receiveShadow
             />
-            <mesh
-                geometry={nodes["gramophone-base"].geometry}
-                material={materials.gramophone}
-                position={[0.816, 1.572, 1.735]}
-                scale={0.255}
-                castShadow
-                receiveShadow
-            />
-            <mesh
-                geometry={nodes.vinyl.geometry}
-                material={materials.vinyl}
-                position={[0.856, 1.402, 1.713]}
-                scale={1.228}
-                castShadow
-                receiveShadow
-            >
-                <mesh
-                    geometry={nodes["vinyl-cylinder"].geometry}
-                    material={nodes["vinyl-cylinder"].material}
-                    position={[0, 0.027, 0]}
-                    scale={0.008}
-                />
-                <mesh
-                    geometry={nodes["vinyl-inner"].geometry}
-                    material={materials.pink}
-                />
-                <mesh
-                    geometry={nodes["vinyl-turntable"].geometry}
-                    material={nodes["vinyl-turntable"].material}
-                    position={[0, 0.008, 0]}
-                    scale={0.156}
-                />
-            </mesh>
-            <group
-                position={[0.545, 1.427, 1.884]}
-                rotation={[0, -0.545, 0]}
-                scale={0.011}
-                castShadow
-                receiveShadow
-            >
-                <mesh
-                    geometry={nodes.Cylinder004.geometry}
-                    material={materials.metal}
-                    castShadow
-                    receiveShadow
-                />
-                <mesh
-                    geometry={nodes.Cylinder004_1.geometry}
-                    material={materials.concrete2}
-                    castShadow
-                    receiveShadow
-                />
-            </group>
-            <mesh
-                geometry={nodes["grampohone-speaker"].geometry}
-                material={materials.brass}
-                position={[0.78, 1.746, 1.743]}
-                rotation={[1.955, -1.571, 0]}
-                scale={0.279}
-                castShadow
-                receiveShadow
-            >
-                <mesh
-                    geometry={nodes["speaker-in"].geometry}
-                    material={materials.brass2}
-                    position={[1.032, 1.177, 0.003]}
-                    rotation={[0.001, 0, 0.384]}
-                    scale={0.186}
-                    castShadow
-                    receiveShadow
-                />
-            </mesh>
+
             <mesh
                 geometry={nodes["boot-black-a"].geometry}
                 material={materials.metal}
@@ -1518,7 +1542,6 @@ export function Room(props: any) {
             />
         </group>
     );
-}
+});
 
 useGLTF.preload("./models/room.glb");
-export default Room;
