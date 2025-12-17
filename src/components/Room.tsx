@@ -1,7 +1,11 @@
 import { useGLTF } from "@react-three/drei";
+import { useHoverScale } from "../utils/useHoverScale";
+import { useClickBounce } from "../utils/useClickBounce";
 
 export function Room(props: any) {
     const { nodes, materials } = useGLTF("./models/room.glb") as any;
+    const tableBounce = useClickBounce();
+
     return (
         <group {...props} dispose={null}>
             {/* <mesh
@@ -34,14 +38,23 @@ export function Room(props: any) {
                 receiveShadow
                 geometry={nodes.table.geometry}
                 material={materials.wood2}
-                position={[0.782, 1.287, 1.726]}
+                position={[
+                    0.782 + (tableBounce.offset?.x || 0),
+                    1.287 + (tableBounce.offset?.y || 0),
+                    1.726 + (tableBounce.offset?.z || 0),
+                ]}
+                {...useHoverScale()}
+                onClick={tableBounce.onClick}
             />
             <group
                 position={[-2.176, 1.847, 0.624]}
                 rotation={[-0.222, 0, 0]}
-                scale={0.003}
                 castShadow
                 receiveShadow
+                {...useHoverScale({
+                    hoverScale: 0.0033,
+                    normalScale: 0.003,
+                })}
             >
                 <mesh
                     castShadow
@@ -639,6 +652,7 @@ export function Room(props: any) {
                 rotation={[0, -0.585, 0]}
                 castShadow
                 receiveShadow
+                {...useHoverScale({ hoverScale: 1.1, speed: 0.2 })}
             >
                 <mesh
                     geometry={nodes["boot-bottom"].geometry}
@@ -808,9 +822,13 @@ export function Room(props: any) {
                 geometry={nodes["book-cover"].geometry}
                 material={materials.White}
                 position={[-1.907, 1.535, 1.891]}
-                scale={0.034}
                 castShadow
                 receiveShadow
+                {...useHoverScale({
+                    hoverScale: 0.039,
+                    normalScale: 0.034,
+                    speed: 0.3,
+                })}
             >
                 <mesh
                     geometry={nodes["book-pages"].geometry}
@@ -825,7 +843,11 @@ export function Room(props: any) {
                 geometry={nodes["book-cover001"].geometry}
                 material={materials.White}
                 position={[-1.796, 1.535, 1.891]}
-                scale={0.034}
+                {...useHoverScale({
+                    hoverScale: 0.039,
+                    normalScale: 0.034,
+                    speed: 0.3,
+                })}
                 castShadow
                 receiveShadow
             >
@@ -840,7 +862,11 @@ export function Room(props: any) {
                 geometry={nodes["book-cover002"].geometry}
                 material={materials.White}
                 position={[-1.685, 1.535, 1.891]}
-                scale={0.034}
+                {...useHoverScale({
+                    hoverScale: 0.039,
+                    normalScale: 0.034,
+                    speed: 0.3,
+                })}
                 castShadow
                 receiveShadow
             >
@@ -855,7 +881,11 @@ export function Room(props: any) {
                 geometry={nodes["book-cover003"].geometry}
                 material={materials.White}
                 position={[-1.574, 1.535, 1.891]}
-                scale={0.034}
+                {...useHoverScale({
+                    hoverScale: 0.039,
+                    normalScale: 0.034,
+                    speed: 0.3,
+                })}
                 castShadow
                 receiveShadow
             >
@@ -871,7 +901,11 @@ export function Room(props: any) {
                 material={materials.White}
                 position={[-1.453, 1.527, 1.891]}
                 rotation={[0, 0, 0.408]}
-                scale={0.034}
+                {...useHoverScale({
+                    hoverScale: 0.039,
+                    normalScale: 0.034,
+                    speed: 0.3,
+                })}
                 castShadow
                 receiveShadow
             >
@@ -886,7 +920,11 @@ export function Room(props: any) {
                 geometry={nodes["book-cover006"].geometry}
                 material={materials.White}
                 position={[-1.021, 1.145, 1.891]}
-                scale={0.034}
+                {...useHoverScale({
+                    hoverScale: 0.039,
+                    normalScale: 0.034,
+                    speed: 0.3,
+                })}
                 castShadow
                 receiveShadow
             >
@@ -901,7 +939,11 @@ export function Room(props: any) {
                 geometry={nodes["book-cover007"].geometry}
                 material={materials.White}
                 position={[-0.91, 1.145, 1.891]}
-                scale={0.034}
+                {...useHoverScale({
+                    hoverScale: 0.039,
+                    normalScale: 0.034,
+                    speed: 0.3,
+                })}
                 castShadow
                 receiveShadow
             >
@@ -916,7 +958,11 @@ export function Room(props: any) {
                 geometry={nodes["book-cover008"].geometry}
                 material={materials.White}
                 position={[-0.799, 1.145, 1.891]}
-                scale={0.034}
+                {...useHoverScale({
+                    hoverScale: 0.039,
+                    normalScale: 0.034,
+                    speed: 0.3,
+                })}
                 castShadow
                 receiveShadow
             >
@@ -932,7 +978,11 @@ export function Room(props: any) {
                 material={materials.White}
                 position={[-1.384, 0.907, 1.988]}
                 rotation={[0, -0.603, -Math.PI / 2]}
-                scale={0.034}
+                {...useHoverScale({
+                    hoverScale: 0.039,
+                    normalScale: 0.034,
+                    speed: 0.3,
+                })}
                 castShadow
                 receiveShadow
             >
@@ -1176,9 +1226,9 @@ export function Room(props: any) {
                 geometry={nodes["cookie-plate"].geometry}
                 material={materials.White}
                 position={[1.486, 1.532, -1.954]}
-                scale={0.169}
                 castShadow
                 receiveShadow
+                {...useHoverScale({ hoverScale: 0.18, normalScale: 0.169 })}
             >
                 <mesh
                     geometry={nodes.cookie.geometry}
@@ -1239,9 +1289,9 @@ export function Room(props: any) {
                 geometry={nodes.cupboard.geometry}
                 material={materials.shelves}
                 position={[1.66, 1.465, -1.979]}
-                scale={0.401}
                 castShadow
                 receiveShadow
+                {...useHoverScale({ hoverScale: 0.421, normalScale: 0.401 })}
             >
                 <mesh
                     geometry={nodes["drawer-cover"].geometry}
@@ -1285,9 +1335,9 @@ export function Room(props: any) {
                 material={materials.candle}
                 position={[-0.811, 0.745, -1.966]}
                 rotation={[0, 1.235, 0]}
-                scale={0.134}
                 castShadow
                 receiveShadow
+                {...useHoverScale({ hoverScale: 0.148, normalScale: 0.134 })}
             >
                 <mesh
                     geometry={nodes["gift-square-bottom-bow"].geometry}
@@ -1330,7 +1380,7 @@ export function Room(props: any) {
                 material={materials.gramophone}
                 position={[-0.903, 0.709, -1.476]}
                 rotation={[0, 0.455, 0]}
-                scale={0.096}
+                {...useHoverScale({ hoverScale: 0.116, normalScale: 0.096 })}
                 castShadow
                 receiveShadow
             >
@@ -1373,7 +1423,7 @@ export function Room(props: any) {
                 geometry={nodes["gift-round"].geometry}
                 material={materials.wood2}
                 position={[-1.288, 0.614, -0.979]}
-                scale={0.19}
+                {...useHoverScale({ hoverScale: 0.21, normalScale: 0.19 })}
                 castShadow
                 receiveShadow
             >
