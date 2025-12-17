@@ -1,19 +1,23 @@
-import { useFrame } from "@react-three/fiber";
+import { useFrame, useThree } from "@react-three/fiber";
 import { useEffect, useRef } from "react";
 import { useDeviceType } from "../utils/useDeviceType";
 import { Environment } from "@react-three/drei/core/Environment";
 import Room from "./Room";
 import { Stats } from "@react-three/drei/core/Stats";
 import { OrthographicCamera } from "@react-three/drei/core/OrthographicCamera";
-import { Group } from "three";
+import { Group, Vector3 } from "three";
 
 const Scene = () => {
     /* const controlsRef = useRef(null); */
     const groupRef = useRef<Group>(null);
-    /* const { camera } = useThree(); */
-    const mousePosition = useRef({ x: 0, y: 0 });
-    const touchPosition = useRef({ x: 0, y: 0 });
+    const { camera } = useThree();
+    const inputPosition = useRef({ x: 0, y: 0 });
+    const isUsingTouch = useRef(false);
     const { isMobile, isTablet } = useDeviceType();
+    
+    // Store the initial camera position
+    const initialCameraPosition = useRef(new Vector3(9, 8, 9));
+    const targetPosition = useRef(new Vector3(9, 8, 9));
     /* 
     useEffect(() => {
         const handleKeyPress = (e: KeyboardEvent) => {
@@ -34,41 +38,62 @@ const Scene = () => {
     }, [camera]); */
 
     useEffect(() => {
-        const handleMouseMove = (e: MouseEvent) => {
-            // Normalize mouse position to -1 to 1 range
-            mousePosition.current.x = (e.clientX / window.innerWidth) * 2 - 1;
-            mousePosition.current.y = -(e.clientY / window.innerHeight) * 2 + 1;
-        };
-
-        const handleTouchMove = (e: TouchEvent) => {
-            if (e.touches.length > 0) {
-                const touch = e.touches[0];
-                touchPosition.current.x =
-                    (touch.clientX / window.innerWidth) * 2 - 1;
-                touchPosition.current.y =
-                    -(touch.clientY / window.innerHeight) * 2 + 1;
+        const handlePointerMove = (e: MouseEvent | TouchEvent) => {
+            let clientX: number, clientY: number;
+            
+            if (e instanceof TouchEvent) {
+                isUsingTouch.current = true;
+                if (e.touches.length > 0) {
+                    clientX = e.touches[0].clientX;
+                    clientY = e.touches[0].clientY;
+                } else {
+                    return;
+                }
+            } else {
+                isUsingTouch.current = false;
+                clientX = e.clientX;
+                clientY = e.clientY;
             }
+            
+            // Normalize position to -1 to 1 range
+            inputPosition.current.x = (clientX / window.innerWidth) * 2 - 1;
+            inputPosition.current.y = -(clientY / window.innerHeight) * 2 + 1;
         };
 
-        window.addEventListener("mousemove", handleMouseMove);
-        window.addEventListener("touchmove", handleTouchMove, {
+        const handleTouchStart = () => {
+            isUsingTouch.current = true;
+        };
+
+        window.addEventListener("mousemove", handlePointerMove as EventListener);
+        window.addEventListener("touchstart", handleTouchStart, {
+            passive: true,
+        });
+        window.addEventListener("touchmove", handlePointerMove as EventListener, {
             passive: true,
         });
         return () => {
-            window.removeEventListener("mousemove", handleMouseMove);
-            window.removeEventListener("touchmove", handleTouchMove);
+            window.removeEventListener("mousemove", handlePointerMove as EventListener);
+            window.removeEventListener("touchstart", handleTouchStart);
+            window.removeEventListener("touchmove", handlePointerMove as EventListener);
         };
     }, []);
 
     useFrame(() => {
-        if (groupRef.current) {
-            // Smoothly rotate based on mouse or touch position
-            const position =
-                isMobile || isTablet
-                    ? touchPosition.current
-                    : mousePosition.current;
-            groupRef.current.rotation.y = position.x * (isMobile ? 0.2 : 0.07);
-            /* groupRef.current.rotation.x = position.y * 0.05; */
+        if (camera) {
+            // Smoothly move camera based on input position
+            const angle = inputPosition.current.x * (isUsingTouch.current ? 0.2 : 0.15);
+            
+            targetPosition.current.x = initialCameraPosition.current.x * Math.cos(angle) - 
+                                        initialCameraPosition.current.z * Math.sin(angle);
+            targetPosition.current.z = initialCameraPosition.current.x * Math.sin(angle) + 
+                                        initialCameraPosition.current.z * Math.cos(angle);
+            targetPosition.current.y = initialCameraPosition.current.y;
+            
+            // Smoothly interpolate camera position
+            camera.position.lerp(targetPosition.current, 0.05);
+            
+            // Keep camera looking at the center
+            camera.lookAt(0, 0, 0);
         }
     });
 
@@ -81,18 +106,19 @@ const Scene = () => {
             />
             <directionalLight
                 castShadow
-                intensity={1}
+                intensity={0.5}
                 position={[9, 4, -5]}
                 shadow-bias={-0.00001}
             />
             <OrthographicCamera
-                rotation={[-0.6, 0.7, 0.4]}
                 makeDefault
                 position={[9, 8, 9]}
-                zoom={150}
+                zoom={isMobile ? 60 : isTablet ? 85 : 100}
             />
+            {/* <CameraControls /> */}
+            {/* <OrbitControls /> */}
             <Stats />
-            <group ref={groupRef} scale={1}>
+            <group ref={groupRef} scale={isMobile ? 0.8 : isTablet ? 1 : 1.2} position={[0, -1.5, 0]}>
                 <Room />
             </group>
         </>

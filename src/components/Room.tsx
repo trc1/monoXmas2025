@@ -10,7 +10,7 @@ export function Room(props: any) {
                 geometry={nodes["bottom-plane"].geometry}
                 material={materials.glass}
                 position={[3.348, -0.285, 3.699]}
-                scale={16.924}
+                scale={226.924}
             /> */}
             <mesh
                 castShadow
