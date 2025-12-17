@@ -1,11 +1,16 @@
 import { useGLTF } from "@react-three/drei";
 import { useHoverScale } from "../utils/useHoverScale";
+import { useFireAnimation } from "../utils/useFireAnimation";
 import { roomStore, audioStore } from "../store";
 import { observer } from "mobx-react-lite";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
+import { Mesh } from "three";
 
 export const Room = observer((props: any) => {
     const { nodes, materials } = useGLTF("./models/room.glb") as any;
+    const flameLrgRef = useRef<Mesh>(null);
+    const flameSmlRef = useRef<Mesh>(null);
+    const fireLightRef = useRef<any>(null);
 
     useEffect(() => {
         if (roomStore.gramophone) {
@@ -14,6 +19,8 @@ export const Room = observer((props: any) => {
             audioStore.stopMusic();
         }
     }, [roomStore.gramophone]);
+
+    useFireAnimation(flameLrgRef, flameSmlRef, roomStore.fireplaceOn, fireLightRef);
 
     const handleGramophoneClick = () => {
         roomStore.toggleGramophone();
@@ -593,21 +600,34 @@ export const Room = observer((props: any) => {
                 }}
             />
             {roomStore.fireplaceOn && (
-                <mesh
-                    geometry={nodes["flame-lrg"].geometry}
-                    material={materials.fire}
-                    position={[-2.125, 1.189, -0.076]}
-                    rotation={[Math.PI, -0.593, Math.PI]}
-                    scale={0.187}
-                >
-                    <mesh
-                        geometry={nodes["flame-sml"].geometry}
-                        material={materials.fire}
-                        position={[-0.701, -0.701, 0.498]}
-                        rotation={[-Math.PI, 1.021, -Math.PI]}
-                        scale={0.594}
+                <>
+                    <pointLight
+                        ref={fireLightRef}
+                        position={[-2.125, 1.189, -0.076]}
+                        intensity={3}
+                        distance={5}
+                        decay={2}
+                        color="#ff6600"
+                        castShadow
                     />
-                </mesh>
+                    <mesh
+                        ref={flameLrgRef}
+                        geometry={nodes["flame-lrg"].geometry}
+                        material={materials.fire}
+                        position={[-2.125, 1.189, -0.076]}
+                        rotation={[Math.PI, -0.593, Math.PI]}
+                        scale={0.187}
+                    >
+                        <mesh
+                            ref={flameSmlRef}
+                            geometry={nodes["flame-sml"].geometry}
+                            material={materials.fire}
+                            position={[-0.701, -0.701, 0.498]}
+                            rotation={[-Math.PI, 1.021, -Math.PI]}
+                            scale={0.594}
+                        />
+                    </mesh>
+                </>
             )}
             <mesh
                 castShadow
@@ -1508,8 +1528,8 @@ export const Room = observer((props: any) => {
             <group
                 onClick={(e) => {
                     e.stopPropagation();
-                    roomStore.toggleLamp1();
                     audioStore.playSwitchClick();
+                    roomStore.toggleLamp1();
                 }}
                 onPointerOver={(e) => {
                     e.stopPropagation();
@@ -1551,8 +1571,8 @@ export const Room = observer((props: any) => {
             <group
                 onClick={(e) => {
                     e.stopPropagation();
-                    roomStore.toggleLamp2();
                     audioStore.playSwitchClick();
+                    roomStore.toggleLamp2();
                 }}
                 onPointerOver={(e) => {
                     e.stopPropagation();
