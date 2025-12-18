@@ -18,6 +18,7 @@ export const Admiral = (props: any) => {
     const fireLightRef = useRef<any>(null);
     const vinylRef = useRef<any>(null);
     const vinylLightRef = useRef<any>(null);
+    const doorWingRef = useRef<Mesh>(null);
 
     useEffect(() => {
         if (roomStore.gramophone) {
@@ -34,15 +35,13 @@ export const Admiral = (props: any) => {
         fireLightRef
     );
 
-    // Animate vinyl rotation and movement when gramophone is playing
+    // Animate vinyl and door
     useFrame((state) => {
+        // Vinyl animation
         if (roomStore.gramophone && vinylRef.current) {
-            // Rotation
             vinylRef.current.rotation.y += 0.2;
-            // Subtle up/down bobbing
             vinylRef.current.position.y =
                 -0.665 + Math.sin(state.clock.getElapsedTime() * 1) * 0.01;
-            // Subtle tilt
             vinylRef.current.rotation.x =
                 Math.sin(state.clock.getElapsedTime() * 1) * 0.04;
             vinylRef.current.rotation.z =
@@ -51,13 +50,18 @@ export const Admiral = (props: any) => {
                 vinylLightRef.current.intensity = 0.02;
             }
         } else if (vinylRef.current) {
-            // Reset position and tilt when stopped
             vinylRef.current.position.y = -0.665;
             vinylRef.current.rotation.x = 0;
             vinylRef.current.rotation.z = 0;
             if (vinylLightRef.current) {
                 vinylLightRef.current.intensity = 0.0;
             }
+        }
+        // Door animation
+        if (doorWingRef.current) {
+            const target = roomStore.doorOpen ? -Math.PI / 2 : 0;
+            doorWingRef.current.rotation.z +=
+                (target - doorWingRef.current.rotation.z) * 0.15;
         }
     });
 
@@ -656,12 +660,14 @@ export const Admiral = (props: any) => {
                 scale={0.579}
             />
             <mesh
+                ref={doorWingRef}
                 castShadow
                 receiveShadow
                 geometry={nodes["door-wing"].geometry}
                 material={materials.wood2}
                 position={[-0.516, 1.683, -2.401]}
                 rotation={[Math.PI / 2, 0, 0]}
+                scale={0.487}
                 onClick={(e) => {
                     e.stopPropagation();
                     audioStore.playDoorOpen();
