@@ -292,7 +292,6 @@ export const Admiral = (props: any) => {
                                 : undefined
                         } */
                         position={(() => {
-                            // Extract position from original mesh JSX above
                             const positions = [
                                 [0.076, 1.104, 0.377],
                                 [-0.272, 1.043, 0.301],
@@ -313,7 +312,7 @@ export const Admiral = (props: any) => {
                                 [0.837, -0.913, 0.257],
                                 [0.848, -0.964, -0.33],
                             ];
-                            return positions[i];
+                            return positions[i] as [number, number, number];
                         })()}
                         rotation={(() => {
                             const rotations = [
@@ -336,7 +335,7 @@ export const Admiral = (props: any) => {
                                 [-3.072, 0.413, -0.69],
                                 [-2.8, 0.075, -0.975],
                             ];
-                            return rotations[i];
+                            return rotations[i] as [number, number, number];
                         })()}
                         scale={0.03}
                     >
