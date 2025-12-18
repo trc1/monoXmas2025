@@ -4,7 +4,6 @@ import { useDeviceType } from "../utils/useDeviceType";
 import { Stats } from "@react-three/drei/core/Stats";
 import { OrthographicCamera } from "@react-three/drei/core/OrthographicCamera";
 import { Group, Vector3 } from "three";
-import { roomStore } from "../store";
 import { observer } from "mobx-react-lite";
 import { Admiral } from "./Admiral";
 
