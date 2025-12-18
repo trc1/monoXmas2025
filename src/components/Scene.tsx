@@ -114,7 +114,7 @@ const Scene = () => {
             orthoCam.lookAt(0, 0, 0);
         }
     });
-    const shouldAddLighting = !roomStore.lamp1On && !roomStore.lamp2On;
+    /* const shouldAddLighting = !roomStore.lamp1On && !roomStore.lamp2On; */
     return (
         <>
             {/* {shouldShowEnvironment && (
