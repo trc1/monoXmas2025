@@ -60,7 +60,6 @@ export const Admiral = (props: any) => {
     /*     const handleGramophoneClick = () => {
         roomStore.toggleGramophone();
     }; */
-
     return (
         <group {...props} dispose={null}>
             <mesh
@@ -525,26 +524,52 @@ export const Admiral = (props: any) => {
                     material={materials.ceiling}
                     position={[-0.168, -0.32, -0.105]}
                     rotation={[-2.302, 0.07, 2.395]}
-                    scale={0.062}
+                    {...useHoverScale({
+                        hoverScale: 0.069,
+                        normalScale: 0.062,
+                    })}
+                    onClick={() => {
+                        roomStore.toggleFireplace();
+                        if (roomStore.fireplaceOn) {
+                            audioStore.playFireplaceCrackling();
+                        } else {
+                            audioStore.stopFireplaceCrackling();
+                        }
+                    }}
                 />
-                <mesh
-                    castShadow
-                    receiveShadow
-                    geometry={nodes["flame-lrg"].geometry}
-                    material={materials.fire}
-                    position={[-0.131, -0.037, -0.075]}
-                    rotation={[Math.PI, -0.593, Math.PI]}
-                    scale={0.187}
-                />
-                <mesh
-                    castShadow
-                    receiveShadow
-                    geometry={nodes["flame-sml"].geometry}
-                    material={materials.fire}
-                    position={[-0.074, -0.168, -0.225]}
-                    rotation={[0, -0.428, 0]}
-                    scale={0.111}
-                />
+                {roomStore.fireplaceOn && (
+                    <>
+                        <pointLight
+                            ref={fireLightRef}
+                            position={[-0.131, -0.037, -0.075]}
+                            intensity={3}
+                            distance={5}
+                            decay={2}
+                            color="#ff6600"
+                            castShadow
+                        />
+                        <mesh
+                            ref={flameLrgRef}
+                            castShadow
+                            receiveShadow
+                            geometry={nodes["flame-lrg"].geometry}
+                            material={materials.fire}
+                            position={[-0.131, -0.037, -0.075]}
+                            rotation={[Math.PI, -0.593, Math.PI]}
+                            scale={0.187}
+                        />
+                        <mesh
+                            ref={flameSmlRef}
+                            castShadow
+                            receiveShadow
+                            geometry={nodes["flame-sml"].geometry}
+                            material={materials.fire}
+                            position={[-0.074, -0.168, -0.225]}
+                            rotation={[0, -0.428, 0]}
+                            scale={0.111}
+                        />
+                    </>
+                )}
                 <mesh
                     castShadow
                     receiveShadow
@@ -731,6 +756,7 @@ export const Admiral = (props: any) => {
                     position={[-0.083, -1.244, 0]}
                 />
             </mesh>
+
             <mesh
                 castShadow
                 receiveShadow
@@ -739,10 +765,12 @@ export const Admiral = (props: any) => {
                 position={[0.816, 1.572, 1.735]}
                 onClick={(e) => {
                     e.stopPropagation();
-                    /* audioStore.playVinylNeedleSkip(); */
                     roomStore.toggleGramophone();
                 }}
-                {...useHoverScale({ normalScale: 0.255, hoverScale: 0.265 })}
+                {...useHoverScale({
+                    normalScale: 0.255,
+                    hoverScale: 0.265,
+                })}
             >
                 <mesh
                     castShadow
