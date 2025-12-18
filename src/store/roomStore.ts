@@ -4,8 +4,9 @@ class RoomStore {
     lightsOn = false;
     fireplaceOn = false;
     gramophone = false;
-    lamp1On = true;
-    lamp2On = true;
+    lamp1On = false;
+    lamp2On = false;
+    doorOpen = false;
 
     constructor() {
         makeAutoObservable(this);
@@ -41,6 +42,10 @@ class RoomStore {
 
     toggleGramophone() {
         this.gramophone = !this.gramophone;
+    }
+    
+    toggleDoor() {
+        this.doorOpen = !this.doorOpen;
     }
 }
 

@@ -5,8 +5,12 @@ import { useEffect, useRef } from "react";
 import { roomStore, audioStore } from "../store";
 import { Mesh } from "three";
 import { useHoverScale } from "../utils/useHoverScale";
+import { useRandomBulbStates } from "../utils/useRandomBulbStates";
 
+const BULB_COUNT = 18;
 export const Admiral = (props: any) => {
+    // Random bulb on/off states
+    const bulbs = useRandomBulbStates(BULB_COUNT, 1500, 0.5);
     const { nodes, materials } = useGLTF("./models/admiral.glb") as any;
 
     const flameLrgRef = useRef<Mesh>(null);
@@ -135,7 +139,11 @@ export const Admiral = (props: any) => {
                 material={materials.tree}
                 position={[-1.577, 1.814, -1.564]}
                 rotation={[0, 0.454, 0]}
-                scale={0.67}
+                onClick={(e) => {
+                    e.stopPropagation();
+                    roomStore.toggleLights();
+                }}
+                {...useHoverScale({ hoverScale: 0.69, normalScale: 0.67 })}
             >
                 <mesh
                     geometry={nodes["light-base"].geometry}
@@ -263,132 +271,82 @@ export const Admiral = (props: any) => {
                     rotation={[-2.8, 0.075, -0.975]}
                     scale={0.011}
                 />
-                <mesh
-                    geometry={nodes["light-bulb"].geometry}
-                    material={materials["tree-bulb"]}
-                    position={[0.076, 1.104, 0.377]}
-                    rotation={[2.71, 0.651, -0.37]}
-                    scale={0.03}
-                />
-                <mesh
-                    geometry={nodes["light-bulb001"].geometry}
-                    material={materials["tree-bulb"]}
-                    position={[-0.272, 1.043, 0.301]}
-                    rotation={[2.23, 0.76, 0.449]}
-                    scale={0.03}
-                />
-                <mesh
-                    geometry={nodes["light-bulb002"].geometry}
-                    material={materials["tree-bulb"]}
-                    position={[-0.401, 1.042, -0.072]}
-                    rotation={[1.752, 0.893, 1.491]}
-                    scale={0.03}
-                />
-                <mesh
-                    geometry={nodes["light-bulb003"].geometry}
-                    material={materials["tree-bulb"]}
-                    position={[0.311, 1.154, 0.137]}
-                    rotation={[-2.996, 0.473, -0.508]}
-                    scale={0.03}
-                />
-                <mesh
-                    geometry={nodes["light-bulb004"].geometry}
-                    material={materials["tree-bulb"]}
-                    position={[0.198, 1.158, -0.269]}
-                    rotation={[-2.536, 0.058, -0.499]}
-                    scale={0.03}
-                />
-                <mesh
-                    geometry={nodes["light-bulb005"].geometry}
-                    material={materials["tree-bulb"]}
-                    position={[-0.597, 0.177, -0.012]}
-                    rotation={[1.656, 1.157, 1.654]}
-                    scale={0.03}
-                />
-                <mesh
-                    geometry={nodes["light-bulb006"].geometry}
-                    material={materials["tree-bulb"]}
-                    position={[-0.517, 0.177, 0.312]}
-                    rotation={[2.59, 0.444, 0.511]}
-                    scale={0.03}
-                />
-                <mesh
-                    geometry={nodes["light-bulb007"].geometry}
-                    material={materials["tree-bulb"]}
-                    position={[-0.2, 0.145, 0.595]}
-                    rotation={[2.426, 0.533, 0.266]}
-                    scale={0.03}
-                />
-                <mesh
-                    geometry={nodes["light-bulb008"].geometry}
-                    material={materials["tree-bulb"]}
-                    position={[0.242, 0.078, 0.615]}
-                    rotation={[2.69, 0.654, -0.185]}
-                    scale={0.03}
-                />
-                <mesh
-                    geometry={nodes["light-bulb009"].geometry}
-                    material={materials["tree-bulb"]}
-                    position={[0.597, 0.033, 0.329]}
-                    rotation={[-3.068, 0.637, -0.701]}
-                    scale={0.03}
-                />
-                <mesh
-                    geometry={nodes["light-bulb010"].geometry}
-                    material={materials["tree-bulb"]}
-                    position={[0.612, 0.072, -0.247]}
-                    rotation={[-2.306, 0.07, -0.779]}
-                    scale={0.03}
-                />
-                <mesh
-                    geometry={nodes["light-bulb011"].geometry}
-                    material={materials["tree-bulb"]}
-                    position={[-0.939, -1.054, 0.185]}
-                    rotation={[3.099, -0.188, 0.604]}
-                    scale={0.03}
-                />
-                <mesh
-                    geometry={nodes["light-bulb012"].geometry}
-                    material={materials["tree-bulb"]}
-                    position={[-0.665, -1.044, 0.684]}
-                    rotation={[2.267, 0.532, 0.544]}
-                    scale={0.03}
-                />
-                <mesh
-                    geometry={nodes["light-bulb013"].geometry}
-                    material={materials["tree-bulb"]}
-                    position={[-0.244, -1.06, 0.934]}
-                    rotation={[2.49, 0.645, 0.059]}
-                    scale={0.03}
-                />
-                <mesh
-                    geometry={nodes["light-bulb014"].geometry}
-                    material={materials["tree-bulb"]}
-                    position={[0.204, -1.001, 0.929]}
-                    rotation={[2.813, 0.617, -0.398]}
-                    scale={0.03}
-                />
-                <mesh
-                    geometry={nodes["light-bulb015"].geometry}
-                    material={materials["tree-bulb"]}
-                    position={[0.576, -0.939, 0.685]}
-                    rotation={[3, 0.487, -0.48]}
-                    scale={0.03}
-                />
-                <mesh
-                    geometry={nodes["light-bulb016"].geometry}
-                    material={materials["tree-bulb"]}
-                    position={[0.837, -0.913, 0.257]}
-                    rotation={[-3.072, 0.413, -0.69]}
-                    scale={0.03}
-                />
-                <mesh
-                    geometry={nodes["light-bulb017"].geometry}
-                    material={materials["tree-bulb"]}
-                    position={[0.848, -0.964, -0.33]}
-                    rotation={[-2.8, 0.075, -0.975]}
-                    scale={0.03}
-                />
+                {/* Tree bulbs with random on/off states */}
+                {Array.from({ length: BULB_COUNT }).map((_, i) => (
+                    <mesh
+                        key={i}
+                        geometry={
+                            nodes[
+                                `light-bulb${
+                                    i === 0 ? "" : String(i).padStart(3, "0")
+                                }`
+                            ].geometry
+                        }
+                        /* material={
+                            !roomStore.lightsOn
+                                ? materials["tree-bulb"]
+                                : undefined
+                        } */
+                        position={(() => {
+                            // Extract position from original mesh JSX above
+                            const positions = [
+                                [0.076, 1.104, 0.377],
+                                [-0.272, 1.043, 0.301],
+                                [-0.401, 1.042, -0.072],
+                                [0.311, 1.154, 0.137],
+                                [0.198, 1.158, -0.269],
+                                [-0.597, 0.177, -0.012],
+                                [-0.517, 0.177, 0.312],
+                                [-0.2, 0.145, 0.595],
+                                [0.242, 0.078, 0.615],
+                                [0.597, 0.033, 0.329],
+                                [0.612, 0.072, -0.247],
+                                [-0.939, -1.054, 0.185],
+                                [-0.665, -1.044, 0.684],
+                                [-0.244, -1.06, 0.934],
+                                [0.204, -1.001, 0.929],
+                                [0.576, -0.939, 0.685],
+                                [0.837, -0.913, 0.257],
+                                [0.848, -0.964, -0.33],
+                            ];
+                            return positions[i];
+                        })()}
+                        rotation={(() => {
+                            const rotations = [
+                                [2.71, 0.651, -0.37],
+                                [2.23, 0.76, 0.449],
+                                [1.752, 0.893, 1.491],
+                                [-2.996, 0.473, -0.508],
+                                [-2.536, 0.058, -0.499],
+                                [1.656, 1.157, 1.654],
+                                [2.59, 0.444, 0.511],
+                                [2.426, 0.533, 0.266],
+                                [2.69, 0.654, -0.185],
+                                [-3.068, 0.637, -0.701],
+                                [-2.306, 0.07, -0.779],
+                                [3.099, -0.188, 0.604],
+                                [2.267, 0.532, 0.544],
+                                [2.49, 0.645, 0.059],
+                                [2.813, 0.617, -0.398],
+                                [3, 0.487, -0.48],
+                                [-3.072, 0.413, -0.69],
+                                [-2.8, 0.075, -0.975],
+                            ];
+                            return rotations[i];
+                        })()}
+                        scale={0.03}
+                    >
+                        <meshStandardMaterial color="#f2f2f2" emissive={3} />
+                        {roomStore.lightsOn && bulbs[i].on && (
+                            <pointLight
+                                intensity={1}
+                                color={bulbs[i].color}
+                                distance={1}
+                                decay={1}
+                            />
+                        )}
+                    </mesh>
+                ))}
                 <mesh
                     geometry={nodes.trunk.geometry}
                     material={materials.shelves}
@@ -704,7 +662,11 @@ export const Admiral = (props: any) => {
                 material={materials.wood2}
                 position={[-0.516, 1.683, -2.401]}
                 rotation={[Math.PI / 2, 0, 0]}
-                scale={0.487}
+                onClick={(e) => {
+                    e.stopPropagation();
+                    audioStore.playDoorOpen();
+                    roomStore.toggleDoor();
+                }}
             >
                 <mesh
                     castShadow
@@ -1492,20 +1454,22 @@ export const Admiral = (props: any) => {
                 position={[-1.928, 2.239, 1.601]}
                 castShadow
                 receiveShadow
-                onClick={() => roomStore.toggleLamp2()}
+                onClick={(e) => {
+                    e.stopPropagation();
+                    audioStore.playSwitchClick();
+                    roomStore.toggleLamp2();
+                }}
                 {...useHoverScale({
                     normalScale: 0.197,
                     hoverScale: 0.205,
                 })}
             >
-                {roomStore.lamp2On && (
-                    <pointLight
-                        intensity={0.5}
-                        color="#ffee00"
-                        distance={5}
-                        decay={0.5}
-                    />
-                )}
+                <pointLight
+                    intensity={roomStore.lamp2On ? 1.5 : 0.5}
+                    color="#dddddd"
+                    distance={5}
+                    decay={0.5}
+                />
             </mesh>
             <mesh
                 geometry={nodes["lamp-leg001"].geometry}
@@ -1524,20 +1488,22 @@ export const Admiral = (props: any) => {
                 rotation={[0, -Math.PI / 2, 0]}
                 castShadow
                 receiveShadow
-                onClick={() => roomStore.toggleLamp1()}
+                onClick={(e) => {
+                    e.stopPropagation();
+                    audioStore.playSwitchClick();
+                    roomStore.toggleLamp1();
+                }}
                 {...useHoverScale({
                     normalScale: 0.197,
                     hoverScale: 0.205,
                 })}
             >
-                {roomStore.lamp1On && (
-                    <pointLight
-                        intensity={0.5}
-                        color="#ffee00"
-                        distance={5}
-                        decay={0.5}
-                    />
-                )}
+                <pointLight
+                    intensity={roomStore.lamp1On ? 1.5 : 0.5}
+                    color="#dddddd"
+                    distance={5}
+                    decay={0.5}
+                />
             </mesh>
         </group>
     );
