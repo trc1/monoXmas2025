@@ -3,9 +3,20 @@ let currentSrc: string | null = null;
 let onEndedCallback: (() => void) | null = null;
 const ambientSounds: Map<string, HTMLAudioElement> = new Map();
 
-export const play = (src: string, volume: number = 0.5, shouldLoop: boolean = false) => {
-    console.log("AudioManager play called with:", src, "volume:", volume, "loop:", shouldLoop);
-    
+export const play = (
+    src: string,
+    volume: number = 0.5,
+    shouldLoop: boolean = false
+) => {
+    console.log(
+        "AudioManager play called with:",
+        src,
+        "volume:",
+        volume,
+        "loop:",
+        shouldLoop
+    );
+
     // If already playing this track, just resume
     if (audioElement && currentSrc === src) {
         audioElement.play();
@@ -23,7 +34,7 @@ export const play = (src: string, volume: number = 0.5, shouldLoop: boolean = fa
 
     // Add ended listener if callback is set
     if (onEndedCallback && !shouldLoop) {
-        audioElement.addEventListener('ended', onEndedCallback);
+        audioElement.addEventListener("ended", onEndedCallback);
     }
 
     audioElement.play().catch((error) => {
@@ -35,20 +46,27 @@ export const setOnEnded = (callback: (() => void) | null) => {
     onEndedCallback = callback;
 };
 
-export const playAmbient = (id: string, src: string, volume: number = 0.5) => {
+export const playAmbient = (
+    id: string,
+    src: string,
+    volume: number = 0.5,
+    loop: boolean = true
+) => {
     // Check if already playing
+
     if (ambientSounds.has(id)) {
-        return;
+        return ambientSounds.get(id);
     }
 
     const ambient = new Audio(src);
-    ambient.loop = true;
+    ambient.loop = loop;
     ambient.volume = volume;
     ambientSounds.set(id, ambient);
 
     ambient.play().catch((error) => {
         console.error("Error playing ambient sound:", error);
     });
+    return ambient;
 };
 
 export const stopAmbient = (id: string) => {

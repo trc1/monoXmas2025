@@ -23,6 +23,7 @@ class AudioStore {
     musicVolume = 0.5;
     sfxVolume = 0.7;
     isMuted = false;
+    isNeedleSkipInProgress = false;
 
     constructor() {
         makeAutoObservable(this);
@@ -52,9 +53,33 @@ class AudioStore {
     }
 
     stopMusic() {
-        this.isMusicPlaying = false;
-        this.currentTrack = null;
-        audioManager.stop();
+        // Play vinyl needle skip SFX before stopping music
+        this.isNeedleSkipInProgress = true;
+        audioManager.stopAmbient("vinylNeedleSkip");
+        const audio = audioManager.playAmbient(
+            "vinylNeedleSkip",
+            SFX.VINYL_NEEDLE_SKIP,
+            this.sfxVolume,
+            false
+        );
+        if (audio) {
+            audio.onended = null;
+            audio.addEventListener(
+                "ended",
+                () => {
+                    this.isNeedleSkipInProgress = false;
+                    this.isMusicPlaying = false;
+                    this.currentTrack = null;
+                    audioManager.stop();
+                },
+                { once: true }
+            );
+        } else {
+            this.isNeedleSkipInProgress = false;
+            this.isMusicPlaying = false;
+            this.currentTrack = null;
+            audioManager.stop();
+        }
     }
 
     toggleMusic() {
@@ -111,8 +136,31 @@ class AudioStore {
         this.playSoundEffect(SFX.SWITCH_CLICK);
     }
 
-    playVinylNeedleSkip() {
-        this.playSoundEffect(SFX.VINYL_NEEDLE_SKIP);
+    playVinylNeedleSkipAndNext() {
+        this.isNeedleSkipInProgress = true;
+        // Stop any previous SFX and clean up
+        audioManager.stopAmbient("vinylNeedleSkip");
+        const audio = audioManager.playAmbient(
+            "vinylNeedleSkip",
+            SFX.VINYL_NEEDLE_SKIP,
+            this.sfxVolume,
+            false
+        );
+        if (audio) {
+            // Remove any previous 'ended' listeners (in case)
+            audio.onended = null;
+            audio.addEventListener(
+                "ended",
+                () => {
+                    this.isNeedleSkipInProgress = false;
+                    this.playNextSong();
+                },
+                { once: true }
+            );
+        } else {
+            this.isNeedleSkipInProgress = false;
+            this.playNextSong();
+        }
     }
 
     playXmasBells() {

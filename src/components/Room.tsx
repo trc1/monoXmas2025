@@ -5,12 +5,15 @@ import { roomStore, audioStore } from "../store";
 import { observer } from "mobx-react-lite";
 import { useEffect, useRef } from "react";
 import { Mesh } from "three";
+import { useFrame } from "@react-three/fiber";
 
 export const Room = observer((props: any) => {
     const { nodes, materials } = useGLTF("./models/room.glb") as any;
     const flameLrgRef = useRef<Mesh>(null);
     const flameSmlRef = useRef<Mesh>(null);
     const fireLightRef = useRef<any>(null);
+    const vinylRef = useRef<any>(null);
+    const vinylLightRef = useRef<any>(null);
 
     useEffect(() => {
         if (roomStore.gramophone) {
@@ -20,7 +23,36 @@ export const Room = observer((props: any) => {
         }
     }, [roomStore.gramophone]);
 
-    useFireAnimation(flameLrgRef, flameSmlRef, roomStore.fireplaceOn, fireLightRef);
+    useFireAnimation(
+        flameLrgRef,
+        flameSmlRef,
+        roomStore.fireplaceOn,
+        fireLightRef
+    );
+
+    // Animate vinyl rotation and movement when gramophone is playing
+    useFrame((state) => {
+        if (roomStore.gramophone && vinylRef.current) {
+            // Rotation
+            vinylRef.current.rotation.y += 0.01;
+            // Subtle up/down bobbing
+            vinylRef.current.position.y = 1.402 + Math.sin(state.clock.getElapsedTime() * 1) * 0.01;
+            // Subtle tilt
+            vinylRef.current.rotation.x = Math.sin(state.clock.getElapsedTime() * 1) * 0.04;
+            vinylRef.current.rotation.z = Math.cos(state.clock.getElapsedTime() * 1) * 0.03;
+            if (vinylLightRef.current) {
+                vinylLightRef.current.intensity = 0.01;
+            }
+        } else if (vinylRef.current) {
+            // Reset position and tilt when stopped
+            vinylRef.current.position.y = 1.402;
+            vinylRef.current.rotation.x = 0;
+            vinylRef.current.rotation.z = 0;
+            if (vinylLightRef.current) {
+                vinylLightRef.current.intensity = 0.02;
+            }
+        }
+    });
 
     const handleGramophoneClick = () => {
         roomStore.toggleGramophone();
@@ -73,6 +105,7 @@ export const Room = observer((props: any) => {
                     receiveShadow
                 />
                 <mesh
+                    ref={vinylRef}
                     geometry={nodes.vinyl.geometry}
                     material={materials.vinyl}
                     position={[0.856, 1.402, 1.713]}
@@ -80,6 +113,16 @@ export const Room = observer((props: any) => {
                     castShadow
                     receiveShadow
                 >
+                    {/* Vinyl highlight light */}
+                    <pointLight
+                        ref={vinylLightRef}
+                        position={[0, 0.1, 0]}
+                        intensity={0}
+                        distance={0.4}
+                        color={"#fffbe6"}
+                        decay={2}
+                        castShadow={false}
+                    />
                     <mesh
                         geometry={nodes["vinyl-cylinder"].geometry}
                         material={nodes["vinyl-cylinder"].material}

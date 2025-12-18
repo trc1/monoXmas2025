@@ -1,4 +1,4 @@
-import { useFrame, useThree } from "@react-three/fiber";
+import { useFrame } from "@react-three/fiber";
 import { useEffect, useRef } from "react";
 import { useDeviceType } from "../utils/useDeviceType";
 import { Environment } from "@react-three/drei/core/Environment";
@@ -7,18 +7,19 @@ import { Stats } from "@react-three/drei/core/Stats";
 import { OrthographicCamera } from "@react-three/drei/core/OrthographicCamera";
 import { Group, Vector3 } from "three";
 import { roomStore } from "../store";
+import { Admiral } from "./Admiral";
 
 const Scene = () => {
     /* const controlsRef = useRef(null); */
     const groupRef = useRef<Group>(null);
-    const { camera } = useThree();
     const inputPosition = useRef({ x: 0, y: 0 });
     const isUsingTouch = useRef(false);
     const { isMobile, isTablet } = useDeviceType();
+    const orthographicCameraRef = useRef<any>(null);
 
     // Store the initial camera position
-    const initialCameraPosition = useRef(new Vector3(9, 8, 9));
-    const targetPosition = useRef(new Vector3(9, 8, 9));
+    const initialCameraPosition = useRef(new Vector3(9, 6, 9));
+    const targetPosition = useRef(new Vector3(9, 3, 9));
     /* 
     useEffect(() => {
         const handleKeyPress = (e: KeyboardEvent) => {
@@ -93,7 +94,8 @@ const Scene = () => {
     }, []);
 
     useFrame(() => {
-        if (camera) {
+        const orthoCam = orthographicCameraRef.current;
+        if (orthoCam) {
             // Smoothly move camera based on input position
             const angle =
                 inputPosition.current.x * (isUsingTouch.current ? 0.2 : 0.15);
@@ -107,10 +109,10 @@ const Scene = () => {
             targetPosition.current.y = initialCameraPosition.current.y;
 
             // Smoothly interpolate camera position
-            camera.position.lerp(targetPosition.current, 0.05);
+            orthoCam.position.lerp(targetPosition.current, 0.05);
 
             // Keep camera looking at the center
-            camera.lookAt(0, 0, 0);
+            orthoCam.lookAt(0, 0, 0);
         }
     });
 
@@ -118,30 +120,31 @@ const Scene = () => {
     return (
         <>
             <Environment
-                backgroundIntensity={0.4}
-                environmentIntensity={0.2}
-                files="test.hdr"
+                backgroundIntensity={0.5}
+                environmentIntensity={0.3}
+                files="environment/environment.hdr"
             />
             <directionalLight
                 castShadow
-                intensity={roomStore.lightsOn ? 0.5 : 0.8}
+                intensity={1.5}
                 position={[9, 4, -5]}
                 shadow-bias={-0.00001}
             />
             <OrthographicCamera
+                ref={orthographicCameraRef}
                 makeDefault
-                position={[9, 8, 9]}
-                zoom={isMobile ? 60 : isTablet ? 85 : 100}
+                position={[9, 5, 9]}
+                zoom={isMobile ? 70 : isTablet ? 100 : 140}
             />
             {/* <CameraControls /> */}
             {/* <OrbitControls /> */}
             <Stats />
             <group
                 ref={groupRef}
-                scale={isMobile ? 0.8 : isTablet ? 1 : 1.2}
+                scale={isMobile ? 0.8 : isTablet ? 1 : 1}
                 position={[0, -1.5, 0]}
             >
-                <Room />
+                <Admiral />
             </group>
         </>
     );
