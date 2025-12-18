@@ -6,6 +6,7 @@ import { Stats } from "@react-three/drei/core/Stats";
 import { OrthographicCamera } from "@react-three/drei/core/OrthographicCamera";
 import { Group, Vector3 } from "three";
 import { roomStore } from "../store";
+import { observer } from "mobx-react-lite";
 import { Admiral } from "./Admiral";
 
 const Scene = () => {
@@ -114,20 +115,22 @@ const Scene = () => {
             orthoCam.lookAt(0, 0, 0);
         }
     });
-
-    console.log("Room Store State:", roomStore);
+    /* const shouldShowEnvironment = roomStore.lamp1On && roomStore.lamp2On; */
     return (
         <>
-            <Environment
-                backgroundIntensity={0.5}
-                environmentIntensity={0.3}
-                files="environment/environment.hdr"
-            />
+            {/* {shouldShowEnvironment && (
+                <Environment
+                    backgroundIntensity={0.5}
+                    environmentIntensity={0.3}
+                    files="environment/environment.hdr"
+                />
+            )} */}
             <directionalLight
                 castShadow
-                intensity={1.5}
+                intensity={roomStore.fireplaceOn ? 1.5 : 0.8}
                 position={[9, 4, -5]}
                 shadow-bias={-0.00001}
+                color="#bdbdbd"
             />
             <OrthographicCamera
                 ref={orthographicCameraRef}
@@ -149,4 +152,4 @@ const Scene = () => {
     );
 };
 
-export default Scene;
+export default observer(Scene);

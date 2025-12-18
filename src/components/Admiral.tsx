@@ -1490,10 +1490,23 @@ export const Admiral = (props: any) => {
                 geometry={nodes["lamp-shade"].geometry}
                 material={materials.lamp}
                 position={[-1.928, 2.239, 1.601]}
-                scale={0.197}
                 castShadow
                 receiveShadow
-            />
+                onClick={() => roomStore.toggleLamp2()}
+                {...useHoverScale({
+                    normalScale: 0.197,
+                    hoverScale: 0.205,
+                })}
+            >
+                {roomStore.lamp2On && (
+                    <pointLight
+                        intensity={0.5}
+                        color="#ffee00"
+                        distance={5}
+                        decay={0.5}
+                    />
+                )}
+            </mesh>
             <mesh
                 geometry={nodes["lamp-leg001"].geometry}
                 material={materials.metal}
@@ -1503,15 +1516,29 @@ export const Admiral = (props: any) => {
                 castShadow
                 receiveShadow
             />
+
             <mesh
                 geometry={nodes["lamp-shade001"].geometry}
                 material={materials.lamp}
                 position={[1.672, 2.239, -1.927]}
                 rotation={[0, -Math.PI / 2, 0]}
-                scale={0.197}
                 castShadow
                 receiveShadow
-            />
+                onClick={() => roomStore.toggleLamp1()}
+                {...useHoverScale({
+                    normalScale: 0.197,
+                    hoverScale: 0.205,
+                })}
+            >
+                {roomStore.lamp1On && (
+                    <pointLight
+                        intensity={0.5}
+                        color="#ffee00"
+                        distance={5}
+                        decay={0.5}
+                    />
+                )}
+            </mesh>
         </group>
     );
 };
