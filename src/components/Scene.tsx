@@ -1,7 +1,6 @@
 import { useFrame } from "@react-three/fiber";
 import { useEffect, useRef } from "react";
 import { useDeviceType } from "../utils/useDeviceType";
-import { Environment } from "@react-three/drei/core/Environment";
 import { Stats } from "@react-three/drei/core/Stats";
 import { OrthographicCamera } from "@react-three/drei/core/OrthographicCamera";
 import { Group, Vector3 } from "three";
