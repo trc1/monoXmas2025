@@ -114,7 +114,7 @@ const Scene = () => {
             orthoCam.lookAt(0, 0, 0);
         }
     });
-    /* const shouldShowEnvironment = roomStore.lamp1On && roomStore.lamp2On; */
+    const shouldAddLighting = !roomStore.lamp1On && !roomStore.lamp2On;
     return (
         <>
             {/* {shouldShowEnvironment && (
@@ -126,10 +126,10 @@ const Scene = () => {
             )} */}
             <directionalLight
                 castShadow
-                intensity={roomStore.fireplaceOn ? 1.5 : 0.8}
+                intensity={0.2}
                 position={[9, 4, -5]}
                 shadow-bias={-0.00001}
-                color="#bdbdbd"
+                color="#a0a0a0"
             />
             <OrthographicCamera
                 ref={orthographicCameraRef}
