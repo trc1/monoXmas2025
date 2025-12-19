@@ -8,7 +8,7 @@ import { useHoverScale } from "../utils/useHoverScale";
 import { useRandomBulbStates } from "../utils/useRandomBulbStates";
 
 const BULB_COUNT = 18;
-export const Admiral = (props: any) => {
+export const Admiral = () => {
     const { nodes, materials } = useGLTF("./models/admiral.glb") as any;
 
     const flameLrgRef = useRef<Mesh>(null);
@@ -17,7 +17,11 @@ export const Admiral = (props: any) => {
     const vinylRef = useRef<any>(null);
     const vinylLightRef = useRef<any>(null);
     const doorWingRef = useRef<Mesh>(null);
-    const bulbs = useRandomBulbStates(BULB_COUNT, 1500, 0.5);
+    const [bulbs, toggleBulbs, allLightsOn] = useRandomBulbStates(BULB_COUNT);
+    // Add click handler for bulbs
+    const handleBulbsClick = () => {
+        toggleBulbs();
+    };
 
     /*     useEffect(() => {
         if (roomStore.gramophone) {
@@ -68,7 +72,7 @@ export const Admiral = (props: any) => {
         roomStore.toggleGramophone();
     }; */
     return (
-        <group {...props} dispose={null}>
+        <group dispose={null}>
             <mesh
                 /* receiveShadow */
                 geometry={nodes["bottom-plane"].geometry}
@@ -95,10 +99,10 @@ export const Admiral = (props: any) => {
             >
                 <meshStandardMaterial
                     color="#d1bf21"
-                    emissive={roomStore.lightsOn ? "#d1bf21" : "#000000"}
-                    emissiveIntensity={roomStore.lightsOn ? 1 : 0}
+                    emissive={allLightsOn ? "#d1bf21" : "#000000"}
+                    emissiveIntensity={allLightsOn ? 1 : 0}
                 />
-                {roomStore.lightsOn && (
+                {allLightsOn && (
                     <pointLight
                         intensity={2}
                         color="#d1bf21"
@@ -156,10 +160,7 @@ export const Admiral = (props: any) => {
                 material={materials.tree}
                 position={[-1.577, 1.814, -1.564]}
                 rotation={[0, 0.454, 0]}
-                onClick={(e) => {
-                    e.stopPropagation();
-                    roomStore.toggleLights();
-                }}
+                onClick={handleBulbsClick}
                 {...useHoverScale({ hoverScale: 0.67, normalScale: 0.67 })}
             >
                 <mesh
@@ -299,11 +300,6 @@ export const Admiral = (props: any) => {
                                 }`
                             ].geometry
                         }
-                        /* material={
-                            !roomStore.lightsOn
-                                ? materials["tree-bulb"]
-                                : undefined
-                        } */
                         position={(() => {
                             const positions = [
                                 [0.076, 1.104, 0.377],
@@ -352,8 +348,12 @@ export const Admiral = (props: any) => {
                         })()}
                         scale={0.03}
                     >
-                        <meshStandardMaterial color="#f2f2f2" emissive={3} />
-                        {roomStore.lightsOn && bulbs[i].on && (
+                        <meshStandardMaterial
+                            color="#f2f2f2"
+                            emissive={bulbs[i].on ? bulbs[i].color : "#000"}
+                            emissiveIntensity={bulbs[i].on ? 1 : 0.1}
+                        />
+                        {bulbs[i].on && (
                             <pointLight
                                 intensity={1}
                                 color={bulbs[i].color}
