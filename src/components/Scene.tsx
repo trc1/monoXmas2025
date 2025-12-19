@@ -125,11 +125,12 @@ const Scene = () => {
             )} */}
             <directionalLight
                 castShadow
-                intensity={0.2}
+                intensity={1}
                 position={[9, 4, -5]}
                 shadow-bias={-0.00001}
-                color="#a0a0a0"
+                color="#ffffff"
             />
+            <ambientLight intensity={0.3} color="#d1cfcf" />
             <OrthographicCamera
                 ref={orthographicCameraRef}
                 makeDefault
