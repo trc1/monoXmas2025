@@ -1,7 +1,7 @@
 import { useGLTF } from "@react-three/drei";
 import { useFrame } from "@react-three/fiber";
 import { useFireAnimation } from "../utils/useFireAnimation";
-import { useEffect, useRef } from "react";
+import { useRef } from "react";
 import { roomStore, audioStore } from "../store";
 import { Mesh } from "three";
 import { useHoverScale } from "../utils/useHoverScale";
@@ -9,8 +9,6 @@ import { useRandomBulbStates } from "../utils/useRandomBulbStates";
 
 const BULB_COUNT = 18;
 export const Admiral = (props: any) => {
-    // Random bulb on/off states
-    const bulbs = useRandomBulbStates(BULB_COUNT, 1500, 0.5);
     const { nodes, materials } = useGLTF("./models/admiral.glb") as any;
 
     const flameLrgRef = useRef<Mesh>(null);
@@ -19,14 +17,15 @@ export const Admiral = (props: any) => {
     const vinylRef = useRef<any>(null);
     const vinylLightRef = useRef<any>(null);
     const doorWingRef = useRef<Mesh>(null);
+    const bulbs = useRandomBulbStates(BULB_COUNT, 1500, 0.5);
 
-    useEffect(() => {
+    /*     useEffect(() => {
         if (roomStore.gramophone) {
             audioStore.playVinylNeedleSkipAndNext();
         } else {
             audioStore.stopMusic();
         }
-    }, [roomStore.gramophone]);
+    }, [roomStore.gramophone]); */
 
     useFireAnimation(
         flameLrgRef,
@@ -89,11 +88,25 @@ export const Admiral = (props: any) => {
                 castShadow
                 receiveShadow
                 geometry={nodes["mono-logo"].geometry}
-                material={materials.brass}
+                /* material={materials.brass} */
                 position={[-1.583, 3.215, -1.567]}
                 rotation={[Math.PI / 2, 0, -0.768]}
                 scale={0.116}
-            />
+            >
+                <meshStandardMaterial
+                    color="#d1bf21"
+                    emissive={roomStore.lightsOn ? "#d1bf21" : "#000000"}
+                    emissiveIntensity={roomStore.lightsOn ? 1 : 0}
+                />
+                {roomStore.lightsOn && (
+                    <pointLight
+                        intensity={2}
+                        color="#d1bf21"
+                        distance={2}
+                        decay={1}
+                    />
+                )}
+            </mesh>
             <group
                 castShadow
                 receiveShadow
@@ -147,7 +160,7 @@ export const Admiral = (props: any) => {
                     e.stopPropagation();
                     roomStore.toggleLights();
                 }}
-                {...useHoverScale({ hoverScale: 0.69, normalScale: 0.67 })}
+                {...useHoverScale({ hoverScale: 0.67, normalScale: 0.67 })}
             >
                 <mesh
                     geometry={nodes["light-base"].geometry}
@@ -477,6 +490,15 @@ export const Admiral = (props: any) => {
                     material={materials.concrete2}
                     position={[-0.258, 0.527, -0.015]}
                     scale={0.286}
+                    onClick={(e) => {
+                        e.stopPropagation();
+                        roomStore.toggleFireplace();
+                        if (roomStore.fireplaceOn) {
+                            audioStore.playFireplaceCrackling();
+                        } else {
+                            audioStore.stopFireplaceCrackling();
+                        }
+                    }}
                 />
                 <mesh
                     castShadow
@@ -489,7 +511,8 @@ export const Admiral = (props: any) => {
                         hoverScale: 0.069,
                         normalScale: 0.062,
                     })}
-                    onClick={() => {
+                    onClick={(e) => {
+                        e.stopPropagation();
                         roomStore.toggleFireplace();
                         if (roomStore.fireplaceOn) {
                             audioStore.playFireplaceCrackling();
@@ -507,7 +530,6 @@ export const Admiral = (props: any) => {
                             distance={5}
                             decay={2}
                             color="#ff6600"
-                            castShadow
                         />
                         <mesh
                             ref={flameLrgRef}
@@ -733,6 +755,11 @@ export const Admiral = (props: any) => {
                 onClick={(e) => {
                     e.stopPropagation();
                     roomStore.toggleGramophone();
+                    if (roomStore.gramophone) {
+                        audioStore.playVinylNeedleSkipAndNext();
+                    } else {
+                        audioStore.stopMusic();
+                    }
                 }}
                 {...useHoverScale({
                     normalScale: 0.255,
