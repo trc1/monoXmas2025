@@ -4,8 +4,8 @@ class RoomStore {
     lightsOn = false;
     fireplaceOn = false;
     gramophone = false;
-    lamp1On = false;
-    lamp2On = false;
+    lamp1On = true;
+    lamp2On = true;
     doorOpen = false;
     boardAnimationPlaying = true;
     boardClicked = false;
