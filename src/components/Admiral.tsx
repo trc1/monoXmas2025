@@ -82,7 +82,7 @@ export const Admiral = () => {
             />
             <mesh
                 receiveShadow
-                castShadow
+                // castShadow
                 geometry={nodes.rug.geometry}
                 material={materials.carpet}
                 position={[-0.084, 0.622, 0.357]}
@@ -112,8 +112,8 @@ export const Admiral = () => {
                 )}
             </mesh>
             <group
-                castShadow
-                receiveShadow
+                // castShadow
+                // receiveShadow
                 position={[-2.176, 1.847, 0.624]}
                 rotation={[-0.222, 0, 0]}
                 scale={0.003}
@@ -128,6 +128,8 @@ export const Admiral = () => {
                 />
             </group>
             <mesh
+                // castShadow
+                receiveShadow
                 geometry={nodes["floor-boards"].geometry}
                 material={materials.ceiling}
                 position={[0, 2.8, 0]}
@@ -140,14 +142,14 @@ export const Admiral = () => {
                 position={[0, 2.8, 0]}
             />
             <mesh
-                castShadow
+                // castShadow
                 receiveShadow
                 geometry={nodes.ceiling.geometry}
                 material={materials.ceiling}
                 position={[0, 2.8, 0]}
             />
             <mesh
-                castShadow
+                // castShadow
                 receiveShadow
                 geometry={nodes["floor-bottom"].geometry}
                 material={materials.concrete2}
@@ -450,17 +452,17 @@ export const Admiral = () => {
                     scale={0.12}
                 />
                 <mesh
-                    castShadow
-                    receiveShadow
+                    // castShadow
+                    // receiveShadow
                     geometry={nodes["clock-face"].geometry}
-                    material={nodes["clock-face"].material}
+                    material={materials.White}
                     position={[0.349, 0.766, 0.053]}
                     rotation={[Math.PI / 2, Math.PI / 9, -Math.PI / 2]}
                     scale={0.097}
                 />
                 <mesh
-                    castShadow
-                    receiveShadow
+                    // castShadow
+                    // receiveShadow
                     geometry={nodes["clock-rotate"].geometry}
                     material={nodes["clock-rotate"].material}
                     position={[0.282, 0.742, 0.053]}
@@ -468,8 +470,8 @@ export const Admiral = () => {
                     scale={0.002}
                 />
                 <mesh
-                    castShadow
-                    receiveShadow
+                    // castShadow
+                    // receiveShadow
                     geometry={nodes["clock-small"].geometry}
                     material={materials.metal}
                     position={[0.278, 0.741, 0.053]}
@@ -501,7 +503,7 @@ export const Admiral = () => {
                     }}
                 />
                 <mesh
-                    castShadow
+                    // castShadow
                     receiveShadow
                     geometry={nodes.firewood.geometry}
                     material={materials.ceiling}
@@ -554,7 +556,7 @@ export const Admiral = () => {
                     </>
                 )}
                 <mesh
-                    castShadow
+                    // castShadow
                     receiveShadow
                     geometry={nodes["nutcracker-arm-left"].geometry}
                     material={materials.blanket}
@@ -563,7 +565,7 @@ export const Admiral = () => {
                     scale={0.024}
                 />
                 <mesh
-                    castShadow
+                    // castShadow
                     receiveShadow
                     geometry={nodes["nutcracker-arm-right"].geometry}
                     material={materials.blanket}
@@ -581,7 +583,7 @@ export const Admiral = () => {
                     scale={0.024}
                 />
                 <mesh
-                    castShadow
+                    // castShadow
                     receiveShadow
                     geometry={nodes["nutcracker-boot-right"].geometry}
                     material={materials.metal}
@@ -627,7 +629,7 @@ export const Admiral = () => {
                 />
                 <mesh
                     castShadow
-                    receiveShadow
+                    // receiveShadow
                     geometry={nodes["nutcracker-torso"].geometry}
                     material={materials.blanket}
                     position={[0.14, 0.797, -0.649]}
@@ -635,7 +637,7 @@ export const Admiral = () => {
                     scale={0.024}
                 />
                 <mesh
-                    castShadow
+                    // castShadow
                     receiveShadow
                     geometry={nodes["sock-main"].geometry}
                     material={materials.blanket}
@@ -644,7 +646,7 @@ export const Admiral = () => {
                     scale={0.188}
                 />
                 <mesh
-                    castShadow
+                    // castShadow
                     receiveShadow
                     geometry={nodes["sock-main002"].geometry}
                     material={materials.blanket}
@@ -653,19 +655,19 @@ export const Admiral = () => {
                     scale={0.188}
                 />
                 <mesh
-                    castShadow
+                    // castShadow
                     receiveShadow
                     geometry={nodes["sock-top"].geometry}
-                    material={nodes["sock-top"].material}
+                    material={materials.lamp}
                     position={[0.238, 0.58, 0.563]}
                     rotation={[1.232, -0.016, -1.353]}
                     scale={0.102}
                 />
                 <mesh
-                    castShadow
+                    // castShadow
                     receiveShadow
                     geometry={nodes["sock-top002"].geometry}
-                    material={nodes["sock-top002"].material}
+                    material={materials.lamp}
                     position={[0.257, 0.575, -0.439]}
                     rotation={[1.122, 0.185, -1.747]}
                     scale={0.102}
@@ -704,7 +706,7 @@ export const Admiral = () => {
                     scale={0.128}
                 />
                 <mesh
-                    castShadow
+                    // castShadow
                     receiveShadow
                     geometry={nodes["door-window"].geometry}
                     material={materials.glass}
@@ -712,7 +714,7 @@ export const Admiral = () => {
                 />
             </mesh>
             <mesh
-                castShadow
+                // castShadow
                 receiveShadow
                 geometry={nodes["door-floor"].geometry}
                 material={materials.concrete2}
@@ -747,8 +749,8 @@ export const Admiral = () => {
             </mesh>
 
             <mesh
-                castShadow
-                receiveShadow
+                // castShadow
+                // receiveShadow
                 geometry={nodes["gramophone-base"].geometry}
                 material={materials.gramophone}
                 position={[0.816, 1.572, 1.735]}
@@ -767,8 +769,8 @@ export const Admiral = () => {
                 })}
             >
                 <mesh
-                    castShadow
-                    receiveShadow
+                    // castShadow
+                    // receiveShadow
                     geometry={nodes["grampohone-speaker"].geometry}
                     material={materials.brass}
                     position={[-0.144, 0.682, 0.029]}
@@ -776,8 +778,8 @@ export const Admiral = () => {
                     scale={1.093}
                 >
                     <mesh
-                        castShadow
-                        receiveShadow
+                        // castShadow
+                        // receiveShadow
                         geometry={nodes["speaker-in"].geometry}
                         material={materials.brass2}
                         position={[1.032, 1.177, 0.003]}
@@ -789,8 +791,8 @@ export const Admiral = () => {
                     position={[-1.064, -0.569, 0.584]}
                     rotation={[0, -0.545, 0]}
                     scale={0.044}
-                    castShadow
-                    receiveShadow
+                    // castShadow
+                    // receiveShadow
                 >
                     <mesh
                         geometry={nodes.Cylinder004.geometry}
@@ -810,8 +812,8 @@ export const Admiral = () => {
                     scale={3.92}
                 />
                 <mesh
-                    castShadow
-                    receiveShadow
+                    // castShadow
+                    // receiveShadow
                     geometry={nodes.vinyl.geometry}
                     material={materials.vinyl}
                     position={[0.154, -0.665, -0.086]}
@@ -898,7 +900,7 @@ export const Admiral = () => {
                 />
             </mesh>
             <mesh
-                castShadow
+                // castShadow
                 receiveShadow
                 geometry={nodes["boot-brown-a"].geometry}
                 material={materials.wood2}
@@ -924,7 +926,7 @@ export const Admiral = () => {
                 />
             </mesh>
             <mesh
-                castShadow
+                // castShadow
                 receiveShadow
                 geometry={nodes["boot-brown-b"].geometry}
                 material={materials.wood2}
@@ -1118,7 +1120,7 @@ export const Admiral = () => {
                     position={[-0.582, 0.279, 0.825]}
                     rotation={[Math.PI, -0.29, -Math.PI / 2]}
                     scale={0.046}
-                    castShadow
+                    // castShadow
                     receiveShadow
                 />
             </mesh>
@@ -1137,7 +1139,7 @@ export const Admiral = () => {
                     position={[-2.21, -0.126, 0.044]}
                     rotation={[1.585, 0, 0]}
                     scale={0.03}
-                    castShadow
+                    // castShadow
                     receiveShadow
                 />
             </mesh>
@@ -1199,8 +1201,8 @@ export const Admiral = () => {
                     position={[0.088, 0.032, -0.125]}
                     rotation={[-2.283, -1.391, -2.292]}
                     scale={0.037}
-                    castShadow
-                    receiveShadow
+                    // castShadow
+                    // receiveShadow
                 />
                 <mesh
                     geometry={nodes["board-postit-2"].geometry}
@@ -1208,8 +1210,8 @@ export const Admiral = () => {
                     position={[-0.052, 0.032, -0.128]}
                     rotation={[-2.283, -1.391, -2.292]}
                     scale={0.037}
-                    castShadow
-                    receiveShadow
+                    // castShadow
+                    // receiveShadow
                 />
             </mesh>
             <mesh
@@ -1234,7 +1236,7 @@ export const Admiral = () => {
                         position={[-0.229, 0.058, -0.39]}
                         rotation={[0.16, 0, 0]}
                         scale={0.378}
-                        castShadow
+                        // castShadow
                         receiveShadow
                     >
                         <mesh
@@ -1242,7 +1244,7 @@ export const Admiral = () => {
                             material={materials.ceiling}
                             position={[-0.472, -0.055, -0.442]}
                             scale={0.183}
-                            castShadow
+                            // castShadow
                             receiveShadow
                         />
                     </mesh>
@@ -1252,7 +1254,7 @@ export const Admiral = () => {
                         position={[-0.169, 0.037, 0.382]}
                         rotation={[2.942, 0.642, -3.021]}
                         scale={0.384}
-                        castShadow
+                        // castShadow
                         receiveShadow
                     >
                         <mesh
@@ -1260,7 +1262,7 @@ export const Admiral = () => {
                             material={materials.ceiling}
                             position={[-0.472, -0.055, -0.442]}
                             scale={0.183}
-                            castShadow
+                            // castShadow
                             receiveShadow
                         />
                     </mesh>
@@ -1270,7 +1272,7 @@ export const Admiral = () => {
                         position={[0.599, 0.04, -0.105]}
                         rotation={[0.034, 0.042, 0.256]}
                         scale={0.292}
-                        castShadow
+                        // castShadow
                         receiveShadow
                     >
                         <mesh
@@ -1278,7 +1280,7 @@ export const Admiral = () => {
                             material={materials.ceiling}
                             position={[-0.472, -0.055, -0.442]}
                             scale={0.183}
-                            castShadow
+                            // castShadow
                             receiveShadow
                         />
                     </mesh>

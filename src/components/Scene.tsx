@@ -113,29 +113,60 @@ const Scene = () => {
             orthoCam.lookAt(0, 0, 0);
         }
     });
-    /* const shouldAddLighting = !roomStore.lamp1On && !roomStore.lamp2On; */
     return (
         <>
-            {/* {shouldShowEnvironment && (
-                <Environment
-                    backgroundIntensity={0.5}
-                    environmentIntensity={0.3}
-                    files="environment/environment.hdr"
-                />
-            )} */}
-            <directionalLight
-                castShadow
-                intensity={1}
-                position={[9, 4, -5]}
-                shadow-bias={-0.00001}
-                color="#ffffff"
-            />
-            <ambientLight intensity={0.3} color="#d1cfcf" />
+            {/* =========================================================
+      KEY LIGHT (defines shadow direction & contrast)
+      Shadows now fall LEFT (matches Blender)
+      ========================================================= */}
+  <directionalLight
+    castShadow
+    intensity={1.2}
+    position={[16, 7, 4]}        // RIGHT + FRONT + ABOVE
+    color="#fff8eaff"
+    shadow-bias={-0.00015}
+  />
+
+  {/* =========================================================
+      BOUNCE FILL (fake GI – cheap)
+      Lifts floors & ceilings like Cycles bounce
+      ========================================================= */}
+  <hemisphereLight
+    intensity={0.15}
+    skyColor="#ffffff"
+    groundColor="#c7b299"
+  />
+
+  {/* =========================================================
+      OVERHEAD SOFT FILL (broad plane lift)
+      No shadows → cheap & stable
+      ========================================================= */}
+  <rectAreaLight
+    intensity={0.8}
+    width={8}
+    height={5}
+    position={[0, 6, 1]}
+    rotation={[-Math.PI / 2, 0, 0]}
+    color="#ffffff"
+  />
+
+  {/* =========================================================
+      CAMERA-FACING FILL (foreground rescue)
+      Lifts armchair / gramophone without killing shadows
+      ========================================================= */}
+  <rectAreaLight
+    intensity={1.0}
+    width={3}
+    height={3}
+    position={[2, 2.2, -5.5]}
+    rotation={[0, Math.PI, 0]}   // faces inward
+    color="#fff4e8"
+  />
             <OrthographicCamera
                 ref={orthographicCameraRef}
                 makeDefault
                 position={[9, 5, 9]}
-                zoom={isMobile ? 70 : isTablet ? 100 : 140}
+                zoom={isMobile ? 70 : isTablet ? 100 : 170}
             />
             {/* <CameraControls /> */}
             {/* <OrbitControls /> */}
