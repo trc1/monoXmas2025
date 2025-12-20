@@ -9,25 +9,42 @@ class RoomStore {
     doorOpen = false;
     boardAnimationPlaying = true;
     boardClicked = false;
+    isGameStarted = false;
+    checkList = {
+        lamp1: false,
+        lamp2: false,
+        lights: false,
+        fireplace: false,
+        board: false,
+        gramophone: false,
+    };
 
     constructor() {
         makeAutoObservable(this);
     }
 
+    startGame() {
+        this.isGameStarted = true;
+    }
+
     toggleLights() {
         this.lightsOn = !this.lightsOn;
+        this.checkList.lights = true;
     }
 
     toggleFireplace() {
         this.fireplaceOn = !this.fireplaceOn;
+        this.checkList.fireplace = true;
     }
 
     toggleLamp1() {
         this.lamp1On = !this.lamp1On;
+        this.checkList.lamp1 = true;
     }
 
     toggleLamp2() {
         this.lamp2On = !this.lamp2On;
+        this.checkList.lamp2 = true;
     }
 
     setLights(value: boolean) {
@@ -44,6 +61,7 @@ class RoomStore {
 
     toggleGramophone() {
         this.gramophone = !this.gramophone;
+        this.checkList.gramophone = true;
     }
 
     toggleDoor() {
@@ -51,6 +69,7 @@ class RoomStore {
     }
 
     toggleBoard() {
+        this.checkList.board = true;
         this.boardAnimationPlaying = false;
         this.boardClicked = !this.boardClicked;
     }
