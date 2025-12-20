@@ -15,6 +15,21 @@ const Scene = () => {
     const { isMobile, isTablet } = useDeviceType();
     const orthographicCameraRef = useRef<any>(null);
 
+    // Device-specific initial lookAt Y values (degrees are negative to look down)
+    // Adjust these values as needed for mobile/tablet/desktop. 
+    // Trc, ovde određuješ početnu poziciju kamere. ima on-click trigger koji je pomiče u finalnu poziciju. 
+    const lookAtStartValues = {
+        mobile: -50,
+        tablet: -40,
+        desktop: -30,
+    };
+
+    // Current lookAt Y and animation flag
+    const lookAtY = useRef<number>(
+        isMobile ? lookAtStartValues.mobile : isTablet ? lookAtStartValues.tablet : lookAtStartValues.desktop
+    );
+    const animateLookToZero = useRef(false);
+
     // Store the initial camera position
     const initialCameraPosition = useRef(new Vector3(9, 6, 9));
     const targetPosition = useRef(new Vector3(9, 3, 9));
@@ -91,6 +106,15 @@ const Scene = () => {
         };
     }, []);
 
+    // Click to animate lookAt Y from start -> 0
+    useEffect(() => {
+        const onClick = () => {
+            animateLookToZero.current = true;
+        };
+        window.addEventListener("click", onClick);
+        return () => window.removeEventListener("click", onClick);
+    }, []);
+
     useFrame(() => {
         const orthoCam = orthographicCameraRef.current;
         if (orthoCam) {
@@ -109,8 +133,15 @@ const Scene = () => {
             // Smoothly interpolate camera position
             orthoCam.position.lerp(targetPosition.current, 0.05);
 
-            // Keep camera looking at the center
-            orthoCam.lookAt(0, 0, 0);
+            // Keep camera looking at the center; animate Y from initial -> 0 on click
+            if (animateLookToZero.current) {
+                lookAtY.current += (0 - lookAtY.current) * 0.06;
+                if (Math.abs(lookAtY.current) < 0.01) {
+                    lookAtY.current = 0;
+                    animateLookToZero.current = false;
+                }
+            }
+            orthoCam.lookAt(0, lookAtY.current, 0);
         }
     });
     /* const shouldAddLighting = !roomStore.lamp1On && !roomStore.lamp2On; */
@@ -135,7 +166,7 @@ const Scene = () => {
                 ref={orthographicCameraRef}
                 makeDefault
                 position={[9, 5, 9]}
-                zoom={isMobile ? 70 : isTablet ? 100 : 140}
+                zoom={isMobile ? 70 : isTablet ? 100 : 170}
             />
             {/* <CameraControls /> */}
             {/* <OrbitControls /> */}
