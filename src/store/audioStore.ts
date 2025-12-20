@@ -53,7 +53,11 @@ class AudioStore {
     }
 
     stopMusic() {
-        // Play vinyl needle skip SFX before stopping music
+        /* Stop music */
+        audioManager.stop();
+        this.isMusicPlaying = false;
+        this.currentTrack = null;
+
         this.isNeedleSkipInProgress = true;
         audioManager.stopAmbient("vinylNeedleSkip");
         const audio = audioManager.playAmbient(

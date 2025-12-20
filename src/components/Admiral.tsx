@@ -19,6 +19,7 @@ export const Admiral = () => {
     const vinylRef = useRef<any>(null);
     const vinylLightRef = useRef<any>(null);
     const doorWingRef = useRef<Mesh>(null);
+    const boardRef = useRef<Mesh>(null);
     const [bulbs, toggleBulbs, allLightsOn] = useRandomBulbStates(BULB_COUNT);
 
     // Bulb positions and rotations as constants
@@ -126,6 +127,18 @@ export const Admiral = () => {
             const target = roomStore.doorOpen ? -Math.PI / 2 : 0;
             doorWingRef.current.rotation.z +=
                 (target - doorWingRef.current.rotation.z) * 0.15;
+        }
+
+        // Board shake animation
+        if (boardRef.current) {
+            if (roomStore.boardAnimationPlaying) {
+                const time = state.clock.getElapsedTime();
+                boardRef.current.rotation.y = Math.sin(time * 8) * 0.05;
+                boardRef.current.rotation.x = Math.sin(time * 8) * 0.01;
+            } else {
+                boardRef.current.rotation.x = 0;
+                boardRef.current.rotation.y = 0;
+            }
         }
     });
 
@@ -1168,59 +1181,78 @@ export const Admiral = () => {
                 castShadow
                 receiveShadow
             />
-            <mesh
-                geometry={nodes.board.geometry}
-                material={materials.candle}
-                position={[-1.29, 1.853, -2.277]}
-                rotation={[0, 1.57, 1.571]}
-                scale={1.158}
+
+            <group
                 castShadow
                 receiveShadow
+                onClick={(e) => {
+                    e.stopPropagation();
+                    roomStore.toggleBoard();
+                }}
+                {...useHoverScale({
+                    normalScale: 1.158,
+                    hoverScale: 1.17,
+                })}
+                position={[-1.29, 1.853, -2.277]}
+                scale={1.158}
             >
-                <mesh
-                    geometry={nodes["board-frame"].geometry}
-                    material={materials.ceiling}
-                    scale={1.263}
-                    castShadow
-                    receiveShadow
-                />
-                <mesh
-                    geometry={nodes["board-paper"].geometry}
-                    material={materials["info-paper"]}
-                    position={[0.017, 0.032, 0.09]}
-                    rotation={[-2.283, -1.391, -2.292]}
-                    scale={0.121}
-                    castShadow
-                    receiveShadow
-                />
-                <mesh
-                    geometry={nodes["board-pin"].geometry}
-                    material={materials.blanket}
-                    position={[0.11, 0.025, 0.102]}
-                    rotation={[-2.283, -1.391, -2.292]}
-                    scale={0.004}
-                    castShadow
-                    receiveShadow
-                />
-                <mesh
-                    geometry={nodes["board-postit-1"].geometry}
-                    material={materials.pink}
-                    position={[0.088, 0.032, -0.125]}
-                    rotation={[-2.283, -1.391, -2.292]}
-                    scale={0.037}
-                    castShadow
-                    receiveShadow
-                />
-                <mesh
-                    geometry={nodes["board-postit-2"].geometry}
-                    material={materials.brass}
-                    position={[-0.052, 0.032, -0.128]}
-                    rotation={[-2.283, -1.391, -2.292]}
-                    scale={0.037}
-                    castShadow
-                    receiveShadow
-                />
-            </mesh>
+                <group rotation={[0, 1.57, 0]}>
+                    <group rotation={[0, 0, 1.571]}>
+                        <group ref={boardRef} rotation={[0, 0, 0]}>
+                            <mesh
+                                geometry={nodes.board.geometry}
+                                material={materials.candle}
+                                castShadow
+                                receiveShadow
+                            >
+                                <mesh
+                                    geometry={nodes["board-frame"].geometry}
+                                    material={materials.ceiling}
+                                    scale={1.263}
+                                    castShadow
+                                    receiveShadow
+                                />
+                                <mesh
+                                    geometry={nodes["board-paper"].geometry}
+                                    material={materials["info-paper"]}
+                                    position={[0.017, 0.032, 0.09]}
+                                    rotation={[-2.283, -1.391, -2.292]}
+                                    scale={0.121}
+                                    castShadow
+                                    receiveShadow
+                                />
+                                <mesh
+                                    geometry={nodes["board-pin"].geometry}
+                                    material={materials.blanket}
+                                    position={[0.11, 0.025, 0.102]}
+                                    rotation={[-2.283, -1.391, -2.292]}
+                                    scale={0.004}
+                                    castShadow
+                                    receiveShadow
+                                />
+                                <mesh
+                                    geometry={nodes["board-postit-1"].geometry}
+                                    material={materials.pink}
+                                    position={[0.088, 0.032, -0.125]}
+                                    rotation={[-2.283, -1.391, -2.292]}
+                                    scale={0.037}
+                                    castShadow
+                                    receiveShadow
+                                />
+                                <mesh
+                                    geometry={nodes["board-postit-2"].geometry}
+                                    material={materials.brass}
+                                    position={[-0.052, 0.032, -0.128]}
+                                    rotation={[-2.283, -1.391, -2.292]}
+                                    scale={0.037}
+                                    castShadow
+                                    receiveShadow
+                                />
+                            </mesh>
+                        </group>
+                    </group>
+                </group>
+            </group>
             <mesh
                 geometry={nodes.cupboard.geometry}
                 material={materials.shelves}

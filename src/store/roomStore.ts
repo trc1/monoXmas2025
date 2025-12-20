@@ -7,6 +7,8 @@ class RoomStore {
     lamp1On = false;
     lamp2On = false;
     doorOpen = false;
+    boardAnimationPlaying = true;
+    boardClicked = false;
 
     constructor() {
         makeAutoObservable(this);
@@ -43,9 +45,14 @@ class RoomStore {
     toggleGramophone() {
         this.gramophone = !this.gramophone;
     }
-    
+
     toggleDoor() {
         this.doorOpen = !this.doorOpen;
+    }
+
+    toggleBoard() {
+        this.boardAnimationPlaying = false;
+        this.boardClicked = !this.boardClicked;
     }
 }
 
