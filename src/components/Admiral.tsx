@@ -1,13 +1,15 @@
-import { useGLTF } from "@react-three/drei";
+import { useGLTF, Instances, Instance } from "@react-three/drei";
 import { useFrame } from "@react-three/fiber";
 import { useFireAnimation } from "../utils/useFireAnimation";
-import { useRef } from "react";
+import { useRef, useMemo } from "react";
 import { roomStore, audioStore } from "../store";
-import { Mesh } from "three";
+import { Mesh, Color } from "three";
 import { useHoverScale } from "../utils/useHoverScale";
 import { useRandomBulbStates } from "../utils/useRandomBulbStates";
 
+useGLTF.preload("./models/admiral.glb");
 const BULB_COUNT = 18;
+
 export const Admiral = () => {
     const { nodes, materials } = useGLTF("./models/admiral.glb") as any;
 
@@ -18,18 +20,78 @@ export const Admiral = () => {
     const vinylLightRef = useRef<any>(null);
     const doorWingRef = useRef<Mesh>(null);
     const [bulbs, toggleBulbs, allLightsOn] = useRandomBulbStates(BULB_COUNT);
-    // Add click handler for bulbs
+
+    // Bulb positions and rotations as constants
+    const bulbPositions = useMemo(
+        () =>
+            [
+                [0.076, 1.104, 0.377],
+                [-0.272, 1.043, 0.301],
+                [-0.401, 1.042, -0.072],
+                [0.311, 1.154, 0.137],
+                [0.198, 1.158, -0.269],
+                [-0.597, 0.177, -0.012],
+                [-0.517, 0.177, 0.312],
+                [-0.2, 0.145, 0.595],
+                [0.242, 0.078, 0.615],
+                [0.597, 0.033, 0.329],
+                [0.612, 0.072, -0.247],
+                [-0.939, -1.054, 0.185],
+                [-0.665, -1.044, 0.684],
+                [-0.244, -1.06, 0.934],
+                [0.204, -1.001, 0.929],
+                [0.576, -0.939, 0.685],
+                [0.837, -0.913, 0.257],
+                [0.848, -0.964, -0.33],
+            ] as [number, number, number][],
+        []
+    );
+
+    const bulbRotations = useMemo(
+        () =>
+            [
+                [2.71, 0.651, -0.37],
+                [2.23, 0.76, 0.449],
+                [1.752, 0.893, 1.491],
+                [-2.996, 0.473, -0.508],
+                [-2.536, 0.058, -0.499],
+                [1.656, 1.157, 1.654],
+                [2.59, 0.444, 0.511],
+                [2.426, 0.533, 0.266],
+                [2.69, 0.654, -0.185],
+                [-3.068, 0.637, -0.701],
+                [-2.306, 0.07, -0.779],
+                [3.099, -0.188, 0.604],
+                [2.267, 0.532, 0.544],
+                [2.49, 0.645, 0.059],
+                [2.813, 0.617, -0.398],
+                [3, 0.487, -0.48],
+                [-3.072, 0.413, -0.69],
+                [-2.8, 0.075, -0.975],
+            ] as [number, number, number][],
+        []
+    );
+
+    const activeLights = useMemo(() => {
+        return bulbs
+            .map((bulb, i) => ({ ...bulb, index: i }))
+            .filter((bulb) => bulb.intensity > 0);
+    }, [bulbs]);
+
+    const instanceColors = useMemo(() => {
+        return bulbs.map((bulb) => {
+            if (bulb.intensity > 0) {
+                const color = new Color(bulb.color);
+                const intensityBoost = bulb.intensity * 1.5;
+                return color.multiplyScalar(intensityBoost);
+            }
+            return new Color("#f3f3f3");
+        });
+    }, [bulbs]);
+
     const handleBulbsClick = () => {
         toggleBulbs();
     };
-
-    /*     useEffect(() => {
-        if (roomStore.gramophone) {
-            audioStore.playVinylNeedleSkipAndNext();
-        } else {
-            audioStore.stopMusic();
-        }
-    }, [roomStore.gramophone]); */
 
     useFireAnimation(
         flameLrgRef,
@@ -38,7 +100,6 @@ export const Admiral = () => {
         fireLightRef
     );
 
-    // Animate vinyl and door
     useFrame((state) => {
         // Vinyl animation
         if (roomStore.gramophone && vinylRef.current) {
@@ -68,9 +129,6 @@ export const Admiral = () => {
         }
     });
 
-    /*     const handleGramophoneClick = () => {
-        roomStore.toggleGramophone();
-    }; */
     return (
         <group dispose={null}>
             <mesh
@@ -92,7 +150,6 @@ export const Admiral = () => {
                 castShadow
                 receiveShadow
                 geometry={nodes["mono-logo"].geometry}
-                /* material={materials.brass} */
                 position={[-1.583, 3.215, -1.567]}
                 rotation={[Math.PI / 2, 0, -0.768]}
                 scale={0.116}
@@ -289,79 +346,31 @@ export const Admiral = () => {
                     rotation={[-2.8, 0.075, -0.975]}
                     scale={0.011}
                 />
-                {/* Tree bulbs with random on/off states */}
-                {Array.from({ length: BULB_COUNT }).map((_, i) => (
-                    <mesh
-                        key={i}
-                        geometry={
-                            nodes[
-                                `light-bulb${
-                                    i === 0 ? "" : String(i).padStart(3, "0")
-                                }`
-                            ].geometry
-                        }
-                        position={(() => {
-                            const positions = [
-                                [0.076, 1.104, 0.377],
-                                [-0.272, 1.043, 0.301],
-                                [-0.401, 1.042, -0.072],
-                                [0.311, 1.154, 0.137],
-                                [0.198, 1.158, -0.269],
-                                [-0.597, 0.177, -0.012],
-                                [-0.517, 0.177, 0.312],
-                                [-0.2, 0.145, 0.595],
-                                [0.242, 0.078, 0.615],
-                                [0.597, 0.033, 0.329],
-                                [0.612, 0.072, -0.247],
-                                [-0.939, -1.054, 0.185],
-                                [-0.665, -1.044, 0.684],
-                                [-0.244, -1.06, 0.934],
-                                [0.204, -1.001, 0.929],
-                                [0.576, -0.939, 0.685],
-                                [0.837, -0.913, 0.257],
-                                [0.848, -0.964, -0.33],
-                            ];
-                            return positions[i] as [number, number, number];
-                        })()}
-                        rotation={(() => {
-                            const rotations = [
-                                [2.71, 0.651, -0.37],
-                                [2.23, 0.76, 0.449],
-                                [1.752, 0.893, 1.491],
-                                [-2.996, 0.473, -0.508],
-                                [-2.536, 0.058, -0.499],
-                                [1.656, 1.157, 1.654],
-                                [2.59, 0.444, 0.511],
-                                [2.426, 0.533, 0.266],
-                                [2.69, 0.654, -0.185],
-                                [-3.068, 0.637, -0.701],
-                                [-2.306, 0.07, -0.779],
-                                [3.099, -0.188, 0.604],
-                                [2.267, 0.532, 0.544],
-                                [2.49, 0.645, 0.059],
-                                [2.813, 0.617, -0.398],
-                                [3, 0.487, -0.48],
-                                [-3.072, 0.413, -0.69],
-                                [-2.8, 0.075, -0.975],
-                            ];
-                            return rotations[i] as [number, number, number];
-                        })()}
-                        scale={0.03}
-                    >
-                        <meshStandardMaterial
-                            color="#f2f2f2"
-                            emissive={bulbs[i].on ? bulbs[i].color : "#000"}
-                            emissiveIntensity={bulbs[i].on ? 1 : 0.1}
+                <Instances
+                    limit={BULB_COUNT}
+                    geometry={nodes["light-bulb"].geometry}
+                >
+                    <meshStandardMaterial toneMapped={false} />
+                    {bulbPositions.map((pos, i) => (
+                        <Instance
+                            key={i}
+                            position={pos}
+                            rotation={bulbRotations[i]}
+                            scale={0.03}
+                            color={instanceColors[i]}
                         />
-                        {bulbs[i].on && (
-                            <pointLight
-                                intensity={1}
-                                color={bulbs[i].color}
-                                distance={1}
-                                decay={1}
-                            />
-                        )}
-                    </mesh>
+                    ))}
+                </Instances>
+
+                {activeLights.map(({ index, color }) => (
+                    <pointLight
+                        key={index}
+                        position={bulbPositions[index]}
+                        intensity={0.3 * bulbs[index].intensity}
+                        color={color}
+                        distance={0.8}
+                        decay={1}
+                    />
                 ))}
                 <mesh
                     geometry={nodes.trunk.geometry}
@@ -1540,5 +1549,3 @@ export const Admiral = () => {
         </group>
     );
 };
-
-useGLTF.preload("./models/admiral.glb");

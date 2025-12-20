@@ -1,13 +1,5 @@
 import { useEffect, useState, useRef } from "react";
 
-/**
- * useRandomBulbStates
- * @param count Number of bulbs
- * @param intervalMs How often to randomize (ms)
- * @param onProbability Probability (0-1) that a bulb is ON at each interval
- * @param colors Optional array of color strings to pick from randomly
- * @returns Array of objects: { on: boolean, color: string }
- */
 const DEFAULT_COLORS = [
     "#0aff02",
     "#fffb00",
@@ -20,46 +12,75 @@ const DEFAULT_COLORS = [
 export function useRandomBulbStates(
     count: number,
     colors: string[] = DEFAULT_COLORS,
-    staggerMs = 100
+    fadeDuration = 500
 ) {
-    const [bulbs, setBulbs] = useState<{ on: boolean; color: string }[]>(
+    const [bulbs, setBulbs] = useState<
+        { on: boolean; color: string; intensity: number }[]
+    >(
         Array(count)
             .fill(null)
-            .map(() => ({ on: false, color: colors[0] }))
+            .map(() => ({ on: false, color: colors[0], intensity: 0 }))
     );
     const [isOn, setIsOn] = useState(false);
 
     const allLightsOn = bulbs.every((b) => b.on);
 
-    const timeoutsRef = useRef<number[]>([]);
+    const animationFrameRef = useRef<number | null>(null);
 
     useEffect(() => {
         return () => {
-            timeoutsRef.current.forEach((t) => clearTimeout(t));
+            if (animationFrameRef.current) {
+                cancelAnimationFrame(animationFrameRef.current);
+            }
         };
     }, []);
 
     const toggleBulbs = () => {
-        timeoutsRef.current.forEach((t) => clearTimeout(t));
-        timeoutsRef.current = [];
-        const turnOn = !isOn;
-
-        for (let i = 0; i < count; i++) {
-            const timeout = window.setTimeout(() => {
-                setBulbs((prev) => {
-                    const newBulbs = [...prev];
-                    newBulbs[i] = {
-                        on: turnOn,
-                        color: colors[
-                            Math.floor(Math.random() * colors.length)
-                        ],
-                    };
-                    return newBulbs;
-                });
-                if (i === count - 1) setIsOn(turnOn);
-            }, i * staggerMs);
-            timeoutsRef.current.push(timeout);
+        if (animationFrameRef.current) {
+            cancelAnimationFrame(animationFrameRef.current);
         }
+
+        const turnOn = !isOn;
+        const startTime = performance.now();
+
+        let startIntensities: number[] = [];
+        setBulbs((prev) => {
+            startIntensities = prev.map((b) => b.intensity);
+            return prev;
+        });
+
+        const targetIntensity = turnOn ? 1 : 0;
+        const targetColors = turnOn
+            ? bulbs.map(() => colors[Math.floor(Math.random() * colors.length)])
+            : bulbs.map((b) => b.color);
+
+        const animate = (currentTime: number) => {
+            const elapsed = currentTime - startTime;
+            const progress = Math.min(elapsed / fadeDuration, 1);
+
+            const eased =
+                progress < 0.5
+                    ? 2 * progress * progress
+                    : 1 - Math.pow(-2 * progress + 2, 2) / 2;
+
+            setBulbs((prev) => {
+                return prev.map((_bulb, i) => ({
+                    on: turnOn,
+                    color: targetColors[i],
+                    intensity:
+                        startIntensities[i] +
+                        (targetIntensity - startIntensities[i]) * eased,
+                }));
+            });
+
+            if (progress < 1) {
+                animationFrameRef.current = requestAnimationFrame(animate);
+            } else {
+                setIsOn(turnOn);
+            }
+        };
+
+        animationFrameRef.current = requestAnimationFrame(animate);
     };
 
     return [bulbs, toggleBulbs, allLightsOn] as const;
