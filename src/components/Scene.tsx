@@ -17,7 +17,7 @@ const Scene = () => {
 
     // Device-specific initial lookAt Y values (degrees are negative to look down)
     // Adjust these values as needed for mobile/tablet/desktop. 
-    // Trc, ovde određuješ početnu poziciju kamere. ima on-click trigger koji je pomiče u finalnu poziciju. 
+    // Trc, ovde određuješ početnu poziciju kamere. ima on-click trigger koji je pomiče u finalnu poziciju . 
     const lookAtStartValues = {
         mobile: -50,
         tablet: -40,
