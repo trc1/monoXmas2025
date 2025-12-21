@@ -14,6 +14,7 @@ export const SFX = {
     VINYL_NEEDLE_SKIP: "/sfx/SFX - Vinyl_needle_skip.mp3",
     XMAS_BELLS: "/sfx/SFX - Xmass_bells.mp3",
     ATMOSPHERE_LOOP: "/sfx/SFX - Atmosphere_loop_2.mp3",
+    HOHOHO: "/sfx/SFX - Xmass_bells.mp3", // Using bells as hohoho placeholder
 } as const;
 
 class AudioStore {
@@ -169,6 +170,23 @@ class AudioStore {
 
     playXmasBells() {
         this.playSoundEffect(SFX.XMAS_BELLS);
+    }
+
+    playDoorKnocking() {
+        audioManager.playAmbient(
+            "doorKnocking",
+            SFX.DOOR_KNOCKING,
+            this.sfxVolume,
+            true
+        );
+    }
+
+    stopDoorKnocking() {
+        audioManager.stopAmbient("doorKnocking");
+    }
+
+    playHohoho() {
+        this.playSoundEffect(SFX.HOHOHO);
     }
 }
 

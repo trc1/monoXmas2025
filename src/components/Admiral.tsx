@@ -1,7 +1,7 @@
-import { useGLTF, Instances, Instance } from "@react-three/drei";
+import { useGLTF, Instances, Instance, Text } from "@react-three/drei";
 import { useFrame } from "@react-three/fiber";
 import { useFireAnimation } from "../utils/useFireAnimation";
-import { useRef, useMemo } from "react";
+import { useRef, useMemo, useEffect, useState } from "react";
 import { roomStore, audioStore } from "../store";
 import { Mesh, Color } from "three";
 import { useHoverScale } from "../utils/useHoverScale";
@@ -23,6 +23,15 @@ export const Admiral = observer(() => {
     const boardRef = useRef<Mesh>(null);
     const letterRef = useRef<Mesh>(null);
     const [bulbs, toggleBulbs, allLightsOn] = useRandomBulbStates(BULB_COUNT);
+
+    // Start door knocking when checklist is completed
+    useEffect(() => {
+        if (roomStore.doorKnock && !roomStore.doorOpen) {
+            audioStore.playDoorKnocking();
+        } else {
+            audioStore.stopDoorKnocking();
+        }
+    }, [roomStore.doorKnock, roomStore.doorOpen]);
 
     // Bulb positions and rotations as constants
     const bulbPositions = useMemo(
@@ -133,6 +142,15 @@ export const Admiral = observer(() => {
             const target = roomStore.doorOpen ? -Math.PI / 2 : 0;
             doorWingRef.current.rotation.z +=
                 (target - doorWingRef.current.rotation.z) * 0.15;
+
+            // Door knocking animation
+            if (roomStore.doorKnock && !roomStore.doorOpen) {
+                const knockTime = state.clock.getElapsedTime();
+                doorWingRef.current.position.z =
+                    -2.401 + Math.sin(knockTime * 8) * 0.015;
+            } else {
+                doorWingRef.current.position.z = -2.401;
+            }
         }
 
         // Letter animation
@@ -735,8 +753,12 @@ export const Admiral = observer(() => {
                 scale={0.487}
                 onClick={(e) => {
                     e.stopPropagation();
-                    audioStore.playDoorOpen();
-                    roomStore.toggleDoor();
+                    if (roomStore.isChecklistCompleted) {
+                        audioStore.stopDoorKnocking();
+                        audioStore.playHohoho();
+                        roomStore.toggleDoor();
+                        audioStore.playDoorOpen();
+                    }
                 }}
             >
                 <mesh

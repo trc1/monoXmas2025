@@ -6,6 +6,7 @@ class RoomStore {
     gramophone = false;
     lamp1On = true;
     lamp2On = true;
+    doorKnock = false;
     doorOpen = false;
     boardAnimationPlaying = true;
     boardClicked = false;
@@ -32,21 +33,25 @@ class RoomStore {
     toggleLights() {
         this.lightsOn = !this.lightsOn;
         this.checkList.lights = true;
+        this.checkIfChecklistCompleted();
     }
 
     toggleFireplace() {
         this.fireplaceOn = !this.fireplaceOn;
         this.checkList.fireplace = true;
+        this.checkIfChecklistCompleted();
     }
 
     toggleLamp1() {
         this.lamp1On = !this.lamp1On;
         this.checkList.lamp1 = true;
+        this.checkIfChecklistCompleted();
     }
 
     toggleLamp2() {
         this.lamp2On = !this.lamp2On;
         this.checkList.lamp2 = true;
+        this.checkIfChecklistCompleted();
     }
 
     setLights(value: boolean) {
@@ -64,6 +69,20 @@ class RoomStore {
     toggleGramophone() {
         this.gramophone = !this.gramophone;
         this.checkList.gramophone = true;
+        this.checkIfChecklistCompleted();
+    }
+
+    checkIfChecklistCompleted() {
+        const allCompleted = Object.values(this.checkList).every(
+            (value) => value === true
+        );
+        if (allCompleted && !this.doorKnock) {
+            this.doorKnock = true;
+        }
+    }
+
+    get isChecklistCompleted() {
+        return Object.values(this.checkList).every((value) => value === true);
     }
 
     toggleDoor() {
@@ -80,6 +99,7 @@ class RoomStore {
         this.checkList.board = true;
         this.boardAnimationPlaying = false;
         this.boardClicked = !this.boardClicked;
+        this.checkIfChecklistCompleted();
     }
 
     toggleShowLetter() {
