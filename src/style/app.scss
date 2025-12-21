@@ -64,7 +64,7 @@ h1.title-letter {
     left: 0;
     height: 8px;
     width: 100%;
-    background-image: url(src/assets/underline-a.svg);
+    background-image: url('/src/assets/underline-a.svg');
     background-repeat: no-repeat;
     background-size: fill;
 }
@@ -78,7 +78,7 @@ h1.title-letter {
     left: 0;
     height: 8px;
     width: 100%;
-    background-image: url(src/assets/underline-b.svg);
+    background-image: url('/src/assets/underline-b.svg');
     background-repeat: no-repeat;
     background-size: fill;
 }
@@ -92,7 +92,7 @@ h1.title-letter {
     left: 0;
     height: 8px;
     width: 100%;
-    background-image: url(src/assets/underline-a.svg);
+    background-image: url('/src/assets/underline-a.svg');
     background-repeat: no-repeat;
     background-size: fill;
 }
@@ -159,7 +159,7 @@ p.help-copy {
     padding-top: 108px;
     width: 40%;
     text-align: center;
-    background-image: url(src/assets/letter-bg.png);
+    background-image: url('/src/assets/letter-bg.png');
     background-size: cover;
     background-repeat: no-repeat;
     background-position: top center;
@@ -237,7 +237,7 @@ p.help-copy {
     transform: translateX(-50%);
     width: 50%;
     height: 100%;
-    background-image: url(src/assets/envelope-front.png);
+    background-image: url('/src/assets/envelope-front.png');
     background-size: contain;
     background-repeat: no-repeat;
     background-position: bottom center;
@@ -253,7 +253,7 @@ p.help-copy {
     transform: translateX(-50%);
     width: 50%;
     height: 100%;
-    background-image: url(src/assets/envelope-back.png);
+    background-image: url('/src/assets/envelope-back.png');
     background-size: contain;
     background-repeat: no-repeat;
     background-position: bottom center;
