@@ -28,7 +28,7 @@ const Objective = observer(() => {
         <div className="modal-wrapper" onClick={handleClose}>
             <div
                 className={`modal-content ${isVisible ? 'modal-content-visible' : ''}`}
-                style={{ backgroundImage: `url(${letterBg})` }}
+                /* style={{ backgroundImage: `url(${letterBg})` }} */
                 onClick={(e) => e.stopPropagation()}
             >
                 <div className="title-wrapper margin-bottom">
