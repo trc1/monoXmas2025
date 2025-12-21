@@ -1529,8 +1529,8 @@ export const Admiral = () => {
                 receiveShadow
                 onClick={(e) => {
                     e.stopPropagation();
-                    audioStore.playSwitchClick();
                     roomStore.toggleLamp2();
+                    audioStore.playSwitchClick();
                 }}
                 {...useHoverScale({
                     normalScale: 0.197,
@@ -1563,8 +1563,8 @@ export const Admiral = () => {
                 receiveShadow
                 onClick={(e) => {
                     e.stopPropagation();
-                    audioStore.playSwitchClick();
                     roomStore.toggleLamp1();
+                    audioStore.playSwitchClick();
                 }}
                 {...useHoverScale({
                     normalScale: 0.197,
