@@ -1,7 +1,7 @@
-import { useGLTF, Instances, Instance, Text } from "@react-three/drei";
+import { useGLTF, Instances, Instance } from "@react-three/drei";
 import { useFrame } from "@react-three/fiber";
 import { useFireAnimation } from "../utils/useFireAnimation";
-import { useRef, useMemo, useEffect, useState } from "react";
+import { useRef, useMemo, useEffect } from "react";
 import { roomStore, audioStore } from "../store";
 import { Mesh, Color } from "three";
 import { useHoverScale } from "../utils/useHoverScale";
