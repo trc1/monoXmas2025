@@ -6,11 +6,12 @@ import { roomStore, audioStore } from "../store";
 import { Mesh, Color } from "three";
 import { useHoverScale } from "../utils/useHoverScale";
 import { useRandomBulbStates } from "../utils/useRandomBulbStates";
+import { observer } from "mobx-react-lite";
 
 useGLTF.preload("./models/admiral.glb");
 const BULB_COUNT = 18;
 
-export const Admiral = () => {
+export const Admiral = observer(() => {
     const { nodes, materials } = useGLTF("./models/admiral.glb") as any;
 
     const flameLrgRef = useRef<Mesh>(null);
@@ -20,6 +21,7 @@ export const Admiral = () => {
     const vinylLightRef = useRef<any>(null);
     const doorWingRef = useRef<Mesh>(null);
     const boardRef = useRef<Mesh>(null);
+    const letterRef = useRef<Mesh>(null);
     const [bulbs, toggleBulbs, allLightsOn] = useRandomBulbStates(BULB_COUNT);
 
     // Bulb positions and rotations as constants
@@ -127,6 +129,16 @@ export const Admiral = () => {
             const target = roomStore.doorOpen ? -Math.PI / 2 : 0;
             doorWingRef.current.rotation.z +=
                 (target - doorWingRef.current.rotation.z) * 0.15;
+        }
+
+        // Letter animation
+        if (letterRef.current) {
+            const targetX = roomStore.doorOpen ? -0.2 : 0.056;
+            const targetZ = roomStore.doorOpen ? -2.001 : -3.269;
+            letterRef.current.position.x +=
+                (targetX - letterRef.current.position.x) * 0.08;
+            letterRef.current.position.z +=
+                (targetZ - letterRef.current.position.z) * 0.08;
         }
 
         // Board shake animation
@@ -1494,14 +1506,26 @@ export const Admiral = () => {
                 />
             </mesh>
             <mesh
+                ref={letterRef}
                 geometry={nodes["santas-letter"].geometry}
                 material={materials.White}
                 position={[0.056, 0.615, -3.269]}
                 rotation={[0, 1.415, 0]}
-                scale={0.137}
                 castShadow
                 receiveShadow
+                onClick={(e) => {
+                    e.stopPropagation();
+                    roomStore.setGameCompleted();
+                }}
+                {...useHoverScale({
+                    normalScale: 0.137,
+                    hoverScale: 0.152,
+                })}
             >
+                <pointLight
+                    color="#ecbbbf"
+                    intensity={roomStore.doorOpen ? 2 : 0}
+                />
                 <mesh
                     geometry={nodes.seal.geometry}
                     material={materials.blanket}
@@ -1580,4 +1604,4 @@ export const Admiral = () => {
             </mesh>
         </group>
     );
-};
+});

@@ -6,6 +6,7 @@ import Splash from "./components/Splash";
 import { roomStore } from "./store";
 import { observer } from "mobx-react-lite";
 import Objective from "./components/Objective";
+import ChristmasLetter from "./components/ChristmasLetter";
 
 function App() {
     return (
@@ -20,6 +21,7 @@ function App() {
                     <Scene />
                 </Canvas>
             )}
+            <ChristmasLetter />
             <Snowfall snowflakeCount={20} style={{ opacity: 0.8 }} />
         </>
     );

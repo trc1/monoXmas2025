@@ -18,6 +18,8 @@ class RoomStore {
         board: false,
         gramophone: false,
     };
+    showLetter = false;
+    isGameCompleted = false;
 
     constructor() {
         makeAutoObservable(this);
@@ -72,6 +74,14 @@ class RoomStore {
         this.checkList.board = true;
         this.boardAnimationPlaying = false;
         this.boardClicked = !this.boardClicked;
+    }
+    toggleShowLetter() {
+        this.showLetter = !this.showLetter;
+    }
+    
+    setGameCompleted() {
+        this.isGameCompleted = true;
+        this.showLetter = !this.showLetter;
     }
 }
 
