@@ -67,6 +67,12 @@ class RoomStore {
     }
 
     toggleDoor() {
+        const allCompleted = Object.values(this.checkList).every(
+            (value) => value === true
+        );
+        if (!allCompleted) {
+            return;
+        }
         this.doorOpen = !this.doorOpen;
     }
 
@@ -75,10 +81,11 @@ class RoomStore {
         this.boardAnimationPlaying = false;
         this.boardClicked = !this.boardClicked;
     }
+
     toggleShowLetter() {
         this.showLetter = !this.showLetter;
     }
-    
+
     setGameCompleted() {
         this.isGameCompleted = true;
         this.showLetter = !this.showLetter;

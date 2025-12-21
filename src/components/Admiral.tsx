@@ -93,7 +93,11 @@ export const Admiral = observer(() => {
     }, [bulbs]);
 
     const handleBulbsClick = () => {
+        if (roomStore.checkList.board === false) {
+            return;
+        }
         toggleBulbs();
+        roomStore.toggleLights();
     };
 
     useFireAnimation(
@@ -526,6 +530,9 @@ export const Admiral = observer(() => {
                     scale={0.286}
                     onClick={(e) => {
                         e.stopPropagation();
+                        if (roomStore.checkList.board === false) {
+                            return;
+                        }
                         roomStore.toggleFireplace();
                         if (roomStore.fireplaceOn) {
                             audioStore.playFireplaceCrackling();
@@ -547,6 +554,9 @@ export const Admiral = observer(() => {
                     })}
                     onClick={(e) => {
                         e.stopPropagation();
+                        if (roomStore.checkList.board === false) {
+                            return;
+                        }
                         roomStore.toggleFireplace();
                         if (roomStore.fireplaceOn) {
                             audioStore.playFireplaceCrackling();
@@ -788,6 +798,9 @@ export const Admiral = observer(() => {
                 position={[0.816, 1.572, 1.735]}
                 onClick={(e) => {
                     e.stopPropagation();
+                    if (roomStore.checkList.board === false) {
+                        return;
+                    }
                     roomStore.toggleGramophone();
                     if (roomStore.gramophone) {
                         audioStore.playVinylNeedleSkipAndNext();
@@ -1553,6 +1566,9 @@ export const Admiral = observer(() => {
                 receiveShadow
                 onClick={(e) => {
                     e.stopPropagation();
+                    if (roomStore.checkList.board === false) {
+                        return;
+                    }
                     roomStore.toggleLamp2();
                     audioStore.playSwitchClick();
                 }}
@@ -1587,6 +1603,9 @@ export const Admiral = observer(() => {
                 receiveShadow
                 onClick={(e) => {
                     e.stopPropagation();
+                    if (roomStore.checkList.board === false) {
+                        return;
+                    }
                     roomStore.toggleLamp1();
                     audioStore.playSwitchClick();
                 }}
