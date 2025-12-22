@@ -22,6 +22,7 @@ class RoomStore {
     showLetter = false;
     letterCanFlyIn = false;
     isGameCompleted = false;
+    isLetterArrived = false;
 
     constructor() {
         makeAutoObservable(this);
@@ -79,6 +80,10 @@ class RoomStore {
         this.gramophone = value;
     }
 
+    setLetterArrived(value: boolean) {
+        this.isLetterArrived = value;
+    }
+
     toggleGramophone() {
         if (this.isChecklistCompleted) {
             return;
@@ -117,7 +122,7 @@ class RoomStore {
                 runInAction(() => {
                     this.letterCanFlyIn = true;
                 });
-            }, 800); 
+            }, 800);
         } else {
             this.letterCanFlyIn = false;
         }

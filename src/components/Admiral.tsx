@@ -176,8 +176,9 @@ export const Admiral = observer(() => {
             if (!letterArrivedRef.current) {
                 const dx = Math.abs(letterRef.current.position.x - targetX);
                 const dz = Math.abs(letterRef.current.position.z - targetZ);
-
+                
                 if (dx < 0.01 && dz < 0.01) {
+                    roomStore.setLetterArrived(true);
                     letterArrivedRef.current = true;
                 }
             }
@@ -1272,7 +1273,7 @@ export const Admiral = observer(() => {
                     target-position={[-1.59, 1.853, -2.677]}
                     angle={45}
                     penumbra={0.2}
-                    intensity={0.3}
+                    intensity={0.2}
                     color="#ffffff"
                     distance={5}
                 />
@@ -1610,7 +1611,7 @@ export const Admiral = observer(() => {
                     hoverScale: 0.152,
                 })}
             >
-                {letterArrivedRef.current && (
+                {roomStore.isLetterArrived && (
                     <spotLight
                         position={[0, 2, 0]}
                         target-position={[0.056, 0.615, -3.269]}
