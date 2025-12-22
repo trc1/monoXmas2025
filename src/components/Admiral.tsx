@@ -26,6 +26,7 @@ export const Admiral = observer(() => {
 
     useEffect(() => {
         if (roomStore.doorKnock && !roomStore.doorOpen) {
+            audioStore.stopMusic();
             audioStore.playDoorKnocking();
         } else {
             audioStore.stopDoorKnocking();
