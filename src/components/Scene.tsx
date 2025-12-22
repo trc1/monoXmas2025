@@ -6,6 +6,7 @@ import { OrthographicCamera } from "@react-three/drei/core/OrthographicCamera";
 import { Group, Vector3 } from "three";
 import { observer } from "mobx-react-lite";
 import { Admiral } from "./Admiral";
+import { roomStore } from "../store";
 
 const Scene = () => {
     /* const controlsRef = useRef(null); */
@@ -14,10 +15,33 @@ const Scene = () => {
     const isUsingTouch = useRef(false);
     const { isMobile, isTablet } = useDeviceType();
     const orthographicCameraRef = useRef<any>(null);
+    const animateLookToZero = useRef(false);
+    const animationProgress = useRef(0);
+
+    const lookAtStartValues = {
+        mobile: -50,
+        tablet: -40,
+        desktop: -30,
+    };
+
+    const lookAtY = useRef<number>(
+        isMobile
+            ? lookAtStartValues.mobile
+            : isTablet
+            ? lookAtStartValues.tablet
+            : lookAtStartValues.desktop
+    );
 
     // Store the initial camera position
     const initialCameraPosition = useRef(new Vector3(9, 6, 9));
     const targetPosition = useRef(new Vector3(9, 3, 9));
+
+    useEffect(() => {
+        if (roomStore.isGameStarted && !animateLookToZero.current) {
+            animateLookToZero.current = true;
+            animationProgress.current = 0;
+        }
+    }, [roomStore.isGameStarted]);
     /* 
     useEffect(() => {
         const handleKeyPress = (e: KeyboardEvent) => {
@@ -94,6 +118,26 @@ const Scene = () => {
     useFrame(() => {
         const orthoCam = orthographicCameraRef.current;
         if (orthoCam) {
+            if (animateLookToZero.current && animationProgress.current < 1) {
+                animationProgress.current += 0.008;
+                if (animationProgress.current >= 1) {
+                    animationProgress.current = 1;
+                    animateLookToZero.current = false;
+                }
+
+                const t = animationProgress.current;
+                const eased =
+                    t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+
+                const startY = isMobile
+                    ? lookAtStartValues.mobile
+                    : isTablet
+                    ? lookAtStartValues.tablet
+                    : lookAtStartValues.desktop;
+                const currentLookAtY = startY + (0 - startY) * eased;
+                lookAtY.current = currentLookAtY;
+            }
+
             // Smoothly move camera based on input position
             const angle =
                 inputPosition.current.x * (isUsingTouch.current ? 0.2 : 0.15);
@@ -109,20 +153,12 @@ const Scene = () => {
             // Smoothly interpolate camera position
             orthoCam.position.lerp(targetPosition.current, 0.05);
 
-            // Keep camera looking at the center
-            orthoCam.lookAt(0, 0, 0);
+            // Keep camera looking at the center with animated Y
+            orthoCam.lookAt(0, lookAtY.current, 0);
         }
     });
-    /* const shouldAddLighting = !roomStore.lamp1On && !roomStore.lamp2On; */
     return (
         <>
-            {/* {shouldShowEnvironment && (
-                <Environment
-                    backgroundIntensity={0.5}
-                    environmentIntensity={0.3}
-                    files="environment/environment.hdr"
-                />
-            )} */}
             <directionalLight
                 castShadow
                 intensity={1}
