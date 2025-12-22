@@ -11,12 +11,11 @@
     background-image: linear-gradient(315deg, #3d3d3d 0%, #1f1f1f 74%);
     text-align: center;
     color: white;
+    overflow-y: auto;
 }
 
 main {
     display: flex;
-    justify-content: center;
-    align-items: center;
     height: 100%;
 }
 
@@ -91,6 +90,7 @@ p {
 .splash-wrapper,
 .modal-content,
 .letter-content {
+    position: relative;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -185,6 +185,7 @@ p {
         align-items: flex-start;
     }
     .splash-wrapper {
+        justify-content: flex-start;
         padding: 44px 16px;
         gap: 24px;
         text-align: center;
@@ -222,7 +223,7 @@ p {
     .button-letter {
         position: absolute;
         z-index: 5;
-        bottom: 10%;
+        bottom: 50px;
         left: 50%;
         transform: translateX(-50%);
         width: 30%;
@@ -234,7 +235,7 @@ p {
     .button-start {
         width: 260px;
     }
-    .modal-wrapper-letter::after {
+    .letter-content::after {
         content: "";
         display: block;
         position: absolute;
@@ -249,7 +250,7 @@ p {
         background-position: bottom center;
     }
 
-    .modal-wrapper-letter::before {
+    .letter-content::before {
         content: "";
         display: block;
         position: absolute;
@@ -265,7 +266,6 @@ p {
         background-position: bottom center;
     }
     .letter-content {
-        position: relative;
         margin-top: auto;
         padding: 108px 20px 51% 20px;
         width: 100%;
@@ -295,12 +295,8 @@ p {
         padding-bottom: 200px;
     }
 
-    .modal-wrapper-letter {
-        align-items: flex-end;
-    }
-
-    .modal-wrapper-letter::before,
-    .modal-wrapper-letter::after {
+    .letter-content::before,
+    .letter-content::after {
         max-width: 530px;
     }
 
@@ -364,11 +360,11 @@ p {
         width: 362px;
     }
     .modal-wrapper-letter {
-        align-items: flex-end;
+        align-items: flex-start;
     }
 
-    .modal-wrapper-letter::after,
-    .modal-wrapper-letter::before {
+    .letter-content::after,
+    .letter-content::before {
         bottom: -60px;
         max-width: 680px;
     }
