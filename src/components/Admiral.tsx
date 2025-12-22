@@ -825,6 +825,16 @@ export const Admiral = observer(() => {
                 position={[-0.516, 1.683, -2.401]}
                 rotation={[Math.PI / 2, 0, 0]}
                 scale={0.487}
+                onPointerOver={(e) => {
+                    e.stopPropagation();
+                    if (roomStore.isChecklistCompleted && !roomStore.doorOpen) {
+                        document.body.style.cursor = "pointer";
+                    }
+                }}
+                onPointerOut={(e) => {
+                    e.stopPropagation();
+                    document.body.style.cursor = "auto";
+                }}
                 onClick={(e) => {
                     e.stopPropagation();
                     if (roomStore.isChecklistCompleted && !roomStore.doorOpen) {
