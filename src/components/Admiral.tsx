@@ -168,57 +168,57 @@ export const Admiral = observer(() => {
                 (targetX - letterRef.current.position.x) * 0.08;
             letterRef.current.position.z +=
                 (targetZ - letterRef.current.position.z) * 0.08;
-        if (letterRef.current && roomStore.letterCanFlyIn) {
-        // play sound once when animation starts
-        if (!letterSfxPlayedRef.current) {
-            audioStore.playSanta();
-            letterSfxPlayedRef.current = true;
-        }
+            if (letterRef.current && roomStore.letterCanFlyIn) {
+                // play sound once when animation starts
+                if (!letterSfxPlayedRef.current) {
+                    letterSfxPlayedRef.current = true;
+                }
 
-        const targetX = -0.2;
-        const targetZ = -2.001;
+                const targetX = -0.2;
+                const targetZ = -2.001;
 
-        letterRef.current.position.x +=
-            (targetX - letterRef.current.position.x) * 0.05;
-        letterRef.current.position.z +=
-            (targetZ - letterRef.current.position.z) * 0.05;
+                letterRef.current.position.x +=
+                    (targetX - letterRef.current.position.x) * 0.05;
+                letterRef.current.position.z +=
+                    (targetZ - letterRef.current.position.z) * 0.05;
 
-        // arrival check (already added)
-        if (!letterArrivedRef.current) {
-            const dx = Math.abs(letterRef.current.position.x - targetX);
-            const dz = Math.abs(letterRef.current.position.z - targetZ);
+                // arrival check (already added)
+                if (!letterArrivedRef.current) {
+                    const dx = Math.abs(letterRef.current.position.x - targetX);
+                    const dz = Math.abs(letterRef.current.position.z - targetZ);
 
-            if (dx < 0.01 && dz < 0.01) {
-            letterArrivedRef.current = true;
+                    if (dx < 0.01 && dz < 0.01) {
+                        letterArrivedRef.current = true;
+                    }
+                }
             }
-        }
-        }
 
-        // Board shake animation: 1s motion then 0.5s pause
-        if (boardRef.current) {
-            if (roomStore.boardAnimationPlaying) {
-                const time = state.clock.getElapsedTime();
-                const cycle = 1.5; // 1s motion + 0.5s pause
-                const motionDuration = 0.8;
-                const phase = time % cycle;
+            // Board shake animation: 1s motion then 0.5s pause
+            if (boardRef.current) {
+                if (roomStore.boardAnimationPlaying) {
+                    const time = state.clock.getElapsedTime();
+                    const cycle = 1.5; // 1s motion + 0.5s pause
+                    const motionDuration = 0.8;
+                    const phase = time % cycle;
 
-                if (phase < motionDuration) {
-                    const progress = phase / motionDuration; // 0..1 over motion
-                    const angleY = Math.sin(progress * Math.PI * 2) * 0.1;
-                    const angleX = Math.sin(progress * Math.PI * 2) * 0.01;
-                    boardRef.current.rotation.y = angleY;
-                    boardRef.current.rotation.x = angleX;
+                    if (phase < motionDuration) {
+                        const progress = phase / motionDuration; // 0..1 over motion
+                        const angleY = Math.sin(progress * Math.PI * 2) * 0.1;
+                        const angleX = Math.sin(progress * Math.PI * 2) * 0.01;
+                        boardRef.current.rotation.y = angleY;
+                        boardRef.current.rotation.x = angleX;
+                    } else {
+                        // pause: hold neutral (end of motion returns to 0)
+                        boardRef.current.rotation.x = 0;
+                        boardRef.current.rotation.y = 0;
+                    }
                 } else {
-                    // pause: hold neutral (end of motion returns to 0)
                     boardRef.current.rotation.x = 0;
                     boardRef.current.rotation.y = 0;
                 }
-            } else {
-                boardRef.current.rotation.x = 0;
-                boardRef.current.rotation.y = 0;
             }
         }
-    }});
+    });
 
     return (
         <group dispose={null}>
@@ -1610,9 +1610,9 @@ export const Admiral = observer(() => {
                 castShadow
                 receiveShadow
                 onClick={(e) => {
-                    audioStore.playPaper();
                     e.stopPropagation();
                     roomStore.setGameCompleted();
+                    audioStore.playPaper();
                 }}
                 {...useHoverScale({
                     normalScale: 0.137,

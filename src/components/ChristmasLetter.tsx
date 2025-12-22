@@ -12,9 +12,12 @@ const ChristmasLetter = observer(() => {
         <Modal
             isOpen={roomStore.showLetter}
             onClose={() => roomStore.toggleShowLetter()}
-            wrapperClassName="modal-wrapper-letter"
+            wrapperClassName={
+                "modal-wrapper-letter " +
+                (roomStore.showLetter ? "is-open" : "")
+            }
             className="letter-content"
-            isLetter={true}
+            isLetter
         >
             <div className="title-wrapper margin-bottom">
                 <h1 className="title-letter color-dark">A small</h1>
