@@ -1,12 +1,13 @@
-import { useGLTF, Instances, Instance } from "@react-three/drei";
+import { useGLTF, Instances, Instance, Html } from "@react-three/drei";
 import { useFrame } from "@react-three/fiber";
 import { useFireAnimation } from "../utils/useFireAnimation";
-import { useRef, useMemo, useEffect } from "react";
+import { useRef, useMemo, useEffect, useState } from "react";
 import { roomStore, audioStore } from "../store";
 import { Mesh, Color } from "three";
 import { useHoverScale } from "../utils/useHoverScale";
 import { useRandomBulbStates } from "../utils/useRandomBulbStates";
 import { observer } from "mobx-react-lite";
+import knockIcon from "../assets/knock.svg";
 
 useGLTF.preload("./models/admiral.glb");
 const BULB_COUNT = 18;
@@ -25,6 +26,7 @@ export const Admiral = observer(() => {
     const [bulbs, toggleBulbs, allLightsOn] = useRandomBulbStates(BULB_COUNT);
     const letterSfxPlayedRef = useRef(false);
     const letterArrivedRef = useRef(false);
+    const [knockOpacities, setKnockOpacities] = useState([0, 0, 0]);
 
     useEffect(() => {
         if (roomStore.doorKnock && !roomStore.doorOpen) {
@@ -153,6 +155,40 @@ export const Admiral = observer(() => {
                 const knockTime = state.clock.getElapsedTime();
                 doorWingRef.current.position.z =
                     -2.401 + Math.sin(knockTime * 8) * 0.01;
+
+                // Staggered knock animation loop
+                const loopDuration = 3;
+                const staggerDelay = 0.2;
+                const fadeDuration = 0.8;
+                const loopTime = knockTime % loopDuration;
+
+                const easeInOutQuad = (t: number) => {
+                    return t < 0.5
+                        ? 2 * t * t
+                        : 1 - Math.pow(-2 * t + 2, 2) / 2;
+                };
+
+                const newOpacities = [0, 1, 2].map((index) => {
+                    const startTime = index * staggerDelay;
+                    const endTime = startTime + fadeDuration;
+                    const hideTime = startTime + fadeDuration + 0.3;
+
+                    if (loopTime >= startTime && loopTime < endTime) {
+                        const t = (loopTime - startTime) / fadeDuration;
+                        return easeInOutQuad(t) * 0.6;
+                    } else if (loopTime >= endTime && loopTime < hideTime) {
+                        return 0.6;
+                    } else if (
+                        loopTime >= hideTime &&
+                        loopTime < hideTime + fadeDuration
+                    ) {
+                        const t = (loopTime - hideTime) / fadeDuration;
+                        return (1 - easeInOutQuad(t)) * 0.6;
+                    }
+                    return 0;
+                });
+
+                setKnockOpacities(newOpacities);
             } else {
                 doorWingRef.current.position.z = -2.401;
             }
@@ -176,7 +212,7 @@ export const Admiral = observer(() => {
             if (!letterArrivedRef.current) {
                 const dx = Math.abs(letterRef.current.position.x - targetX);
                 const dz = Math.abs(letterRef.current.position.z - targetZ);
-                
+
                 if (dx < 0.01 && dz < 0.01) {
                     roomStore.setLetterArrived(true);
                     letterArrivedRef.current = true;
@@ -815,6 +851,67 @@ export const Admiral = observer(() => {
                     position={[0.995, 0.006, -0.514]}
                 />
             </mesh>
+            {roomStore.doorKnock && !roomStore.doorOpen && (
+                <>
+                    <Html
+                        position={[0.063, 1.908, -2.2]}
+                        center
+                        distanceFactor={0.1}
+                        style={{
+                            pointerEvents: "none",
+                        }}
+                    >
+                        <img
+                            src={knockIcon}
+                            alt="knock"
+                            style={{
+                                width: "4px",
+                                height: "4px",
+                                opacity: knockOpacities[0],
+                                transition: "opacity 0.8s ease-in-out",
+                            }}
+                        />
+                    </Html>
+                    <Html
+                        position={[0.063, 2.18, -2.0]}
+                        center
+                        distanceFactor={0.1}
+                        style={{
+                            pointerEvents: "none",
+                        }}
+                    >
+                        <img
+                            src={knockIcon}
+                            alt="knock"
+                            style={{
+                                width: "4px",
+                                height: "4px",
+                                opacity: knockOpacities[1],
+                                transition: "opacity 0.8s ease-in-out",
+                            }}
+                        />
+                    </Html>
+                    <Html
+                        position={[0.063, 2.18, -2.5]}
+                        center
+                        distanceFactor={0.1}
+                        style={{
+                            pointerEvents: "none",
+                        }}
+                    >
+                        <img
+                            src={knockIcon}
+                            alt="knock"
+                            style={{
+                                width: "4px",
+                                height: "4px",
+                                opacity: knockOpacities[2],
+                                transition: "opacity 0.8s ease-in-out",
+                            }}
+                        />
+                    </Html>
+                </>
+            )}
             <mesh
                 castShadow
                 receiveShadow
