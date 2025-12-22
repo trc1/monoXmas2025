@@ -16,7 +16,7 @@
 main {
     display: flex;
     justify-content: center;
-    align-items: center;;
+    align-items: center;
     height: 100%;
 }
 
@@ -48,7 +48,7 @@ h1 {
     left: 0;
     height: 8px;
     width: 100%;
-    background-image: url('/src/assets/underline-a.svg');
+    background-image: url("/src/assets/underline-a.svg");
     background-repeat: no-repeat;
     background-size: fill;
 }
@@ -62,7 +62,7 @@ h1 {
     left: 0;
     height: 8px;
     width: 100%;
-    background-image: url('/src/assets/underline-b.svg');
+    background-image: url("/src/assets/underline-b.svg");
     background-repeat: no-repeat;
     background-size: fill;
 }
@@ -76,7 +76,7 @@ h1 {
     left: 0;
     height: 8px;
     width: 100%;
-    background-image: url('/src/assets/underline-a.svg');
+    background-image: url("/src/assets/underline-a.svg");
     background-repeat: no-repeat;
     background-size: fill;
 }
@@ -110,7 +110,7 @@ p {
 
 .modal-content {
     text-align: center;
-    background-image: url('/src/assets/letter-bg.png');
+    background-image: url("/src/assets/letter-bg.png");
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center center;
@@ -155,7 +155,7 @@ p {
     position: fixed !important;
     inset: 0 !important;
     background-color: rgba(0, 0, 0, 0.5);
-    overflow: auto;
+    overflow: hidden auto;
     width: 100%;
     height: 100%;
 }
@@ -164,7 +164,7 @@ p {
     transform: translateX(-50%) scale(1.1);
 }
 
-@media only screen and (min-width: 320px) { 
+@media only screen and (min-width: 320px) {
     .modal-content {
         width: 100%;
         margin: auto;
@@ -186,7 +186,7 @@ p {
     }
     .splash-wrapper {
         padding: 44px 16px;
-        gap: 48px;
+        gap: 24px;
         text-align: center;
     }
     h1.title-splash {
@@ -194,7 +194,7 @@ p {
         line-height: 36px;
     }
     p.splash-copy {
-        margin-top: 24px;;
+        margin-top: 24px;
         font-size: 20px;
         line-height: 32px;
     }
@@ -243,7 +243,7 @@ p {
         transform: translateX(-50%);
         width: 140%;
         height: 100%;
-        background-image: url('/src/assets/envelope-front.png');
+        background-image: url("/src/assets/envelope-front.png");
         background-size: contain;
         background-repeat: no-repeat;
         background-position: bottom center;
@@ -259,18 +259,18 @@ p {
         transform: translateX(-50%);
         width: 140%;
         height: 100%;
-        background-image: url('/src/assets/envelope-back.png');
+        background-image: url("/src/assets/envelope-back.png");
         background-size: contain;
         background-repeat: no-repeat;
         background-position: bottom center;
     }
     .letter-content {
         position: relative;
-        margin: 68px auto 0 auto;
-        padding: 108px 20px 0 20px;
+        margin-top: auto;
+        padding: 108px 20px 51% 20px;
         width: 100%;
         text-align: center;
-        background-image: url('/src/assets/letter-bg.png');
+        background-image: url("/src/assets/letter-bg.png");
         background-size: cover;
         background-repeat: no-repeat;
         background-position: top center;
@@ -282,23 +282,44 @@ p {
     }
 }
 
-@media only screen and (min-width: 375px) { 
+@media only screen and (min-width: 375px) {
     .modal-content {
         padding-top: 80px;
     }
 }
 
-@media only screen and (min-width: 767px) { 
+@media only screen and (min-width: 520px) {
+    .letter-content {
+        max-width: 500px;
+        margin: 0 auto;
+        padding-bottom: 200px;
+    }
+
+    .modal-wrapper-letter {
+        align-items: flex-end;
+    }
+
+    .modal-wrapper-letter::before,
+    .modal-wrapper-letter::after {
+        max-width: 530px;
+    }
+
+    .button-letter {
+        width: 25%;
+        bottom: 20px;
+    }
+}
+
+@media only screen and (min-width: 767px) {
     .modal-content {
         background-size: contain;
     }
     .hide-mobile {
         display: inline-block;
     }
-
 }
 
-@media only screen and (min-width: 1023px) { 
+@media only screen and (min-width: 1023px) {
     .modal-content {
         width: 60%;
         padding-top: 120px;
@@ -321,7 +342,7 @@ p {
         line-height: 40px;
     }
     p.splash-copy {
-        margin-top: 32px;;
+        margin-top: 32px;
         font-size: 24px;
         line-height: 36px;
     }
@@ -335,26 +356,30 @@ p {
     }
 
     .button-letter {
-        width: 152px;
+        width: 140px;
+        bottom: 120px;
     }
 
     .button-start {
         width: 362px;
     }
+    .modal-wrapper-letter {
+        align-items: flex-end;
+    }
+
     .modal-wrapper-letter::after,
     .modal-wrapper-letter::before {
-        bottom: -22%;
-        width: 46%;
+        bottom: -60px;
+        max-width: 680px;
     }
     .letter-content {
-        width: 40%;
-    }
-    .button-letter {
-        bottom: 6%;
+        padding-top: 80px;
+        max-width: 600px;
+        padding-bottom: 280px;
     }
 }
 
-@media only screen and (min-width: 1439px) { 
+@media only screen and (min-width: 1439px) {
     .modal-content {
         width: 45%;
         padding-bottom: 80px;
@@ -375,22 +400,21 @@ p {
     }
 }
 .modal-wrapper {
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,0.5);
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.5);
 }
 
 /* the sliding “panel” */
 .modal-wrapper-letter {
-  position: relative;
-  inset: 0;
-  transform: translateY(100%);
-  transition: transform 0.35s ease-in-out;
-  will-change: transform;
+    position: relative;
+    inset: 0;
+    transform: translateY(100%);
+    transition: transform 0.35s ease-in-out;
+    will-change: transform;
 }
 
 /* open state */
 .modal-wrapper-letter.is-open {
-  transform: translateY(0);
+    transform: translateY(0);
 }
-

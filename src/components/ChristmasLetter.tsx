@@ -27,7 +27,7 @@ const ChristmasLetter = observer(() => {
             </div>
             <p className="help-copy color-dark">
                 This year reminded us that the best things are built together
-                <br />
+                <br className="hide-mobile" />
                 with trust, care, and a shared belief in doing things right.
                 <br />
                 <br />

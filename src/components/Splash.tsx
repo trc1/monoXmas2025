@@ -13,12 +13,14 @@ const Splash = () => {
                     <h1 className="title-splash color-light">Christmas</h1>
                 </div>
                 <p className="splash-copy color-light">
-                    Santa Claus is on his way, and the air is filled with holiday
-                    magic.&nbsp;
-                    <br className="hide-mobile"/>
+                    Santa Claus is on his way, and the air is filled with
+                    holiday magic.&nbsp;
+                    <br className="hide-mobile" />
                     Create the perfect atmosphere to welcome him.
                     <br />
-                    <span className="sound-reminder">Best experienced with sound.</span>
+                    <span className="sound-reminder">
+                        Best experienced with sound.
+                    </span>
                 </p>
                 <img
                     onClick={() => roomStore.startGame()}
