@@ -103,9 +103,13 @@ export const Admiral = observer(() => {
     }, [bulbs]);
 
     const handleBulbsClick = () => {
-        if (roomStore.checkList.board === false) {
+        if (
+            roomStore.checkList.board === false ||
+            roomStore.isChecklistCompleted === true
+        ) {
             return;
         }
+        audioStore.playTreeLights();
         toggleBulbs();
         roomStore.toggleLights();
     };
@@ -296,7 +300,6 @@ export const Admiral = observer(() => {
                 rotation={[0, 0.454, 0]}
                 onClick={(e) => {
                     e.stopPropagation();
-                    audioStore.playTreeLights();
                     handleBulbsClick();
                 }}
                 {...useHoverScale({ hoverScale: 0.67, normalScale: 0.67 })}

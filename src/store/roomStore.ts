@@ -89,21 +89,25 @@ class RoomStore {
     }
 
     checkIfChecklistCompleted() {
-        const allCompleted = Object.values(this.checkList).every(
-            (value) => value === true
-        );
-        if (allCompleted && !this.doorKnock) {
-            this.doorKnock = true;
+        if (this.isChecklistCompleted && !this.doorKnock) {
+            setTimeout(() => {
+                this.doorKnock = true;
+            }, 3000);
         }
     }
 
     get isChecklistCompleted() {
-        return Object.values(this.checkList).every((value) => value === true);
+        return (
+            !this.lamp1On &&
+            !this.lamp2On &&
+            this.fireplaceOn &&
+            this.gramophone &&
+            this.lightsOn
+        );
     }
 
     toggleDoor() {
-        const allCompleted = Object.values(this.checkList).every((v) => v === true);
-        if (!allCompleted) return;
+        if (!this.isChecklistCompleted) return;
 
         this.doorOpen = !this.doorOpen;
 
