@@ -160,7 +160,6 @@ export const Admiral = observer(() => {
 
         // Letter animation
         if (letterRef.current && roomStore.letterCanFlyIn) {
-            // play sound once when animation starts
             if (!letterSfxPlayedRef.current) {
                 letterSfxPlayedRef.current = true;
             }
@@ -266,6 +265,8 @@ export const Admiral = observer(() => {
                 />
             </group>
             <mesh
+                
+                receiveShadow
                 geometry={nodes["floor-boards"].geometry}
                 material={materials.ceiling}
                 position={[0, 2.8, 0]}
@@ -304,6 +305,17 @@ export const Admiral = observer(() => {
                 }}
                 {...useHoverScale({ hoverScale: 0.67, normalScale: 0.67 })}
             >
+                {/* {roomStore.lightsOn && (
+                    <spotLight
+                        position={[0.577, 0.814, 1.564]}
+                        target-position={[-1.577, 1.814, -1.564]}
+                        angle={25}
+                        penumbra={0.2}
+                        intensity={3}
+                        color="#dfc118"
+                        distance={5}
+                    />
+                )} */}
                 <mesh
                     geometry={nodes["light-base"].geometry}
                     material={materials.concrete}
@@ -790,7 +802,7 @@ export const Admiral = observer(() => {
                 scale={0.487}
                 onClick={(e) => {
                     e.stopPropagation();
-                    if (roomStore.isChecklistCompleted) {
+                    if (roomStore.isChecklistCompleted && !roomStore.doorOpen) {
                         audioStore.stopDoorKnocking();
                         audioStore.playSanta();
                         roomStore.toggleDoor();
@@ -1596,8 +1608,8 @@ export const Admiral = observer(() => {
                 material={materials.White}
                 position={[0.056, 0.615, -3.269]}
                 rotation={[0, 1.415, 0]}
-                castShadow
-                receiveShadow
+                /* castShadow
+                receiveShadow */
                 onClick={(e) => {
                     e.stopPropagation();
                     roomStore.setGameCompleted();
@@ -1609,7 +1621,7 @@ export const Admiral = observer(() => {
                 })}
             >
                 <spotLight
-                    position={[0, 1, 0]}
+                    position={[0, 2, 0]}
                     target-position={[0.056, 0.615, -3.269]}
                     distance={0.5}
                     penumbra={0}
@@ -1623,7 +1635,6 @@ export const Admiral = observer(() => {
                     position={[0.029, 0.063, 0.071]}
                     rotation={[0.048, 0.001, 3.136]}
                     scale={0.317}
-                    castShadow
                     receiveShadow
                 />
             </mesh>
