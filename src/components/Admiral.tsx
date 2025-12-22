@@ -155,67 +155,53 @@ export const Admiral = observer(() => {
         }
 
         // Letter animation
-        if (letterRef.current) {
-            const targetX =
-                roomStore.isChecklistCompleted && roomStore.doorOpen
-                    ? -0.2
-                    : 0.056;
-            const targetZ =
-                roomStore.isChecklistCompleted && roomStore.doorOpen
-                    ? -2.001
-                    : -3.269;
-            letterRef.current.position.x +=
-                (targetX - letterRef.current.position.x) * 0.08;
-            letterRef.current.position.z +=
-                (targetZ - letterRef.current.position.z) * 0.08;
-            if (letterRef.current && roomStore.letterCanFlyIn) {
-                // play sound once when animation starts
-                if (!letterSfxPlayedRef.current) {
-                    letterSfxPlayedRef.current = true;
-                }
-
-                const targetX = -0.2;
-                const targetZ = -2.001;
-
-                letterRef.current.position.x +=
-                    (targetX - letterRef.current.position.x) * 0.05;
-                letterRef.current.position.z +=
-                    (targetZ - letterRef.current.position.z) * 0.05;
-
-                // arrival check (already added)
-                if (!letterArrivedRef.current) {
-                    const dx = Math.abs(letterRef.current.position.x - targetX);
-                    const dz = Math.abs(letterRef.current.position.z - targetZ);
-
-                    if (dx < 0.01 && dz < 0.01) {
-                        letterArrivedRef.current = true;
-                    }
-                }
+        if (letterRef.current && roomStore.letterCanFlyIn) {
+            // play sound once when animation starts
+            if (!letterSfxPlayedRef.current) {
+                letterSfxPlayedRef.current = true;
             }
 
-            // Board shake animation: 1s motion then 0.5s pause
-            if (boardRef.current) {
-                if (roomStore.boardAnimationPlaying) {
-                    const time = state.clock.getElapsedTime();
-                    const cycle = 1.5; // 1s motion + 0.5s pause
-                    const motionDuration = 0.8;
-                    const phase = time % cycle;
+            const targetX = -0.2;
+            const targetZ = -2.001;
 
-                    if (phase < motionDuration) {
-                        const progress = phase / motionDuration; // 0..1 over motion
-                        const angleY = Math.sin(progress * Math.PI * 2) * 0.1;
-                        const angleX = Math.sin(progress * Math.PI * 2) * 0.01;
-                        boardRef.current.rotation.y = angleY;
-                        boardRef.current.rotation.x = angleX;
-                    } else {
-                        // pause: hold neutral (end of motion returns to 0)
-                        boardRef.current.rotation.x = 0;
-                        boardRef.current.rotation.y = 0;
-                    }
+            letterRef.current.position.x +=
+                (targetX - letterRef.current.position.x) * 0.05;
+            letterRef.current.position.z +=
+                (targetZ - letterRef.current.position.z) * 0.05;
+
+            // arrival check
+            if (!letterArrivedRef.current) {
+                const dx = Math.abs(letterRef.current.position.x - targetX);
+                const dz = Math.abs(letterRef.current.position.z - targetZ);
+
+                if (dx < 0.01 && dz < 0.01) {
+                    letterArrivedRef.current = true;
+                }
+            }
+        }
+
+        // Board shake animation: 1s motion then 0.5s pause
+        if (boardRef.current) {
+            if (roomStore.boardAnimationPlaying) {
+                const time = state.clock.getElapsedTime();
+                const cycle = 1.5; // 1s motion + 0.5s pause
+                const motionDuration = 0.8;
+                const phase = time % cycle;
+
+                if (phase < motionDuration) {
+                    const progress = phase / motionDuration; // 0..1 over motion
+                    const angleY = Math.sin(progress * Math.PI * 2) * 0.1;
+                    const angleX = Math.sin(progress * Math.PI * 2) * 0.01;
+                    boardRef.current.rotation.y = angleY;
+                    boardRef.current.rotation.x = angleX;
                 } else {
+                    // pause: hold neutral (end of motion returns to 0)
                     boardRef.current.rotation.x = 0;
                     boardRef.current.rotation.y = 0;
                 }
+            } else {
+                boardRef.current.rotation.x = 0;
+                boardRef.current.rotation.y = 0;
             }
         }
     });
@@ -1462,7 +1448,7 @@ export const Admiral = observer(() => {
                 </mesh>
                 <mesh
                     geometry={nodes.glass.geometry}
-                    material={nodes.glass.material}
+                    material={materials.glass}
                     position={[0.576, 1.033, 0.025]}
                     scale={0.171}
                     castShadow
@@ -1620,13 +1606,13 @@ export const Admiral = observer(() => {
                 })}
             >
                 <spotLight
-                    position={[-2.7, 1.5, 1]}
+                    position={[0, 1, 0]}
                     target-position={[0.056, 0.615, -3.269]}
-                    distance={0.8}
-                    penumbra={0.2}
-                    angle={105}
+                    distance={0.5}
+                    penumbra={0}
+                    angle={3}
                     color="#ffffff"
-                    intensity={roomStore.isChecklistCompleted ? 10 : 0}
+                    intensity={roomStore.letterCanFlyIn ? 0.3 : 0}
                 />
                 <mesh
                     geometry={nodes.seal.geometry}

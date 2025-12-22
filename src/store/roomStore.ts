@@ -1,4 +1,4 @@
-import { makeAutoObservable } from "mobx";
+import { makeAutoObservable, runInAction } from "mobx";
 
 class RoomStore {
     lightsOn = false;
@@ -110,7 +110,9 @@ class RoomStore {
         if (this.doorOpen) {
             this.letterCanFlyIn = false;
             setTimeout(() => {
-            this.letterCanFlyIn = true;
+                runInAction(() => {
+                    this.letterCanFlyIn = true;
+                });
             }, 800); // delay in ms
         } else {
             this.letterCanFlyIn = false;
