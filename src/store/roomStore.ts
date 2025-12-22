@@ -117,7 +117,7 @@ class RoomStore {
                 runInAction(() => {
                     this.letterCanFlyIn = true;
                 });
-            }, 800); // delay in ms
+            }, 800); 
         } else {
             this.letterCanFlyIn = false;
         }

@@ -265,7 +265,6 @@ export const Admiral = observer(() => {
                 />
             </group>
             <mesh
-                
                 receiveShadow
                 geometry={nodes["floor-boards"].geometry}
                 material={materials.ceiling}
@@ -305,17 +304,6 @@ export const Admiral = observer(() => {
                 }}
                 {...useHoverScale({ hoverScale: 0.67, normalScale: 0.67 })}
             >
-                {/* {roomStore.lightsOn && (
-                    <spotLight
-                        position={[0.577, 0.814, 1.564]}
-                        target-position={[-1.577, 1.814, -1.564]}
-                        angle={25}
-                        penumbra={0.2}
-                        intensity={3}
-                        color="#dfc118"
-                        distance={5}
-                    />
-                )} */}
                 <mesh
                     geometry={nodes["light-base"].geometry}
                     material={materials.concrete}
@@ -1608,27 +1596,31 @@ export const Admiral = observer(() => {
                 material={materials.White}
                 position={[0.056, 0.615, -3.269]}
                 rotation={[0, 1.415, 0]}
-                /* castShadow
-                receiveShadow */
+                castShadow
+                receiveShadow
                 onClick={(e) => {
                     e.stopPropagation();
-                    roomStore.setGameCompleted();
-                    audioStore.playPaper();
+                    if (letterArrivedRef.current) {
+                        roomStore.setGameCompleted();
+                        audioStore.playPaper();
+                    }
                 }}
                 {...useHoverScale({
                     normalScale: 0.137,
                     hoverScale: 0.152,
                 })}
             >
-                <spotLight
-                    position={[0, 2, 0]}
-                    target-position={[0.056, 0.615, -3.269]}
-                    distance={0.5}
-                    penumbra={0}
-                    angle={3}
-                    color="#ffffff"
-                    intensity={roomStore.letterCanFlyIn ? 0.3 : 0}
-                />
+                {letterArrivedRef.current && (
+                    <spotLight
+                        position={[0, 2, 0]}
+                        target-position={[0.056, 0.615, -3.269]}
+                        distance={0.5}
+                        penumbra={0}
+                        angle={3}
+                        color="#ffffff"
+                        intensity={roomStore.letterCanFlyIn ? 0.3 : 0}
+                    />
+                )}
                 <mesh
                     geometry={nodes.seal.geometry}
                     material={materials.blanket}
