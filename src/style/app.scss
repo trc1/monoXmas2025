@@ -27,11 +27,6 @@ h1 {
     line-height: 16px;
 }
 
-h1.title-letter {
-    font-size: 66px;
-    line-height: 46px;
-}
-
 .margin-bottom {
     margin-bottom: 1em;
 }
@@ -127,19 +122,6 @@ p {
     transform: translateY(0);
 }
 
-.letter-content {
-    position: relative;
-    margin-top: 88px;
-    padding-top: 108px;
-    width: 40%;
-    text-align: center;
-    background-image: url('/src/assets/letter-bg.png');
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: top center;
-    overflow: visible;
-}
-
 .title-wrapper {
     display: flex;
     flex-direction: column;
@@ -163,9 +145,7 @@ p {
 }
 
 .modal-wrapper-letter {
-    position: relative;
     display: flex;
-    align-items: center;
     width: 100%;
     height: 100%;
     overflow: hidden;
@@ -178,49 +158,6 @@ p {
     overflow: auto;
     width: 100%;
     height: 100%;
-}
-
-.modal-wrapper-letter::after {
-    content: "";
-    display: block;
-    position: absolute;
-    bottom: -25%;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 50%;
-    height: 100%;
-    background-image: url('/src/assets/envelope-front.png');
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-position: bottom center;
-}
-
-.modal-wrapper-letter::before {
-    content: "";
-    display: block;
-    position: absolute;
-    z-index: -1;
-    bottom: -25%;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 50%;
-    height: 100%;
-    background-image: url('/src/assets/envelope-back.png');
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-position: bottom center;
-}
-
-.button-letter {
-    position: absolute;
-    z-index: 5;
-    top: 75%;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 180px;
-    height: auto;
-    cursor: pointer;
-    transition: all 0.2s ease-in-out;
 }
 
 .button-letter:hover {
@@ -278,13 +215,70 @@ p {
         transition: all 0.2s ease-in-out;
     }
 
-    .button-close,
-    .button-letter {
+    .button-close {
         width: 86px;
+    }
+
+    .button-letter {
+        position: absolute;
+        z-index: 5;
+        bottom: 10%;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 30%;
+        height: auto;
+        cursor: pointer;
+        transition: all 0.2s ease-in-out;
     }
 
     .button-start {
         width: 260px;
+    }
+    .modal-wrapper-letter::after {
+        content: "";
+        display: block;
+        position: absolute;
+        bottom: -15%;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 140%;
+        height: 100%;
+        background-image: url('/src/assets/envelope-front.png');
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: bottom center;
+    }
+
+    .modal-wrapper-letter::before {
+        content: "";
+        display: block;
+        position: absolute;
+        z-index: -1;
+        bottom: -15%;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 140%;
+        height: 100%;
+        background-image: url('/src/assets/envelope-back.png');
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: bottom center;
+    }
+    .letter-content {
+        position: relative;
+        margin: 68px auto 0 auto;
+        padding: 108px 20px 0 20px;
+        width: 100%;
+        text-align: center;
+        background-image: url('/src/assets/letter-bg.png');
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: top center;
+        overflow: visible;
+    }
+    h1.title-letter {
+        font-size: 48px;
+        line-height: 24px;
     }
 }
 
@@ -322,6 +316,10 @@ p {
         font-size: 92px;
         line-height: 60px;
     }
+    h1.title-letter {
+        font-size: 58px;
+        line-height: 40px;
+    }
     p.splash-copy {
         margin-top: 32px;;
         font-size: 24px;
@@ -332,13 +330,27 @@ p {
         font-size: 18px;
         line-height: 24px;
     }
-    .button-close,
-    .button-letter {
+    .button-close {
         width: 86px;
+    }
+
+    .button-letter {
+        width: 152px;
     }
 
     .button-start {
         width: 362px;
+    }
+    .modal-wrapper-letter::after,
+    .modal-wrapper-letter::before {
+        bottom: -22%;
+        width: 46%;
+    }
+    .letter-content {
+        width: 40%;
+    }
+    .button-letter {
+        bottom: 6%;
     }
 }
 
@@ -348,13 +360,37 @@ p {
         padding-bottom: 80px;
         gap: 40px;
     }
-        h1.title-modal,
+    h1.title-modal,
     h1.letter-signature {
         font-size: 46px;
         line-height: 16px;
+    }
+    h1.title-letter {
+        font-size: 64px;
+        line-height: 44px;
     }
     p.help-copy {
         font-size: 20px;
         line-height: 28px;
     }
 }
+.modal-wrapper {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.5);
+}
+
+/* the sliding “panel” */
+.modal-wrapper-letter {
+  position: relative;
+  inset: 0;
+  transform: translateY(100%);
+  transition: transform 0.35s ease-in-out;
+  will-change: transform;
+}
+
+/* open state */
+.modal-wrapper-letter.is-open {
+  transform: translateY(0);
+}
+
