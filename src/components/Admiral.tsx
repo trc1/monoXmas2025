@@ -84,12 +84,12 @@ export const Admiral = observer(() => {
             ] as [number, number, number][],
         []
     );
-
+    /* 
     const activeLights = useMemo(() => {
         return bulbs
             .map((bulb, i) => ({ ...bulb, index: i }))
             .filter((bulb) => bulb.intensity > 0);
-    }, [bulbs]);
+    }, [bulbs]); */
 
     const instanceColors = useMemo(() => {
         return bulbs.map((bulb) => {
@@ -446,7 +446,7 @@ export const Admiral = observer(() => {
                     ))}
                 </Instances>
 
-                {activeLights.map(({ index, color }) => (
+                {/* {activeLights.map(({ index, color }) => (
                     <pointLight
                         key={index}
                         position={bulbPositions[index]}
@@ -455,7 +455,7 @@ export const Admiral = observer(() => {
                         distance={0.8}
                         decay={1}
                     />
-                ))}
+                ))} */}
                 <mesh
                     geometry={nodes.trunk.geometry}
                     material={materials.shelves}
