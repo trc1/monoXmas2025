@@ -10,11 +10,12 @@ export const SFX = {
     DOOR_KNOCKING: "/sfx/SFX - Door_knocking_3.mp3",
     FIREPLACE_CRACKLING: "/sfx/SFX - Fireplace_crackling_4.mp3",
     SWITCH_CLICK: "/sfx/SFX - Switch_click_2.mp3",
-    TREE_LIGHTNING: "/sfx/SFX - Tree_lightning_up_1.mp3",
+    TREE_LIGHTS: "/sfx/SFX - Tree_lightning_up.mp3",
     VINYL_NEEDLE_SKIP: "/sfx/SFX - Vinyl_needle_skip.mp3",
     XMAS_BELLS: "/sfx/SFX - Xmass_bells.mp3",
     ATMOSPHERE_LOOP: "/sfx/SFX - Atmosphere_loop_2.mp3",
-    HOHOHO: "/sfx/SFX - Xmass_bells.mp3", // Using bells as hohoho placeholder
+    PAPER: "/sfx/SFX - Paper_sound.mp3",
+    SANTA_HO: "/sfx/SFX - Santa_hohoing.mp3",
 } as const;
 
 class AudioStore {
@@ -141,32 +142,46 @@ class AudioStore {
         this.playSoundEffect(SFX.SWITCH_CLICK);
     }
 
-    playVinylNeedleSkipAndNext() {
-        this.isNeedleSkipInProgress = true;
-        // Stop any previous SFX and clean up
-        audioManager.stopAmbient("vinylNeedleSkip");
-        const audio = audioManager.playAmbient(
-            "vinylNeedleSkip",
-            SFX.VINYL_NEEDLE_SKIP,
-            this.sfxVolume,
-            false
-        );
-        if (audio) {
-            // Remove any previous 'ended' listeners (in case)
-            audio.onended = null;
-            audio.addEventListener(
-                "ended",
-                () => {
-                    this.isNeedleSkipInProgress = false;
-                    this.playNextSong();
-                },
-                { once: true }
-            );
-        } else {
-            this.isNeedleSkipInProgress = false;
-            this.playNextSong();
-        }
-    }
+playVinylNeedleSkipAndNext() {
+  this.isNeedleSkipInProgress = true;
+
+  // Stop any previous SFX and clean up
+  audioManager.stopAmbient("vinylNeedleSkip");
+
+  const audio = audioManager.playAmbient(
+    "vinylNeedleSkip",
+    SFX.VINYL_NEEDLE_SKIP,
+    this.sfxVolume,
+    false
+  );
+
+  // snap it: don't wait for full file duration
+  const SNAP_MS = 600;
+  window.setTimeout(() => {
+    if (!this.isNeedleSkipInProgress) return;
+
+    audioManager.stopAmbient("vinylNeedleSkip");
+    this.isNeedleSkipInProgress = false;
+    this.playNextSong();
+  }, SNAP_MS);
+
+  if (audio) {
+    // Remove any previous 'ended' listeners (in case)
+    audio.onended = null;
+    audio.addEventListener(
+      "ended",
+      () => {
+        if (!this.isNeedleSkipInProgress) return; // prevents double-trigger
+        this.isNeedleSkipInProgress = false;
+        this.playNextSong();
+      },
+      { once: true }
+    );
+  } else {
+    this.isNeedleSkipInProgress = false;
+    this.playNextSong();
+  }
+}
 
     playXmasBells() {
         this.playSoundEffect(SFX.XMAS_BELLS);
@@ -185,8 +200,16 @@ class AudioStore {
         audioManager.stopAmbient("doorKnocking");
     }
 
-    playHohoho() {
-        this.playSoundEffect(SFX.HOHOHO);
+    playPaper() {
+        this.playSoundEffect(SFX.PAPER);
+    }
+
+    playSanta() {
+        this.playSoundEffect(SFX.SANTA_HO);
+    }
+
+    playTreeLights() {
+        this.playSoundEffect(SFX.TREE_LIGHTS);
     }
 }
 

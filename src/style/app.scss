@@ -16,6 +16,7 @@
 main {
     display: flex;
     justify-content: center;
+    align-items: center;;
     height: 100%;
 }
 
@@ -24,11 +25,6 @@ h1 {
     font-family: "Mountains of Christmas", cursive;
     font-weight: 400;
     line-height: 16px;
-}
-
-h1.title-splash {
-    font-size: 92px;
-    line-height: 60px;
 }
 
 h1.title-letter {
@@ -97,11 +93,6 @@ p {
     opacity: 0.9;
 }
 
-p.splash-copy {
-    font-size: 24px;
-    line-height: 28px;
-}
-
 .splash-wrapper,
 .modal-content,
 .letter-content {
@@ -114,10 +105,10 @@ p.splash-copy {
 .splash-wrapper,
 .modal-content {
     justify-content: center;
- 
 }
 
 .splash-wrapper {
+    padding: 44px 0;
     gap: 60px;
     text-align: center;
 }
@@ -155,23 +146,6 @@ p.splash-copy {
     gap: 32px;
 }
 
-.button-close,
-.button-start {
-    width: 86px;
-    height: auto;
-    cursor: pointer;
-    transition: all 0.2s ease-in-out;
-}
-
-.button-close,
-.button-letter {
-    width: 86px;
-}
-
-.button-start {
-    width: 362px;
-}
-
 .button-start:hover {
     transform: scale(1.05);
 }
@@ -194,6 +168,7 @@ p.splash-copy {
     align-items: center;
     width: 100%;
     height: 100%;
+    overflow: hidden;
 }
 
 .modal-wrapper {
@@ -203,11 +178,6 @@ p.splash-copy {
     overflow: auto;
     width: 100%;
     height: 100%;
-}
-
-.modal-wrapper-letter {
-    position: relative;
-    overflow: hidden;
 }
 
 .modal-wrapper-letter::after {
@@ -277,7 +247,45 @@ p.splash-copy {
         display: flex;
         align-items: flex-start;
     }
+    .splash-wrapper {
+        padding: 44px 16px;
+        gap: 48px;
+        text-align: center;
+    }
+    h1.title-splash {
+        font-size: 68px;
+        line-height: 36px;
+    }
+    p.splash-copy {
+        margin-top: 24px;;
+        font-size: 20px;
+        line-height: 32px;
+    }
+    .sound-reminder {
+        display: inline-block;
+        padding-top: 24px;
+        font-size: 15px;
+        line-height: 24px;
+        opacity: 0.7;
+    }
+    .hide-mobile {
+        display: none;
+    }
+    .button-close,
+    .button-start {
+        height: auto;
+        cursor: pointer;
+        transition: all 0.2s ease-in-out;
+    }
 
+    .button-close,
+    .button-letter {
+        width: 86px;
+    }
+
+    .button-start {
+        width: 260px;
+    }
 }
 
 @media only screen and (min-width: 375px) { 
@@ -289,6 +297,9 @@ p.splash-copy {
 @media only screen and (min-width: 767px) { 
     .modal-content {
         background-size: contain;
+    }
+    .hide-mobile {
+        display: inline-block;
     }
 
 }
@@ -302,6 +313,32 @@ p.splash-copy {
     .modal-wrapper {
         justify-content: center;
         align-items: center;
+    }
+    .splash-wrapper {
+        padding: 44px 0;
+        gap: 60px;
+    }
+    h1.title-splash {
+        font-size: 92px;
+        line-height: 60px;
+    }
+    p.splash-copy {
+        margin-top: 32px;;
+        font-size: 24px;
+        line-height: 36px;
+    }
+    .sound-reminder {
+        padding-top: 24px;
+        font-size: 18px;
+        line-height: 24px;
+    }
+    .button-close,
+    .button-letter {
+        width: 86px;
+    }
+
+    .button-start {
+        width: 362px;
     }
 }
 

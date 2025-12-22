@@ -20,6 +20,7 @@ class RoomStore {
         gramophone: false,
     };
     showLetter = false;
+    letterCanFlyIn = false;
     isGameCompleted = false;
 
     constructor() {
@@ -101,13 +102,19 @@ class RoomStore {
     }
 
     toggleDoor() {
-        const allCompleted = Object.values(this.checkList).every(
-            (value) => value === true
-        );
-        if (!allCompleted) {
-            return;
-        }
+        const allCompleted = Object.values(this.checkList).every((v) => v === true);
+        if (!allCompleted) return;
+
         this.doorOpen = !this.doorOpen;
+
+        if (this.doorOpen) {
+            this.letterCanFlyIn = false;
+            setTimeout(() => {
+            this.letterCanFlyIn = true;
+            }, 800); // delay in ms
+        } else {
+            this.letterCanFlyIn = false;
+        }
     }
 
     toggleBoard() {

@@ -171,7 +171,7 @@ const Scene = () => {
                 ref={orthographicCameraRef}
                 makeDefault
                 position={[9, 5, 9]}
-                zoom={isMobile ? 70 : isTablet ? 100 : 140}
+                zoom={isMobile ? 70 : isTablet ? 100 : 170}
             />
             {/* <CameraControls /> */}
             {/* <OrbitControls /> */}
