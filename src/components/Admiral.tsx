@@ -24,7 +24,6 @@ export const Admiral = observer(() => {
     const letterRef = useRef<Mesh>(null);
     const [bulbs, toggleBulbs, allLightsOn] = useRandomBulbStates(BULB_COUNT);
 
-    // Start door knocking when checklist is completed
     useEffect(() => {
         if (roomStore.doorKnock && !roomStore.doorOpen) {
             audioStore.playDoorKnocking();
@@ -33,7 +32,6 @@ export const Admiral = observer(() => {
         }
     }, [roomStore.doorKnock, roomStore.doorOpen]);
 
-    // Bulb positions and rotations as constants
     const bulbPositions = useMemo(
         () =>
             [
@@ -147,7 +145,7 @@ export const Admiral = observer(() => {
             if (roomStore.doorKnock && !roomStore.doorOpen) {
                 const knockTime = state.clock.getElapsedTime();
                 doorWingRef.current.position.z =
-                    -2.401 + Math.sin(knockTime * 8) * 0.015;
+                    -2.401 + Math.sin(knockTime * 8) * 0.01;
             } else {
                 doorWingRef.current.position.z = -2.401;
             }
@@ -155,8 +153,14 @@ export const Admiral = observer(() => {
 
         // Letter animation
         if (letterRef.current) {
-            const targetX = roomStore.doorOpen ? -0.2 : 0.056;
-            const targetZ = roomStore.doorOpen ? -2.001 : -3.269;
+            const targetX =
+                roomStore.isChecklistCompleted && roomStore.doorOpen
+                    ? -0.2
+                    : 0.056;
+            const targetZ =
+                roomStore.isChecklistCompleted && roomStore.doorOpen
+                    ? -2.001
+                    : -3.269;
             letterRef.current.position.x +=
                 (targetX - letterRef.current.position.x) * 0.08;
             letterRef.current.position.z +=
@@ -1229,6 +1233,18 @@ export const Admiral = observer(() => {
                 receiveShadow
             />
 
+            {roomStore.boardAnimationPlaying && (
+                <spotLight
+                    position={[-1.3, 1.853, -2]}
+                    target-position={[-1.59, 1.853, -2.677]}
+                    angle={45}
+                    penumbra={0.2}
+                    intensity={0.3}
+                    color="#ffffff"
+                    distance={5}
+                />
+            )}
+
             <group
                 castShadow
                 receiveShadow
@@ -1557,9 +1573,14 @@ export const Admiral = observer(() => {
                     hoverScale: 0.152,
                 })}
             >
-                <pointLight
-                    color="#ecbbbf"
-                    intensity={roomStore.doorOpen ? 2 : 0}
+                <spotLight
+                    position={[-2.7, 1.5, 1]}
+                    target-position={[0.056, 0.615, -3.269]}
+                    distance={0.8}
+                    penumbra={0.2}
+                    angle={105}
+                    color="#ffffff"
+                    intensity={roomStore.isChecklistCompleted ? 10 : 0}
                 />
                 <mesh
                     geometry={nodes.seal.geometry}

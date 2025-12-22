@@ -31,24 +31,36 @@ class RoomStore {
     }
 
     toggleLights() {
+        if (this.isChecklistCompleted) {
+            return;
+        }
         this.lightsOn = !this.lightsOn;
         this.checkList.lights = true;
         this.checkIfChecklistCompleted();
     }
 
     toggleFireplace() {
+        if (this.isChecklistCompleted) {
+            return;
+        }
         this.fireplaceOn = !this.fireplaceOn;
         this.checkList.fireplace = true;
         this.checkIfChecklistCompleted();
     }
 
     toggleLamp1() {
+        if (this.isChecklistCompleted) {
+            return;
+        }
         this.lamp1On = !this.lamp1On;
         this.checkList.lamp1 = true;
         this.checkIfChecklistCompleted();
     }
 
     toggleLamp2() {
+        if (this.isChecklistCompleted) {
+            return;
+        }
         this.lamp2On = !this.lamp2On;
         this.checkList.lamp2 = true;
         this.checkIfChecklistCompleted();
@@ -67,6 +79,9 @@ class RoomStore {
     }
 
     toggleGramophone() {
+        if (this.isChecklistCompleted) {
+            return;
+        }
         this.gramophone = !this.gramophone;
         this.checkList.gramophone = true;
         this.checkIfChecklistCompleted();
@@ -96,6 +111,9 @@ class RoomStore {
     }
 
     toggleBoard() {
+        if (this.isChecklistCompleted) {
+            return;
+        }
         this.checkList.board = true;
         this.boardAnimationPlaying = false;
         this.boardClicked = !this.boardClicked;
